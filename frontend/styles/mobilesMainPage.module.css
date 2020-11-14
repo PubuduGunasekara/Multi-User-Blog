@@ -1,0 +1,309 @@
+.box__sizing{
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: 1fr repeat(12,minmax(auto,60px)) 1fr;
+    grid-gap: 40px;
+    padding: 15px 0;
+}
+/*.text__medium{
+    font-size: 16px;
+    line-height: 20px;
+    font-weight: 400;
+    color: #ccf0f1;
+}*/
+.cards{
+    grid-column: 2 / span 12;
+    display: grid;
+    grid-template-columns: repeat(12,minmax(auto,60px));
+    grid-gap: 40px;
+}
+.card{
+    grid-column-end: span 4;
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+    transition: all 0.3s ease 0s;
+    border-radius: 0%;
+}
+.card:hover,
+.card:active{
+    transform: translateY(-7px);
+    border-color: rgba(202, 28, 28, 0.945);
+    border-width: 2px;
+}
+.card__image-container{
+    width: 100%;
+    padding-top: 56.25%;
+    overflow: hidden;
+    position: relative;
+}
+.card__image-container img{
+    width: 100%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.card__content{
+    padding: 20px;
+    font-size: 20px;
+    font-weight: 700;
+    color: rgba(0, 0, 0, 0.623);
+}
+.card__content:hover{
+    color: rgba(202, 28, 28, 0.945);
+    font-weight: 900;
+}
+.card__title{
+    font-weight: 900;
+    text-transform: uppercase;
+}
+
+@media only screen and (max-width:1000px){
+    .card{
+        grid-column-end:span 6;
+    }
+}
+
+@media only screen and (max-width:768px){
+    .box__sizing{
+        grid-gap: 20px;
+    }
+    .card{
+        grid-column-end:span 4;
+    }
+}
+
+@media only screen and (max-width:500px){
+    .box__sizing{
+        grid-template-columns: 10px repeat(6,1fr) 10px;
+        grid-gap: 10px;
+    }
+    .cards{
+        grid-column: 2 / span 6;
+        grid-template-columns: repeat(6,1fr);
+        grid-gap: 20px;
+    }
+    .card{
+        grid-column-end:span 3;
+    }
+    .card__title{
+        font-weight: 900;
+        text-transform: uppercase;
+        font-size: medium;
+    }
+}
+
+@media only screen and (max-width:319px){
+    .box__sizing{
+        grid-template-columns: 10px repeat(6,1fr) 10px;
+        grid-gap: 10px;
+    }
+    .cards{
+        grid-column: 2 / span 6;
+        grid-template-columns: repeat(6,1fr);
+        grid-gap: 20px;
+    }
+    .card{
+        grid-column-end:span 6;
+    }
+}
+
+
+/* side bar*/
+.sideBar-container{
+display: flex;
+width: 100%;
+height: 70px;
+margin-bottom: 10px;
+cursor: pointer;
+color: black;
+text-decoration: none;
+}
+.sideBar-container:hover{
+    border-color: rgba(202, 28, 28, 0.945);
+    border-width: 2px;
+}
+.sideBar__image{
+width: 30%;
+height: 70px;
+}
+.sideBar__image img{
+    height: 70px;
+    }
+.sideBar__content{
+width: 70%;
+padding-left: 6px;
+padding-right: 6px;
+overflow-y: auto;
+transition: all 0.3s ease 0s;
+}
+
+.sideBar__image img:hover,
+.sideBar__content:hover
+{
+   color: rgba(202, 28, 28, 0.945);
+   text-decoration: underline;
+   font-weight: 800;
+
+}
+
+
+.sideBar__content p{
+    font-size: 14px;
+    font-weight: 500;
+    padding-bottom: 3px;
+    margin-bottom: 0;
+}
+.side__bar-title h1{
+    font-size: 24px;
+    color: rgba(0, 0, 0, 0.781);
+    font-weight: 800;
+    text-transform: uppercase;
+    margin: 10px !important;
+}
+
+@media screen and (max-width:1000px){
+    
+    .sideBar__image{
+        width: 40%;
+        }
+    .sideBar__content{
+            width: 60%;
+    }
+
+}
+
+@media screen and (max-width:767px){
+    .sideBar__box__sizing{
+        padding: 10px 0 !important;
+    }
+
+    .sideBar__image{
+        width: 20%;
+        }
+    .sideBar__content{
+            width: 80%;
+    }
+
+}
+@media screen and (max-width:330px){
+    
+    .sideBar__image{
+        width: 40%;
+        }
+    .sideBar__content{
+            width: 60%;
+    }
+
+}
+
+
+
+
+
+
+
+.side__bar__single__brand{
+    margin-left: 8px;
+}
+
+.side__bar__single__brand__main{
+    padding-left: 0px !important;
+}
+
+@media (max-width: 768px){
+.side__bar__single__brand{
+    margin-left: 0px !important;
+    }
+
+.side__bar__single__brand{
+        margin-top: 8px !important;
+    }
+}
+
+
+
+
+
+
+
+.featured__display{
+    border-radius: 10px;
+    border: 1px solid rgba(167, 167, 167, 0.746);
+    background-color: rgba(250, 250, 250, 0.63);
+    font-size: 14px;
+    font-weight: normal;
+    width: 100%;
+    cursor: pointer;
+}
+.featured__display h1{
+    font-size: 16px;
+    font-weight: 700;
+}
+.featured__display:hover{
+    border: 1px solid rgba(202, 28, 28, 0.945);
+    background-color: rgba(212, 27, 27, 0.089);
+}
+
+.related__phones{
+    border: 1px solid rgba(167, 167, 167, 0.746);
+    padding: 0px;
+}
+
+.related__phones:hover{
+    border: 2px solid rgba(202, 28, 28, 0.945);
+}
+.add__padding{
+    padding: 5px !important;
+}
+.related__phones img{
+    padding: 0px;
+}
+
+.related__phones h1{
+    font-size: 24px;
+    text-transform: capitalize;
+    height: 60px;
+    overflow: auto;
+}
+
+@media (max-width:767px){
+    .featured__display-controller{
+margin-bottom:16px ;
+    }
+    .first__row{
+        padding-top: 0px !important;
+    }
+}
+
+@media (max-width:375px){
+    .row__flex__control{
+        display: flex !important;
+        flex-direction: column !important;
+        padding: 0px !important;
+    }
+    .row__item{
+        padding: 0px !important;
+        width: 100% !important;
+        padding-bottom: 10px !important;
+    }
+}
+
+@media(max-width:768px){
+    .change__flex{
+        display: flex !important;
+        flex-direction: column !important;
+    }
+    .add__padding{
+        padding: 0px !important;
+        padding-bottom: 10px !important;
+        padding-top: 5px !important;
+    }
+}
+
+
+
+

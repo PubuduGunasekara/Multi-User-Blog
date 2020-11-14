@@ -1,0 +1,245 @@
+/*main block*/
+/**using*/
+.public_profile_main_wrapper {
+  display: flex;
+  flex-direction: row;
+  margin: 20px;
+  width: 100%;
+  text-align: left;
+}
+.public_profile_secondary_wrapper {
+  margin: 10px;
+  width: 100%;
+  text-align: left;
+}
+.public_profile_secondary_wrapper h1 {
+  font-weight: bolder;
+  margin-bottom: 0;
+  width: 100%;
+  padding: 0;
+  color: rgba(0, 0, 0, 0.781);
+  padding: 10px;
+  text-transform: capitalize;
+  font-size: 25px;
+  font-family: Proxima Nova, sans-serif;
+}
+.public_profile_secondary_wrapper p {
+  font-weight: 500;
+  width: 100%;
+  padding: 0;
+  color: rgba(0, 0, 0, 0.781);
+  padding: 10px;
+  font-size: 14px;
+  font-family: Proxima Nova, sans-serif;
+  text-align: justify;
+}
+.public_profile_name h1 {
+  font-weight: bolder;
+  width: 100%;
+  color: rgba(0, 0, 0, 0.781);
+  padding: 10px;
+  margin-bottom: 0;
+  text-transform: capitalize;
+  font-size: 40px;
+  font-family: Proxima Nova, sans-serif;
+}
+.public_profile_occupation h1 {
+  font-weight: bolder;
+  width: 100%;
+  color: rgba(202, 28, 28, 0.945);
+  padding: 10px;
+  padding-top: 0;
+  margin-bottom: 0;
+  text-transform: uppercase;
+  font-size: 13px;
+  font-family: Proxima Nova, sans-serif;
+}
+@media (max-width: 425px) {
+  .public_profile_name h1 {
+    font-size: 28px !important;
+    line-height: 110% !important;
+  }
+  .public_profile_secondary_wrapper h1 {
+    font-size: 20px;
+  }
+}
+@media (max-width: 768px) {
+  .public_profile_name h1 {
+    font-size: 32px;
+    line-height: 110% !important;
+  }
+  .public_profile_secondary_wrapper h1 {
+    font-size: 20px;
+  }
+}
+@media (max-width: 991px) {
+  .public_profile_main_wrapper {
+    flex-direction: column;
+    text-align: center;
+  }
+  .public_profile_secondary_wrapper {
+    text-align: center;
+  }
+}
+
+/**page profile avatar stye*/
+/**use*/
+.avatar {
+  vertical-align: middle;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+}
+
+/*reviews and news*/
+.box__sizing {
+  display: grid;
+  justify-items: center;
+  grid-gap: 10px;
+  grid-row-gap: 10px;
+  padding: 25px 10px;
+}
+.cards {
+  grid-column: 2 / span 12;
+  grid-template-columns: repeat(12, minmax(auto, 60px));
+}
+.single__card {
+  grid-column-end: span 6;
+  border-radius: 0%;
+  width: 305px;
+  border: 1px solid rgba(255, 255, 255, 0.945);
+  box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.514);
+  transition: transform 0.3s;
+}
+
+@media screen and (min-width: 1200px) {
+  .single__card {
+    grid-column-end: span 4 !important;
+    width: 357px !important;
+  }
+}
+
+@media screen and (min-width: 992px) {
+  .single__card {
+    grid-column-end: span 4;
+    width: 296px;
+  }
+}
+@media screen and (max-width: 768px) {
+  .single__card {
+    grid-column-end: span 6 !important;
+    width: 240px !important;
+  }
+  .card__content {
+    height: auto !important;
+  }
+}
+
+@media screen and (max-width: 575px) {
+  .single__card {
+    grid-column-end: span 6 !important;
+    width: 241px !important;
+  }
+  .card__content {
+    height: auto !important;
+  }
+}
+
+@media screen and (max-width: 540px) {
+  .single__card {
+    grid-column-end: span 6 !important;
+    width: 231px !important;
+  }
+  .card__content {
+    height: auto !important;
+  }
+}
+
+@media screen and (max-width: 525px) {
+  .single__card {
+    grid-column-end: span 6 !important;
+    width: 215px !important;
+  }
+  .card__content {
+    height: auto !important;
+  }
+}
+
+@media screen and (max-width: 490px) {
+  .single__card {
+    grid-column-end: span 6 !important;
+    width: 185px !important;
+  }
+  .card__content {
+    height: auto !important;
+  }
+}
+
+@media screen and (max-width: 440px) {
+  .single__card {
+    grid-column-end: span 12 !important;
+    width: 270px !important;
+  }
+  .card__content {
+    height: auto !important;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .single__card {
+    grid-column-end: span 12 !important;
+    width: 170px !important;
+  }
+  .card__content {
+    height: auto !important;
+  }
+}
+
+.single__card:hover {
+  border: 1px solid rgba(202, 28, 28, 0.945);
+  transform: scale(1.01);
+  opacity: 0.9;
+}
+
+.card__image__container img {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  cursor: pointer;
+}
+
+.card__content a {
+  color: rgba(0, 0, 0, 0.781);
+  text-decoration: none;
+}
+.card__content p {
+  font-size: 10px;
+  font-weight: lighter;
+  color: black;
+  padding: 0;
+  margin: 5px;
+  cursor: pointer;
+}
+.card__content {
+  width: 100%;
+  height: auto;
+  overflow-y: auto;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: left;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  padding: 5px;
+}
+.card__content h1 {
+  font-size: 16px;
+  font-weight: 700;
+  text-align: left;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+/*end*/
