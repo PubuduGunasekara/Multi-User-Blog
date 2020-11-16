@@ -11,6 +11,8 @@ import { API, DOMAIN, APP_NAME, FB_APP_ID } from "../../config";
 import { MdRateReview, MdNavigateNext } from "react-icons/md";
 import { FaNewspaper } from "react-icons/fa";
 import { FiSmartphone } from "react-icons/fi";
+import React from "react";
+import styles from "../../styles/reviewFrontEnd.module.css";
 
 /**
  * completed!
@@ -26,7 +28,6 @@ const AllReviews = ({ reviews, news, mobiles }) => {
 
   const head = () => (
     <Head>
-      <link rel="stylesheet" href="/static/css/reviewFrontEnd.css" />
       <title>
         Smart phones, Tablets, Gadgets and Accessory Reviews - {APP_NAME}
       </title>
@@ -44,12 +45,12 @@ const AllReviews = ({ reviews, news, mobiles }) => {
       <meta
         alt="Photo by sam loyd on Unsplash"
         property="og:image"
-        content={`${DOMAIN}/static/images/sam-loyd-single-brand-cover-page.jpg`}
+        content={`/static/images/sam-loyd-single-brand-cover-page.jpg`}
       />
       <meta
         alt="Photo by sam loyd on Unsplash"
         property="og:image:secure_url"
-        content={`${DOMAIN}/static/images/sam-loyd-single-brand-cover-page.jpg`}
+        content={`/static/images/sam-loyd-single-brand-cover-page.jpg`}
       />
       <meta property="og:image:type" content="image/jpg" />
       <meta property="fb:app_id" content={`${FB_APP_ID}`} />
@@ -59,8 +60,8 @@ const AllReviews = ({ reviews, news, mobiles }) => {
   const showSideBarNews = () => {
     return news.map((blog, i) => (
       <React.Fragment key={i}>
-        <div key={i} className="sidebar_news_container">
-          <div className="image_news">
+        <div key={i} className={styles.sidebar_news_container}>
+          <div className={styles.image_news}>
             <Link href={`/news/${blog.slug}`}>
               <a style={{ textDecoration: "none", width: "100%" }}>
                 <img
@@ -72,10 +73,10 @@ const AllReviews = ({ reviews, news, mobiles }) => {
             </Link>
           </div>
           <div
-            className="content_news"
+            className={styles.content_news}
             style={{ display: "flex", flexDirection: "column" }}
           >
-            <div className="content_div_news">
+            <div className={styles.content_div_news}>
               <Link href={`/news/${blog.slug}`}>
                 <a style={{ textDecoration: "none", width: "100%" }}>
                   <h1>{blog.title}</h1>
@@ -83,7 +84,7 @@ const AllReviews = ({ reviews, news, mobiles }) => {
               </Link>
             </div>
 
-            <div className="author_div_news">
+            <div className={styles.author_div_news}>
               <span>
                 {moment(blog.updatedAt).fromNow()} | by {blog.postedBy.username}
               </span>
@@ -99,16 +100,16 @@ const AllReviews = ({ reviews, news, mobiles }) => {
       <React.Fragment key={i}>
         <div
           title="latest mobile phone specifications"
-          className="single__card__phone"
+          className={styles.single__card__phone}
         >
-          <div className="card__image__container__phone">
+          <div className={styles.card__image__container__phone}>
             <Link href={`/phones/brand/${m.slug}`}>
               <a>
                 <img src={`${API}/mobile/photo/${m.slug}`} alt={`${m.title}`} />
               </a>
             </Link>
           </div>
-          <div className="card__content__phone">
+          <div className={styles.card__content__phone}>
             <Link href={`/phones/brand/${m.slug}`}>
               <a>
                 <h1>{m.title}</h1>
@@ -200,11 +201,11 @@ const AllReviews = ({ reviews, news, mobiles }) => {
   const showReviews = () => {
     return currentPost.map((m, i) => (
       <React.Fragment key={i}>
-        <div className="single__card">
-          <div className="card__image__container">
+        <div className={styles.single__card}>
+          <div className={styles.card__image__container}>
             <Link href={`/reviews/${m.slug}`}>
               <a>
-                <div className="overlay"></div>
+                <div className={styles.overlay}></div>
                 <img
                   src={`${API}/reviews/photo/${m.slug}`}
                   alt={`${m.title}`}
@@ -212,13 +213,13 @@ const AllReviews = ({ reviews, news, mobiles }) => {
               </a>
             </Link>
           </div>
-          <div className="card__content">
+          <div className={styles.card__content}>
             <Link href={`/reviews/${m.slug}`}>
               <a>
-                <div className="review_title">
+                <div className={styles.review_title}>
                   <h1>{m.title}</h1>
                 </div>
-                <div className="author">
+                <div className={styles.author}>
                   <span>
                     By {m.postedBy.username} | {moment(m.updatedAt).fromNow()}
                   </span>
@@ -284,11 +285,11 @@ const AllReviews = ({ reviews, news, mobiles }) => {
   const showSearchedReviews = (filteredContent) => {
     return filteredContent.map((m, i) => (
       <React.Fragment key={i}>
-        <div className="single__card">
-          <div className="card__image__container">
+        <div className={styles.single__card}>
+          <div className={styles.card__image__container}>
             <Link href={`/reviews/${m.slug}`}>
               <a>
-                <div className="overlay"></div>
+                <div className={styles.overlay}></div>
                 <img
                   src={`${API}/reviews/photo/${m.slug}`}
                   alt={`${m.title}`}
@@ -296,13 +297,13 @@ const AllReviews = ({ reviews, news, mobiles }) => {
               </a>
             </Link>
           </div>
-          <div className="card__content">
+          <div className={styles.card__content}>
             <Link href={`/reviews/${m.slug}`}>
               <a>
-                <div className="review_title">
+                <div className={styles.review_title}>
                   <h1>{m.title}</h1>
                 </div>
-                <div className="author">
+                <div className={styles.author}>
                   <span>
                     By {m.postedBy.username} | {moment(m.updatedAt).fromNow()}
                   </span>
@@ -322,7 +323,7 @@ const AllReviews = ({ reviews, news, mobiles }) => {
         <div
           alt="Photo by sam loyd on Unsplash"
           style={{
-            backgroundImage: `url(${DOMAIN}/static/images/sam-loyd-single-brand-cover-page.jpg)`,
+            backgroundImage: `url(/static/images/sam-loyd-single-brand-cover-page.jpg)`,
             backgroundPosition: "center",
             backgroundRepeat: "no-repeat",
             position: "relative",
@@ -349,7 +350,7 @@ const AllReviews = ({ reviews, news, mobiles }) => {
             >
               <h1
                 title="Gear Reviews"
-                className="cover__image__div__main__topic"
+                className={styles.cover__image__div__main__topic}
               >
                 Reviews
               </h1>
@@ -456,12 +457,14 @@ const AllReviews = ({ reviews, news, mobiles }) => {
                             >
                               <hr
                                 style={{ marginTop: "6px" }}
-                                className="hrText"
+                                className={styles.hrText}
                                 data-content={`${filteredContent.length} result(s) found!`}
                               />
                             </div>
                           </div>
-                          <div className="cards box__sizing">
+                          <div
+                            className={`${styles.cards} ${styles.box__sizing}`}
+                          >
                             {showSearchedReviews(filteredContent)}
                           </div>
                           <div style={{ width: "100%" }}>
@@ -492,7 +495,7 @@ const AllReviews = ({ reviews, news, mobiles }) => {
                               width: "100%",
                               height: "100%",
                             }}
-                            className="alert alert-danger change__no__results__found__styles"
+                            className={`alert alert-danger ${styles.change__no__results__found__styles}`}
                             role="alert"
                           >
                             <h2
@@ -525,7 +528,9 @@ const AllReviews = ({ reviews, news, mobiles }) => {
                           backgroundColor: "rgba(202, 28, 28, 0.945)",
                         }}
                       />
-                      <div className="cards box__sizing">{showReviews()}</div>
+                      <div className={`${styles.cards} ${styles.box__sizing}`}>
+                        {showReviews()}
+                      </div>
                       <div style={{ width: "100%" }}>
                         {Pagination(
                           postPerPage,
@@ -542,9 +547,11 @@ const AllReviews = ({ reviews, news, mobiles }) => {
                 </div>
               </div>
             </div>
-            <div className="col-lg-4 side__bar__single__brand__main">
+            <div
+              className={`col-lg-4 ${styles.side__bar__single__brand__main}`}
+            >
               <div
-                className="row mr-0 side__bar__single__brand"
+                className={`row mr-0 ${styles.side__bar__single__brand}`}
                 style={{
                   backgroundColor: "white",
                   boxShadow: "0px 0px 1px rgba(0,0,0,0.5)",
@@ -567,7 +574,7 @@ const AllReviews = ({ reviews, news, mobiles }) => {
                   <div style={{ width: "100%", paddingTop: 0 }}>
                     <hr
                       style={{ marginTop: "6px" }}
-                      className="hrText"
+                      className={styles.hrText}
                       data-content="latest phones"
                     />
                   </div>
@@ -579,7 +586,9 @@ const AllReviews = ({ reviews, news, mobiles }) => {
                     paddingLeft: "12px",
                   }}
                 >
-                  <div className="cards__phone box__sizing__phone side__bar__phones">
+                  <div
+                    className={`${styles.side__bar__phones} ${styles.box__sizing__phone} ${styles.cards__phone}`}
+                  >
                     {showSideBarMobiles()}
                   </div>
                   <div
@@ -633,7 +642,7 @@ const AllReviews = ({ reviews, news, mobiles }) => {
               </div>
 
               <div
-                className="row mr-0 side__bar__single__brand"
+                className={`row mr-0 ${styles.side__bar__single__brand}`}
                 style={{
                   backgroundColor: "white",
                   boxShadow: "0px 0px 1px rgba(0,0,0,0.5)",
@@ -654,7 +663,7 @@ const AllReviews = ({ reviews, news, mobiles }) => {
                   <div style={{ width: "100%", paddingTop: 0 }}>
                     <hr
                       style={{ marginTop: "7px" }}
-                      className="hrText"
+                      className={styles.hrText}
                       data-content="latest news"
                     />
                   </div>

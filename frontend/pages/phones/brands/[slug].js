@@ -1,5 +1,7 @@
 import Head from "next/head";
 import Link from "next/link";
+import DefaultErrorPage from "next/error";
+import { useRouter } from "next/router";
 import Layout from "../../../components/Layout";
 import { useState } from "react";
 import { newsListPublicMobileReviews } from "../../../actions/news.action";
@@ -13,11 +15,29 @@ import moment from "moment";
 import { API, DOMAIN, APP_NAME, FB_APP_ID } from "../../../config";
 import { MdRateReview, MdNavigateNext } from "react-icons/md";
 import { FaNewspaper } from "react-icons/fa";
-
+import styles from "../../../styles/singleMobileBrand.module.css";
+import React from "react";
 /**
  * completed!
  */
 const Mobiles = ({ mobiles, singleCategory, reviews, news }) => {
+  const router = useRouter();
+
+  // If the page is not yet generated, this will be displayed
+  // initially until getStaticProps() finishes running
+  if (router.isFallback) {
+    return <div>Loading...</div>;
+  }
+  if (!singleCategory) {
+    return (
+      <React.Fragment>
+        <Head>
+          <meta name="robots" content="noindex" />
+        </Head>
+        <DefaultErrorPage statusCode={404} />
+      </React.Fragment>
+    );
+  }
   const [searchValues, setSearchValues] = useState({
     search: "",
     showSearch: undefined,
@@ -28,7 +48,6 @@ const Mobiles = ({ mobiles, singleCategory, reviews, news }) => {
 
   const head = () => (
     <Head>
-      <link rel="stylesheet" href="/static/css/singleMobileBrand.css" />
       <title>
         All {singleCategory.name} Phone List - {APP_NAME}
       </title>
@@ -46,12 +65,12 @@ const Mobiles = ({ mobiles, singleCategory, reviews, news }) => {
       <meta
         alt="Photo by sam loyd on Unsplash"
         property="og:image"
-        content={`${DOMAIN}/static/images/sam-loyd-single-brand-cover-page.jpg`}
+        content={`/static/images/sam-loyd-single-brand-cover-page.jpg`}
       />
       <meta
         alt="Photo by sam loyd on Unsplash"
         property="og:image:secure_url"
-        content={`${DOMAIN}/static/images/sam-loyd-single-brand-cover-page.jpg`}
+        content={`/static/images/sam-loyd-single-brand-cover-page.jpg`}
       />
       <meta property="og:image:type" content="image/jpg" />
       <meta property="fb:app_id" content={`${FB_APP_ID}`} />
@@ -61,8 +80,8 @@ const Mobiles = ({ mobiles, singleCategory, reviews, news }) => {
   const showSideBarNews = () => {
     return news.map((blog, i) => (
       <React.Fragment key={i}>
-        <div key={i} className="sidebar_news_container">
-          <div className="image_news">
+        <div key={i} className={styles.sidebar_news_container}>
+          <div className={styles.image_news}>
             <Link href={`/news/${blog.slug}`}>
               <a style={{ textDecoration: "none", width: "100%" }}>
                 <img
@@ -74,10 +93,10 @@ const Mobiles = ({ mobiles, singleCategory, reviews, news }) => {
             </Link>
           </div>
           <div
-            className="content_news"
+            className={styles.content_news}
             style={{ display: "flex", flexDirection: "column" }}
           >
-            <div className="content_div_news">
+            <div className={styles.content_div_news}>
               <Link href={`/news/${blog.slug}`}>
                 <a style={{ textDecoration: "none", width: "100%" }}>
                   <h1>{blog.title}</h1>
@@ -85,7 +104,7 @@ const Mobiles = ({ mobiles, singleCategory, reviews, news }) => {
               </Link>
             </div>
 
-            <div className="author_div_news">
+            <div className={styles.author_div_news}>
               <span>
                 {moment(blog.updatedAt).fromNow()} | by {blog.postedBy.username}
               </span>
@@ -99,8 +118,8 @@ const Mobiles = ({ mobiles, singleCategory, reviews, news }) => {
   const showSideBarReviews = () => {
     return reviews.map((blog, i) => (
       <React.Fragment key={i}>
-        <div key={i} className="sidebar_news_container">
-          <div className="image_news">
+        <div key={i} className={styles.sidebar_news_container}>
+          <div className={styles.image_news}>
             <Link href={`/reviews/${blog.slug}`}>
               <a style={{ textDecoration: "none", width: "100%" }}>
                 <img
@@ -112,10 +131,10 @@ const Mobiles = ({ mobiles, singleCategory, reviews, news }) => {
             </Link>
           </div>
           <div
-            className="content_news"
+            className={styles.content_news}
             style={{ display: "flex", flexDirection: "column" }}
           >
-            <div className="content_div_news">
+            <div className={styles.content_div_news}>
               <Link href={`/reviews/${blog.slug}`}>
                 <a style={{ textDecoration: "none", width: "100%" }}>
                   <h1>{blog.title}</h1>
@@ -123,7 +142,7 @@ const Mobiles = ({ mobiles, singleCategory, reviews, news }) => {
               </Link>
             </div>
 
-            <div className="author_div_news">
+            <div className={styles.author_div_news}>
               <span>
                 {moment(blog.updatedAt).fromNow()} | by {blog.postedBy.username}
               </span>
@@ -214,15 +233,15 @@ const Mobiles = ({ mobiles, singleCategory, reviews, news }) => {
   const showMobiles = () => {
     return currentPost.map((m, i) => (
       <React.Fragment key={i}>
-        <div className="single__card">
-          <div className="card__image__container">
+        <div className={styles.single__card}>
+          <div className={styles.card__image__container}>
             <Link href={`/phones/brand/${m.slug}`}>
               <a>
                 <img src={`${API}/mobile/photo/${m.slug}`} alt={`${m.title}`} />
               </a>
             </Link>
           </div>
-          <div className="card__content">
+          <div className={styles.card__content}>
             <Link href={`/phones/brand/${m.slug}`}>
               <a>
                 <h1>{m.title}</h1>
@@ -256,7 +275,6 @@ const Mobiles = ({ mobiles, singleCategory, reviews, news }) => {
         );
       }),
     });
-    console.log("after return", filteredContent);
   };
 
   /**mobileSearch pagination states */
@@ -287,15 +305,15 @@ const Mobiles = ({ mobiles, singleCategory, reviews, news }) => {
   const showSearchedMobiles = (filteredContent) => {
     return filteredContent.map((m, i) => (
       <React.Fragment key={i}>
-        <div className="single__card">
-          <div className="card__image__container">
+        <div className={styles.single__card}>
+          <div className={styles.card__image__container}>
             <Link href={`/phones/brand/${m.slug}`}>
               <a>
                 <img src={`${API}/mobile/photo/${m.slug}`} alt={`${m.title}`} />
               </a>
             </Link>
           </div>
-          <div className="card__content">
+          <div className={styles.card__content}>
             <Link href={`/phones/brand/${m.slug}`}>
               <a>
                 <h1>{m.title}</h1>
@@ -314,7 +332,7 @@ const Mobiles = ({ mobiles, singleCategory, reviews, news }) => {
         <div
           alt="Photo by sam loyd on Unsplash"
           style={{
-            backgroundImage: `url(${DOMAIN}/static/images/sam-loyd-single-brand-cover-page.jpg)`,
+            backgroundImage: `url(/static/images/sam-loyd-single-brand-cover-page.jpg)`,
             backgroundPosition: "center",
             backgroundRepeat: "no-repeat",
             position: "relative",
@@ -341,7 +359,7 @@ const Mobiles = ({ mobiles, singleCategory, reviews, news }) => {
             >
               <h1
                 title={`all mobile phones related to ${singleCategory.name}`}
-                className="cover__image__div__main__topic"
+                className={styles.cover__image__div__main__topic}
               >
                 All {singleCategory.name} Phones
               </h1>
@@ -448,12 +466,14 @@ const Mobiles = ({ mobiles, singleCategory, reviews, news }) => {
                             >
                               <hr
                                 style={{ marginTop: "6px" }}
-                                className="hrText"
+                                className={styles.hrText}
                                 data-content={`${filteredContent.length} result(s) found!`}
                               />
                             </div>
                           </div>
-                          <div className="cards box__sizing">
+                          <div
+                            className={`${styles.box__sizing} ${styles.cards}`}
+                          >
                             {showSearchedMobiles(filteredContent)}
                           </div>
                           <div style={{ width: "100%" }}>
@@ -492,7 +512,7 @@ const Mobiles = ({ mobiles, singleCategory, reviews, news }) => {
                               width: "100%",
                               height: "100%",
                             }}
-                            className="alert alert-danger change__no__results__found__styles"
+                            className={`${styles.change__no__results__found__styles} alert alert-danger`}
                             role="alert"
                           >
                             <h2
@@ -525,7 +545,9 @@ const Mobiles = ({ mobiles, singleCategory, reviews, news }) => {
                           backgroundColor: "rgba(202, 28, 28, 0.945)",
                         }}
                       />
-                      <div className="cards box__sizing">{showMobiles()}</div>
+                      <div className={`${styles.cards} ${styles.box__sizing}`}>
+                        {showMobiles()}
+                      </div>
                       <div style={{ width: "100%" }}>
                         {Pagination(
                           postPerPage,
@@ -542,9 +564,11 @@ const Mobiles = ({ mobiles, singleCategory, reviews, news }) => {
                 </div>
               </div>
             </div>
-            <div className="col-lg-4 side__bar__single__brand__main">
+            <div
+              className={`col-lg-4 ${styles.side__bar__single__brand__main}`}
+            >
               <div
-                className="row mr-0 side__bar__single__brand"
+                className={`row mr-0 ${styles.side__bar__single__brand}`}
                 style={{
                   backgroundColor: "white",
                   boxShadow: "0px 0px 1px rgba(0,0,0,0.5)",
@@ -567,7 +591,7 @@ const Mobiles = ({ mobiles, singleCategory, reviews, news }) => {
                   <div style={{ width: "100%", paddingTop: 0 }}>
                     <hr
                       style={{ marginTop: "6px" }}
-                      className="hrText"
+                      className={styles.hrText}
                       data-content="latest reviews"
                     />
                   </div>
@@ -630,7 +654,7 @@ const Mobiles = ({ mobiles, singleCategory, reviews, news }) => {
                 </div>
               </div>
               <div
-                className="row mr-0 side__bar__single__brand"
+                className={`row mr-0 ${styles.side__bar__single__brand}`}
                 style={{
                   backgroundColor: "white",
                   boxShadow: "0px 0px 1px rgba(0,0,0,0.5)",
@@ -652,7 +676,7 @@ const Mobiles = ({ mobiles, singleCategory, reviews, news }) => {
                   <div style={{ width: "100%", paddingTop: 0 }}>
                     <hr
                       style={{ marginTop: "6px" }}
-                      className="hrText"
+                      className={styles.hrText}
                       data-content="latest news"
                     />
                   </div>

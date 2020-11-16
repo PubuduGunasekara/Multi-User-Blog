@@ -11,6 +11,8 @@ import { MdRateReview, MdNavigateNext } from "react-icons/md";
 import { FaNewspaper } from "react-icons/fa";
 import { FiSmartphone } from "react-icons/fi";
 import renderHTML from "react-render-html";
+import React from "react";
+import styles from "../../styles/newsFrontEnd.module.css";
 
 /**
  * completed!
@@ -18,7 +20,6 @@ import renderHTML from "react-render-html";
 const AllNews = ({ news, reviews, mobiles }) => {
   const head = () => (
     <Head>
-      <link rel="stylesheet" href="/static/css/newsFrontEnd.css" />
       <title>Tech News - {APP_NAME}</title>
       <meta name="description" content="hhh" />
       <link rel="canonical" href={`${DOMAIN}/news`} />
@@ -46,8 +47,8 @@ const AllNews = ({ news, reviews, mobiles }) => {
   const showSideBarReviews = () => {
     return reviews.map((blog, i) => (
       <React.Fragment key={i}>
-        <div key={i} className="sidebar_review_container">
-          <div className="image_review">
+        <div key={i} className={styles.sidebar_review_container}>
+          <div className={styles.image_review}>
             <Link href={`/reviews/${blog.slug}`}>
               <a style={{ textDecoration: "none", width: "100%" }}>
                 <img
@@ -59,10 +60,10 @@ const AllNews = ({ news, reviews, mobiles }) => {
             </Link>
           </div>
           <div
-            className="content_review"
+            className={styles.content_review}
             style={{ display: "flex", flexDirection: "column" }}
           >
-            <div className="content_div_review">
+            <div className={styles.content_div_review}>
               <Link href={`/reviews/${blog.slug}`}>
                 <a style={{ textDecoration: "none", width: "100%" }}>
                   <h1>{blog.title}</h1>
@@ -70,7 +71,7 @@ const AllNews = ({ news, reviews, mobiles }) => {
               </Link>
             </div>
 
-            <div className="author_div_review">
+            <div className={styles.author_div_review}>
               <span>
                 {moment(blog.updatedAt).fromNow()} | by {blog.postedBy.username}
               </span>
@@ -84,15 +85,15 @@ const AllNews = ({ news, reviews, mobiles }) => {
   const showSideBarMobiles = () => {
     return mobiles.map((m, i) => (
       <React.Fragment key={i}>
-        <div className="single__card__phone">
-          <div className="card__image__container__phone">
+        <div className={styles.single__card__phone}>
+          <div className={styles.card__image__container__phone}>
             <Link href={`/phones/brand/${m.slug}`}>
               <a>
                 <img src={`${API}/mobile/photo/${m.slug}`} alt={`${m.title}`} />
               </a>
             </Link>
           </div>
-          <div className="card__content__phone">
+          <div className={styles.card__content__phone}>
             <Link href={`/phones/brand/${m.slug}`}>
               <a>
                 <h1>{m.title}</h1>
@@ -184,8 +185,8 @@ const AllNews = ({ news, reviews, mobiles }) => {
   const showNews = () => {
     return currentPost.map((blog, i) => (
       <React.Fragment key={i}>
-        <div key={i} className="news__container">
-          <div className="image__news">
+        <div key={i} className={styles.news__container}>
+          <div className={styles.image__news}>
             <Link href={`/news/${blog.slug}`}>
               <a style={{ textDecoration: "none", width: "100%" }}>
                 <img
@@ -197,24 +198,24 @@ const AllNews = ({ news, reviews, mobiles }) => {
             </Link>
           </div>
           <div
-            className="content__news"
+            className={styles.content__news}
             style={{ display: "flex", flexDirection: "column" }}
           >
-            <div className="content__div">
+            <div className={styles.content__div}>
               <Link href={`/news/${blog.slug}`}>
                 <a style={{ textDecoration: "none", width: "100%" }}>
                   <h1>{blog.title}</h1>
                 </a>
               </Link>
             </div>
-            <div className="excerpt_div">
+            <div className={styles.excerpt_div}>
               <Link href={`/news/${blog.slug}`}>
                 <a style={{ textDecoration: "none", width: "100%" }}>
                   {renderHTML(blog.excerpt)}
                 </a>
               </Link>
             </div>
-            <div className="author__div">
+            <div className={styles.author__div}>
               <span>
                 {moment(blog.updatedAt).fromNow()} | by {blog.postedBy.username}
               </span>
@@ -286,8 +287,8 @@ const AllNews = ({ news, reviews, mobiles }) => {
   const showSearchedNews = (filteredContent) => {
     return filteredContent.map((blog, i) => (
       <React.Fragment key={i}>
-        <div key={i} className="news__container">
-          <div className="image__news">
+        <div key={i} className={styles.news__container}>
+          <div className={styles.image__news}>
             <Link href={`/news/${blog.slug}`}>
               <a style={{ textDecoration: "none", width: "100%" }}>
                 <img
@@ -299,24 +300,24 @@ const AllNews = ({ news, reviews, mobiles }) => {
             </Link>
           </div>
           <div
-            className="content__news"
+            className={styles.content__news}
             style={{ display: "flex", flexDirection: "column" }}
           >
-            <div className="content__div">
+            <div className={styles.content__div}>
               <Link href={`/news/${blog.slug}`}>
                 <a style={{ textDecoration: "none", width: "100%" }}>
                   <h1>{blog.title}</h1>
                 </a>
               </Link>
             </div>
-            <div className="excerpt_div">
+            <div className={styles.excerpt_div}>
               <Link href={`/news/${blog.slug}`}>
                 <a style={{ textDecoration: "none", width: "100%" }}>
                   {renderHTML(blog.excerpt)}
                 </a>
               </Link>
             </div>
-            <div className="author__div">
+            <div className={styles.author__div}>
               <span>
                 {moment(blog.updatedAt).fromNow()} | by {blog.postedBy.username}
               </span>
@@ -332,10 +333,10 @@ const AllNews = ({ news, reviews, mobiles }) => {
       {head()}
       <Layout>
         <div
-          className="main_top_banner"
+          className={styles.main_top_banner}
           alt="Photo by sam loyd on Unsplash"
           style={{
-            backgroundImage: `url(${DOMAIN}/static/images/sam-loyd-single-brand-cover-page.jpg)`,
+            backgroundImage: `url(/static/images/sam-loyd-single-brand-cover-page.jpg)`,
             backgroundPosition: "center",
             backgroundRepeat: "no-repeat",
             position: "relative",
@@ -360,7 +361,7 @@ const AllNews = ({ news, reviews, mobiles }) => {
                 marginBottom: "15px",
               }}
             >
-              <h1 className="cover__image__div__main__topic">News</h1>
+              <h1 className={styles.cover__image__div__main__topic}>News</h1>
             </div>
             <div style={{ overflow: "auto" }}>
               <form
@@ -464,7 +465,7 @@ const AllNews = ({ news, reviews, mobiles }) => {
                             >
                               <hr
                                 style={{ marginTop: "6px" }}
-                                className="hrText"
+                                className={styles.hrText}
                                 data-content={`${filteredContent.length} result(s) found!`}
                               />
                             </div>
@@ -501,7 +502,7 @@ const AllNews = ({ news, reviews, mobiles }) => {
                               width: "100%",
                               height: "100%",
                             }}
-                            className="alert alert-danger change__no__results__found__styles"
+                            className={`alert alert-danger  ${style.change__no__results__found__styles}`}
                             role="alert"
                           >
                             <h2
@@ -552,9 +553,11 @@ const AllNews = ({ news, reviews, mobiles }) => {
                 </div>
               </div>
             </div>
-            <div className="col-lg-4 side__bar__single__brand__main">
+            <div
+              className={`col-lg-4 ${styles.side__bar__single__brand__main}`}
+            >
               <div
-                className="row mr-0 side__bar__single__brand"
+                className={`row mr-0 ${styles.side__bar__single__brand}`}
                 style={{
                   backgroundColor: "white",
                   boxShadow: "0px 0px 1px rgba(0,0,0,0.5)",
@@ -577,7 +580,7 @@ const AllNews = ({ news, reviews, mobiles }) => {
                   <div style={{ width: "100%", paddingTop: 0 }}>
                     <hr
                       style={{ marginTop: "6px" }}
-                      className="hrText"
+                      className={styles.hrText}
                       data-content="latest phones"
                     />
                   </div>
@@ -589,7 +592,9 @@ const AllNews = ({ news, reviews, mobiles }) => {
                     paddingLeft: "12px",
                   }}
                 >
-                  <div className="cards__phone box__sizing__phone side__bar__phones">
+                  <div
+                    className={`${styles.cards__phone} ${styles.box__sizing__phone} ${styles.side__bar__phones}`}
+                  >
                     {showSideBarMobiles()}
                   </div>
                   <div
@@ -643,7 +648,7 @@ const AllNews = ({ news, reviews, mobiles }) => {
               </div>
 
               <div
-                className="row mr-0 side__bar__single__brand"
+                className={`row mr-0 ${styles.side__bar__single__brand}`}
                 style={{
                   backgroundColor: "white",
                   boxShadow: "0px 0px 1px rgba(0,0,0,0.5)",
@@ -664,7 +669,7 @@ const AllNews = ({ news, reviews, mobiles }) => {
                   <div style={{ width: "100%", paddingTop: 0 }}>
                     <hr
                       style={{ marginTop: "6px" }}
-                      className="hrText"
+                      className={styles.hrText}
                       data-content="latest reviews"
                     />
                   </div>

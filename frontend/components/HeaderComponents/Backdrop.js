@@ -1,22 +1,17 @@
-import Head from 'next/head';
-const { RFC_2822 } = require("moment");
+import styles from "../../styles/Header.module.css";
 
 /**
  * completed!
  */
 const backDrop = (props) => {
-    return (
-        <React.Fragment>
-            <div>
-                <Head>
-                    <link
-                        rel="stylesheet"
-                        href="/static/css/Header.css"
-                    />
-                </Head>
-            </div>
-            <div className="backdrop" onClick={props.click} />
-        </React.Fragment>
-    )
-}
+  return (
+    <div>
+      <div
+        title="tap to close the side menu"
+        className={styles.backdrop}
+        onClick={props.click}
+      />
+    </div>
+  );
+};
 export default backDrop;

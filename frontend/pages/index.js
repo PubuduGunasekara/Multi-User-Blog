@@ -1,4 +1,5 @@
 import Layout from "../components/Layout";
+import React from "react";
 import { useState } from "react";
 import Head from "next/head";
 import moment from "moment";
@@ -95,23 +96,25 @@ const Index = ({
                   textDecoration: "none",
                 }}
               >
-                <div className="container_common container_left">
-                  <div className="overlay"></div>
+                <div
+                  className={`${styles.container_common} ${styles.container_left}`}
+                >
+                  <div className={styles.overlay}></div>
                   <img
-                    className="img_wrapper"
+                    className={styles.img_wrapper}
                     src={`${API}/news/photo/${latestNews.slug}`}
                     alt={latestNews.title}
                   />
-                  <div className="news_title">
+                  <div className={styles.news_title}>
                     <h1>{latestNews.title}</h1>
                   </div>
-                  <div className="author">
+                  <div className={styles.author}>
                     <span>
                       By {latestNews.postedBy.username} |{" "}
                       {moment(latestNews.updatedAt).fromNow()}
                     </span>
                   </div>
-                  <div className="blog_type">
+                  <div className={styles.blog_type}>
                     <span>NEWS</span>
                   </div>
                 </div>
@@ -121,7 +124,7 @@ const Index = ({
           {/**end leftside banner */
           /**right side banner block container*/}
           <div
-            className="col-md-6 pl-0 pr-0 container_right"
+            className={`col-md-6 pl-0 pr-0 ${styles.container_right}`}
             style={{ width: "100%", height: "500px" }}
           >
             <div
@@ -139,23 +142,27 @@ const Index = ({
                       textDecoration: "none",
                     }}
                   >
-                    <div className="container_common container_right_top">
-                      <div className="overlay"></div>
+                    <div
+                      className={`${styles.container_common} ${styles.container_right_top}`}
+                    >
+                      <div className={styles.overlay}></div>
                       <img
-                        className="img_wrapper"
+                        className={styles.img_wrapper}
                         src={`${API}/news/photo/${secondLatestNews.slug}`}
                         alt={secondLatestNews.title}
                       />
-                      <div className="news_title news_title_right_top">
+                      <div
+                        className={`${styles.news_title} ${styles.news_title_right_top}`}
+                      >
                         <h1>{secondLatestNews.title}</h1>
                       </div>
-                      <div className="author">
+                      <div className={styles.author}>
                         <span>
                           By {secondLatestNews.postedBy.username} |{" "}
                           {moment(secondLatestNews.updatedAt).fromNow()}
                         </span>
                       </div>
-                      <div className="blog_type">
+                      <div className={styles.blog_type}>
                         <span>NEWS</span>
                       </div>
                     </div>
@@ -165,7 +172,7 @@ const Index = ({
               {/**end righ side top banner*/
               /**righ side bottom banner block container*/}
               <div
-                className="col-md-12 pl-0 pr-0 container_right_bottom"
+                className={`col-md-12 pl-0 pr-0 ${styles.container_right_bottom}`}
                 style={{ width: "100%", height: "250px" }}
               >
                 <div className="row ml-0 mr-0" style={{ width: "100%" }}>
@@ -177,23 +184,27 @@ const Index = ({
                           textDecoration: "none",
                         }}
                       >
-                        <div className="container_common container_right_bottom_left">
-                          <div className="overlay"></div>
+                        <div
+                          className={`${styles.container_common} ${styles.container_right_bottom_left}`}
+                        >
+                          <div className={styles.overlay}></div>
                           <img
-                            className="img_wrapper"
+                            className={styles.img_wrapper}
                             src={`${API}/reviews/photo/${latestReview.slug}`}
                             alt={latestReview.title}
                           />
-                          <div className="news_title news_title_right_bottom_left">
+                          <div
+                            className={`${styles.news_title} ${styles.news_title_right_bottom_left}`}
+                          >
                             <h1>{latestReview.title}</h1>
                           </div>
-                          <div className="author">
+                          <div className={styles.author}>
                             <span>
                               By {latestReview.postedBy.username} |{" "}
                               {moment(latestReview.updatedAt).fromNow()}
                             </span>
                           </div>
-                          <div className="blog_type">
+                          <div className={styles.blog_type}>
                             <span>REVIEW</span>
                           </div>
                         </div>
@@ -209,23 +220,27 @@ const Index = ({
                           textDecoration: "none",
                         }}
                       >
-                        <div className="container_common container_right_bottom_right">
-                          <div className="overlay"></div>
+                        <div
+                          className={`${styles.container_common} ${styles.container_right_bottom_right}`}
+                        >
+                          <div className={styles.overlay}></div>
                           <img
-                            className="img_wrapper"
+                            className={styles.img_wrapper}
                             src={`${API}/reviews/photo/${secondLatestReview.slug}`}
                             alt={secondLatestReview.title}
                           />
-                          <div className="news_title news_title_right_bottom_right">
+                          <div
+                            className={`${styles.news_title} ${styles.news_title_right_bottom_right}`}
+                          >
                             <h1>{secondLatestReview.title}</h1>
                           </div>
-                          <div className="author">
+                          <div className={styles.author}>
                             <span>
                               By {secondLatestReview.postedBy.username} |{" "}
                               {moment(secondLatestReview.updatedAt).fromNow()}
                             </span>
                           </div>
-                          <div className="blog_type">
+                          <div className={styles.blog_type}>
                             <span>REVIEW</span>
                           </div>
                         </div>
@@ -265,23 +280,25 @@ const Index = ({
                   textDecoration: "none",
                 }}
               >
-                <div className="container_common container_left">
-                  <div className="overlay"></div>
+                <div
+                  className={`${styles.container_common} ${styles.container_left}`}
+                >
+                  <div className={styles.overlay}></div>
                   <img
-                    className="img_wrapper"
+                    className={styles.img_wrapper}
                     src={`${API}/news/photo/${latestNews.slug}`}
                     alt={latestNews.title}
                   />
-                  <div className="news_title">
+                  <div className={styles.news_title}>
                     <h1>{latestNews.title}</h1>
                   </div>
-                  <div className="author">
+                  <div className={styles.author}>
                     <span>
                       By {latestNews.postedBy.username} |{" "}
                       {moment(latestNews.updatedAt).fromNow()}
                     </span>
                   </div>
-                  <div className="blog_type">
+                  <div className={styles.blog_type}>
                     <span>NEWS</span>
                   </div>
                 </div>
@@ -299,34 +316,38 @@ const Index = ({
               style={{ width: "100%", height: "500px" }}
             >
               <div
-                className="col-md-12 pl-0 pr-0 container_right_medium_screen"
+                className={`col-md-12 pl-0 pr-0 ${styles.container_right_medium_screen}`}
                 style={{ width: "100%", height: "420px" }}
               >
                 {/**rightside banner  top div*/}
-                <div className="container_common container_right_top_medium_screen">
+                <div
+                  className={`${styles.container_common} ${styles.container_right_top_medium_screen}`}
+                >
                   <Link href={`/news/${secondLatestNews.slug}`}>
                     <a
                       style={{
                         textDecoration: "none",
                       }}
                     >
-                      <div className="overlay"></div>
+                      <div className={styles.overlay}></div>
                       <img
-                        className="img_wrapper"
+                        className={styles.img_wrapper}
                         src={`${API}/news/photo/${secondLatestNews.slug}`}
                         alt={secondLatestNews.title}
                       />
-                      <div className="news_title news_title_right_top_medium_screent">
+                      <div
+                        className={`${styles.news_title} ${styles.news_title_right_top_medium_screen}`}
+                      >
                         <h1>{secondLatestNews.title}</h1>
                       </div>
-                      <div className="author">
+                      <div className={styles.author}>
                         <span>
                           {" "}
                           By {secondLatestNews.postedBy.username} |{" "}
                           {moment(secondLatestNews.updatedAt).fromNow()}
                         </span>
                       </div>
-                      <div className="blog_type">
+                      <div className={styles.blog_type}>
                         <span>NEWS</span>
                       </div>
                     </a>
@@ -334,29 +355,33 @@ const Index = ({
                 </div>
                 {/**rightside banner  top div ends here*/
                 /**rightside banner  bottom div stsrts here*/}
-                <div className="container_common container_right_bottom_medium_screen">
+                <div
+                  className={`${styles.container_common} ${styles.container_right_bottom_medium_screen}`}
+                >
                   <Link href={`/reviews/${latestReview.slug}`}>
                     <a
                       style={{
                         textDecoration: "none",
                       }}
                     >
-                      <div className="overlay"></div>
+                      <div className={styles.overlay}></div>
                       <img
-                        className="img_wrapper"
+                        className={styles.img_wrapper}
                         src={`${API}/reviews/photo/${latestReview.slug}`}
                         alt={latestReview.title}
                       />
-                      <div className="news_title news_title_right_bottom_medium_screen">
+                      <div
+                        className={`${styles.news_title} ${styles.news_title_right_bottom_medium_screen}`}
+                      >
                         <h1>{latestReview.title}</h1>
                       </div>
-                      <div className="author">
+                      <div className={styles.author}>
                         <span>
                           By {latestReview.postedBy.username} |{" "}
                           {moment(latestReview.updatedAt).fromNow()}
                         </span>
                       </div>
-                      <div className="blog_type">
+                      <div className={styles.blog_type}>
                         <span>REVIEW</span>
                       </div>
                     </a>
@@ -377,31 +402,33 @@ const Index = ({
   const smallScreenHighlight = () => {
     return (
       /**main small screen div starts here */
-      <div className="col-md-12 mt-4 small_screen_block">
+      <div className={`col-md-12 mt-4 ${styles.small_screen_block}`}>
         {/**small screen card */}
-        <div className="small_screen_container">
+        <div className={styles.small_screen_container}>
           <Link href={`/reviews/${latestReview.slug}`}>
             <a
               style={{
                 textDecoration: "none",
               }}
             >
-              <div className="overlay"></div>
+              <div className={styles.overlay}></div>
               <img
-                className="small_screen_img_wrapper"
+                className={styles.small_screen_img_wrapper}
                 src={`${API}/reviews/photo/${latestReview.slug}`}
                 alt={latestReview.title}
               />
-              <div className="news_title news_title_small_screen">
+              <div
+                className={`${styles.news_title} ${styles.news_title_small_screen}`}
+              >
                 <h1>{latestReview.title}</h1>
               </div>
-              <div className="author">
+              <div className={styles.author}>
                 <span>
                   By {latestReview.postedBy.username} |{" "}
                   {moment(latestReview.updatedAt).fromNow()}
                 </span>
               </div>
-              <div className="blog_type">
+              <div className={styles.blog_type}>
                 <span>REVIEW</span>
               </div>
             </a>
@@ -409,29 +436,31 @@ const Index = ({
         </div>
         {/**small screen card */
         /**ends here */}
-        <div className="small_screen_container">
+        <div className={styles.small_screen_container}>
           <Link href={`/news/${latestNews.slug}`}>
             <a
               style={{
                 textDecoration: "none",
               }}
             >
-              <div className="overlay"></div>
+              <div className={styles.overlay}></div>
               <img
-                className="small_screen_img_wrapper"
+                className={styles.small_screen_img_wrapper}
                 src={`${API}/news/photo/${latestNews.slug}`}
                 alt={latestNews.title}
               />
-              <div className="news_title news_title_small_screen">
+              <div
+                className={`${styles.news_title} ${styles.news_title_small_screen}`}
+              >
                 <h1>{latestNews.title}</h1>
               </div>
-              <div className="author">
+              <div className={styles.author}>
                 <span>
                   By {latestNews.postedBy.username} |{" "}
                   {moment(latestNews.updatedAt).fromNow()}
                 </span>
               </div>
-              <div className="blog_type">
+              <div className={styles.blog_type}>
                 <span>NEWS</span>
               </div>
             </a>
@@ -439,29 +468,31 @@ const Index = ({
         </div>
         {/**small screen card */
         /**ends here */}
-        <div className="small_screen_container">
+        <div className={styles.small_screen_container}>
           <Link href={`/reviews/${secondLatestReview.slug}`}>
             <a
               style={{
                 textDecoration: "none",
               }}
             >
-              <div className="overlay"></div>
+              <div className={styles.overlay}></div>
               <img
-                className="small_screen_img_wrapper"
+                className={styles.small_screen_img_wrapper}
                 src={`${API}/reviews/photo/${secondLatestReview.slug}`}
                 alt={secondLatestReview.title}
               />
-              <div className="news_title news_title_small_screen">
+              <div
+                className={`${styles.news_title} ${styles.news_title_small_screen}`}
+              >
                 <h1>{secondLatestReview.title}</h1>
               </div>
-              <div className="author">
+              <div className={styles.author}>
                 <span>
                   By {secondLatestReview.postedBy.username} |{" "}
                   {moment(secondLatestReview.updatedAt).fromNow()}
                 </span>
               </div>
-              <div className="blog_type">
+              <div className={styles.blog_type}>
                 <span>REVIEW</span>
               </div>
             </a>
@@ -469,30 +500,32 @@ const Index = ({
         </div>
         {/**small screen card */
         /**ends here */}
-        <div className="small_screen_container">
+        <div className={styles.small_screen_container}>
           <Link href={`/news/${secondLatestNews.slug}`}>
             <a
               style={{
                 textDecoration: "none",
               }}
             >
-              <div className="overlay"></div>
+              <div className={styles.overlay}></div>
               <img
-                className="small_screen_img_wrapper"
+                className={styles.small_screen_img_wrapper}
                 src={`${API}/news/photo/${secondLatestNews.slug}`}
                 alt={secondLatestNews.title}
               />
-              <div className="news_title news_title_small_screen">
+              <div
+                className={`${styles.news_title} ${styles.news_title_small_screen}`}
+              >
                 <h1>{secondLatestNews.title}</h1>
               </div>
-              <div className="author">
+              <div className={styles.author}>
                 <span>
                   {" "}
                   By {secondLatestNews.postedBy.username} |{" "}
                   {moment(secondLatestNews.updatedAt).fromNow()}
                 </span>
               </div>
-              <div className="blog_type">
+              <div className={styles.blog_type}>
                 <span>NEWS</span>
               </div>
             </a>
@@ -528,7 +561,7 @@ const Index = ({
     return (
       <div className="container" style={{ textAlign: "center", width: "100%" }}>
         {newsSize > 0 && newsSize >= limit && (
-          <div onClick={loadMore} className="load_more_button">
+          <div onClick={loadMore} className={styles.load_more_button}>
             Load more
           </div>
         )}
@@ -539,8 +572,8 @@ const Index = ({
   const showSideBarReviews = () => {
     return reviewListLatest.map((blog, i) => (
       <div key={i}>
-        <div key={i} className="review_container_middle">
-          <div className="image_review_middle">
+        <div key={i} className={styles.review_container_middle}>
+          <div className={styles.image_review_middle}>
             <Link href={`/reviews/${blog.slug}`}>
               <a style={{ textDecoration: "none", width: "100%" }}>
                 <img
@@ -552,10 +585,10 @@ const Index = ({
             </Link>
           </div>
           <div
-            className="content_review_middle"
+            className={styles.content_review_middle}
             style={{ display: "flex", flexDirection: "column" }}
           >
-            <div className="content_div_review_middle">
+            <div className={styles.content_div_review_middle}>
               <Link href={`/reviews/${blog.slug}`}>
                 <a style={{ textDecoration: "none", width: "100%" }}>
                   <h1>{blog.title}</h1>
@@ -563,7 +596,7 @@ const Index = ({
               </Link>
             </div>
 
-            <div className="author_div_review_middle">
+            <div className={styles.author_div_review_middle}>
               <span>
                 {" "}
                 {moment(blog.updatedAt).fromNow()} | by {blog.postedBy.username}
@@ -577,16 +610,16 @@ const Index = ({
 
   const showSideBarMobiles = () => {
     return mobileListLatest.map((m, i) => (
-      <div key={i}>
-        <div className="single__card__phone">
-          <div className="card__image__container__phone">
+      <React.Fragment key={i}>
+        <div className={styles.single__card__phone}>
+          <div className={styles.card__image__container__phone}>
             <Link href={`/phones/brand/${m.slug}`}>
               <a>
                 <img src={`${API}/mobile/photo/${m.slug}`} alt={`${m.title}`} />
               </a>
             </Link>
           </div>
-          <div className="card__content__phone">
+          <div className={styles.card__content__phone}>
             <Link href={`/phones/brand/${m.slug}`}>
               <a>
                 <h1>{m.title}</h1>
@@ -594,7 +627,7 @@ const Index = ({
             </Link>
           </div>
         </div>
-      </div>
+      </React.Fragment>
     ));
   };
 
@@ -612,24 +645,24 @@ const Index = ({
                 width: "100%",
               }}
             >
-              <div className="container_review_middle">
-                <div className="overlay"></div>
+              <div className={styles.container_review_middle}>
+                <div className={styles.overlay}></div>
                 <img
-                  className="img_wrapper"
+                  className={styles.img_wrapper}
                   src={`${API}/reviews/photo/${eightLatestReview.slug}`}
                   alt={eightLatestReview.title}
                 />
-                <div className="title_review_middle">
+                <div className={styles.title_review_middle}>
                   <h1>{eightLatestReview.title}</h1>
                 </div>
-                <div className="author">
+                <div className={styles.author}>
                   <span>
                     {" "}
                     By {eightLatestReview.postedBy.username} |{" "}
                     {moment(eightLatestReview.updatedAt).fromNow()}
                   </span>
                 </div>
-                <div className="blog_type">
+                <div className={styles.blog_type}>
                   <span>REVIEW</span>
                 </div>
               </div>
@@ -641,7 +674,9 @@ const Index = ({
           style={{ width: "100%", height: "100%" }}
         >
           <div className="col-md-6">{showReviewsInsideReviewBlockLeft()}</div>
-          <div className="col-md-6 display_none_review_middle_bottom">
+          <div
+            className={`col-md-6 ${styles.display_none_review_middle_bottom}`}
+          >
             {showReviewsInsideReviewBlockRight()}
           </div>
         </div>
@@ -652,8 +687,8 @@ const Index = ({
   const showReviewsInsideReviewBlockLeft = () => {
     return limitedReviewsSectionOne.map((blog, i) => (
       <div key={i}>
-        <div key={i} className="review_container_middle">
-          <div className="image_review_middle">
+        <div key={i} className={styles.review_container_middle}>
+          <div className={styles.image_review_middle}>
             <Link href={`/reviews/${blog.slug}`}>
               <a style={{ textDecoration: "none", width: "100%" }}>
                 <img
@@ -665,10 +700,10 @@ const Index = ({
             </Link>
           </div>
           <div
-            className="content_review_middle"
+            className={styles.content_review_middle}
             style={{ display: "flex", flexDirection: "column" }}
           >
-            <div className="content_div_review_middle">
+            <div className={styles.content_div_review_middle}>
               <Link href={`/reviews/${blog.slug}`}>
                 <a style={{ textDecoration: "none", width: "100%" }}>
                   <h1>{blog.title}</h1>
@@ -676,7 +711,7 @@ const Index = ({
               </Link>
             </div>
 
-            <div className="author_div_review_middle">
+            <div className={styles.author_div_review_middle}>
               <span>
                 {" "}
                 {moment(blog.updatedAt).fromNow()} | by {blog.postedBy.username}
@@ -691,8 +726,8 @@ const Index = ({
   const showReviewsInsideReviewBlockRight = () => {
     return limitedReviewsSectionTwo.map((blog, i) => (
       <div key={i}>
-        <div key={i} className="review_container_middle">
-          <div className="image_review_middle">
+        <div key={i} className={styles.review_container_middle}>
+          <div className={styles.image_review_middle}>
             <Link href={`/reviews/${blog.slug}`}>
               <a style={{ textDecoration: "none", width: "100%" }}>
                 <img
@@ -704,10 +739,10 @@ const Index = ({
             </Link>
           </div>
           <div
-            className="content_review_middle"
+            className={styles.content_review_middle}
             style={{ display: "flex", flexDirection: "column" }}
           >
-            <div className="content_div_review_middle">
+            <div className={styles.content_div_review_middle}>
               <Link href={`/reviews/${blog.slug}`}>
                 <a style={{ textDecoration: "none", width: "100%" }}>
                   <h1>{blog.title}</h1>
@@ -715,7 +750,7 @@ const Index = ({
               </Link>
             </div>
 
-            <div className="author_div_review_middle">
+            <div className={styles.author_div_review_middle}>
               <span>
                 {" "}
                 {moment(blog.updatedAt).fromNow()} | by {blog.postedBy.username}
@@ -730,8 +765,8 @@ const Index = ({
   const showNewsFirstSection = () => {
     return newsLimitFirstSection.map((blog, i) => (
       <div key={i}>
-        <div className="news__container">
-          <div className="image__news">
+        <div className={styles.news__container}>
+          <div className={styles.image__news}>
             <Link href={`/news/${blog.slug}`}>
               <a style={{ textDecoration: "none", width: "100%" }}>
                 <img
@@ -743,24 +778,24 @@ const Index = ({
             </Link>
           </div>
           <div
-            className="content__news"
+            className={styles.content__news}
             style={{ display: "flex", flexDirection: "column" }}
           >
-            <div className="content__div">
+            <div className={styles.content__div}>
               <Link href={`/news/${blog.slug}`}>
                 <a style={{ textDecoration: "none", width: "100%" }}>
                   <h1>{blog.title}</h1>
                 </a>
               </Link>
             </div>
-            <div className="excerpt_div">
+            <div className={styles.excerpt_div}>
               <Link href={`/news/${blog.slug}`}>
                 <a style={{ textDecoration: "none", width: "100%" }}>
                   {renderHTML(blog.excerpt)}
                 </a>
               </Link>
             </div>
-            <div className="author__div">
+            <div className={styles.author__div}>
               <span>
                 {moment(blog.updatedAt).fromNow()} | by {blog.postedBy.username}
               </span>
@@ -774,8 +809,8 @@ const Index = ({
   const showNewsSecondSection = () => {
     return newsLimitSecondSection.map((blog, i) => (
       <div key={i}>
-        <div key={i} className="news__container">
-          <div className="image__news">
+        <div key={i} className={styles.news__container}>
+          <div className={styles.image__news}>
             <Link href={`/news/${blog.slug}`}>
               <a style={{ textDecoration: "none", width: "100%" }}>
                 <img
@@ -787,24 +822,24 @@ const Index = ({
             </Link>
           </div>
           <div
-            className="content__news"
+            className={styles.content__news}
             style={{ display: "flex", flexDirection: "column" }}
           >
-            <div className="content__div">
+            <div className={styles.content__div}>
               <Link href={`/news/${blog.slug}`}>
                 <a style={{ textDecoration: "none", width: "100%" }}>
                   <h1>{blog.title}</h1>
                 </a>
               </Link>
             </div>
-            <div className="excerpt_div">
+            <div className={styles.excerpt_div}>
               <Link href={`/news/${blog.slug}`}>
                 <a style={{ textDecoration: "none", width: "100%" }}>
                   {renderHTML(blog.excerpt)}
                 </a>
               </Link>
             </div>
-            <div className="author__div">
+            <div className={styles.author__div}>
               <span>
                 {" "}
                 {moment(blog.updatedAt).fromNow()} | by {blog.postedBy.username}
@@ -819,8 +854,8 @@ const Index = ({
   const showNewsFinalSection = () => {
     return newsLimitFinalSection.map((blog, i) => (
       <div key={i}>
-        <div key={i} className="news__container">
-          <div className="image__news">
+        <div key={i} className={styles.news__container}>
+          <div className={styles.image__news}>
             <Link href={`/news/${blog.slug}`}>
               <a style={{ textDecoration: "none", width: "100%" }}>
                 <img
@@ -832,24 +867,24 @@ const Index = ({
             </Link>
           </div>
           <div
-            className="content__news"
+            className={styles.content__news}
             style={{ display: "flex", flexDirection: "column" }}
           >
-            <div className="content__div">
+            <div className={styles.content__div}>
               <Link href={`/news/${blog.slug}`}>
                 <a style={{ textDecoration: "none", width: "100%" }}>
                   <h1>{blog.title}</h1>
                 </a>
               </Link>
             </div>
-            <div className="excerpt_div">
+            <div className={styles.excerpt_div}>
               <Link href={`/news/${blog.slug}`}>
                 <a style={{ textDecoration: "none", width: "100%" }}>
                   {renderHTML(blog.excerpt)}
                 </a>
               </Link>
             </div>
-            <div className="author__div">
+            <div className={styles.author__div}>
               <span>
                 {" "}
                 {moment(blog.updatedAt).fromNow()} | by {blog.postedBy.username}
@@ -864,8 +899,8 @@ const Index = ({
   const showNewsFinalSectionLoadedNews = () => {
     return loadedNews.map((blog, i) => (
       <div key={i}>
-        <div key={i} className="news__container">
-          <div className="image__news">
+        <div key={i} className={styles.news__container}>
+          <div className={styles.image__news}>
             <Link href={`/news/${blog.slug}`}>
               <a style={{ textDecoration: "none", width: "100%" }}>
                 <img
@@ -877,24 +912,24 @@ const Index = ({
             </Link>
           </div>
           <div
-            className="content__news"
+            className={styles.content__news}
             style={{ display: "flex", flexDirection: "column" }}
           >
-            <div className="content__div">
+            <div className={styles.content__div}>
               <Link href={`/news/${blog.slug}`}>
                 <a style={{ textDecoration: "none", width: "100%" }}>
                   <h1>{blog.title}</h1>
                 </a>
               </Link>
             </div>
-            <div className="excerpt_div">
+            <div className={styles.excerpt_div}>
               <Link href={`/news/${blog.slug}`}>
                 <a style={{ textDecoration: "none", width: "100%" }}>
                   {renderHTML(blog.excerpt)}
                 </a>
               </Link>
             </div>
-            <div className="author__div">
+            <div className={styles.author__div}>
               <span>
                 {" "}
                 {moment(blog.updatedAt).fromNow()} | by {blog.postedBy.username}
@@ -910,17 +945,17 @@ const Index = ({
     <Layout>
       <div>
         <div>{head()}</div>
-        <div className="large_screen_featuring">
+        <div className={styles.large_screen_featuring}>
           {latestNews && latestReview && secondLatestReview && secondLatestNews
             ? showHighlight()
             : ""}
         </div>
-        <div className="medium_screen_featuring">
+        <div className={styles.medium_screen_featuring}>
           {latestNews && latestReview && secondLatestNews
             ? showHighlightMediumScreen()
             : ""}
         </div>
-        <div className="small_screen_featuring">
+        <div className={styles.small_screen_featuring}>
           {latestNews && latestReview && secondLatestReview && secondLatestNews
             ? smallScreenHighlight()
             : ""}
@@ -963,7 +998,7 @@ const Index = ({
                         <div style={{ width: "100%", paddingTop: 0 }}>
                           <hr
                             style={{ marginTop: "6px" }}
-                            className="hrText"
+                            className={styles.hrText}
                             data-content="reviews"
                           />
                         </div>
@@ -985,13 +1020,13 @@ const Index = ({
                         <div style={{ width: "100%", paddingTop: 0 }}>
                           <hr
                             style={{ marginTop: "6px" }}
-                            className="hrText"
+                            className={styles.hrText}
                             data-content="more news"
                           />
                         </div>
                       </div>
                       {showNewsSecondSection()}
-                      <div className="display_none_more_news_main_block">
+                      <div className={styles.display_none_more_news_main_block}>
                         {showNewsFinalSection()}
                         {loadedNews ? (
                           showNewsFinalSectionLoadedNews()
@@ -1006,11 +1041,13 @@ const Index = ({
               </div>
             </div>
 
-            <div className="col-lg-4 side__bar__single__brand__main">
+            <div
+              className={`col-lg-4 ${styles.side__bar__single__brand__main}`}
+            >
               {mobileListLatest ? (
-                <div>
+                <React.Fragment>
                   <div
-                    className="row mr-0 side__bar__single__brand"
+                    className={`row mr-0 ${styles.side__bar__single__brand}`}
                     style={{
                       backgroundColor: "#fff",
                       boxShadow: "0px 0px 1px rgba(0,0,0,0.5)",
@@ -1032,7 +1069,7 @@ const Index = ({
                       <div style={{ width: "100%", paddingTop: 0 }}>
                         <hr
                           style={{ marginTop: "6px" }}
-                          className="hrText"
+                          className={styles.hrText}
                           data-content="latest phones"
                         />
                       </div>
@@ -1044,7 +1081,9 @@ const Index = ({
                         paddingLeft: "12px",
                       }}
                     >
-                      <div className="cards__phone box__sizing__phone side__bar__phones">
+                      <div
+                        className={`${styles.cards__phone} ${styles.box__sizing__phone} ${styles.side__bar__phones}`}
+                      >
                         {showSideBarMobiles()}
                       </div>
                       <div
@@ -1096,7 +1135,7 @@ const Index = ({
                       </div>
                     </div>
                   </div>
-                </div>
+                </React.Fragment>
               ) : (
                 ""
               )}
@@ -1104,7 +1143,7 @@ const Index = ({
               {reviewListPublic ? (
                 <div>
                   <div
-                    className="row mr-0 mt-2 side__bar__single__brand display_none_side_bar_review"
+                    className={`row mr-0 mt-2 ${styles.side__bar__single__brand} ${styles.display_none_side_bar_review}`}
                     style={{
                       backgroundColor: "#fff",
                       boxShadow: "0px 0px 1px rgba(0,0,0,0.5)",
@@ -1125,7 +1164,7 @@ const Index = ({
                       <div style={{ width: "100%", paddingTop: 0 }}>
                         <hr
                           style={{ marginTop: "6px" }}
-                          className="hrText"
+                          className={styles.hrText}
                           data-content="latest reviews"
                         />
                       </div>
@@ -1197,7 +1236,9 @@ const Index = ({
 
           {newsLimitFinalSection ? (
             <div>
-              <div className="row ml-0 mr-0 mt-2 display_none_more_news_small_screen">
+              <div
+                className={`row ml-0 mr-0 mt-2 ${styles.display_none_more_news_small_screen}`}
+              >
                 <div className="col-lg-8">
                   <div className="row">
                     <div className="col-md-12">
@@ -1225,7 +1266,7 @@ const Index = ({
                             <div style={{ width: "100%", paddingTop: 0 }}>
                               <hr
                                 style={{ marginTop: "6px" }}
-                                className="hrText"
+                                className={styles.hrText}
                                 data-content="more news"
                               />
                             </div>

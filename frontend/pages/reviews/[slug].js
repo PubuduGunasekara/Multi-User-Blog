@@ -18,6 +18,8 @@ import { FaNewspaper } from "react-icons/fa";
 import { FiSmartphone } from "react-icons/fi";
 import renderHTML from "react-render-html";
 import { FacebookProvider, Comments, CommentsCount } from "react-facebook";
+import React from "react";
+import styles from "../../styles/reviewFrontEndSingle.module.css";
 
 /**
  * completed!
@@ -43,7 +45,6 @@ const SingleBlogReview = ({ blog, reviews, mobiles, newsStories }) => {
 
   const head = () => (
     <Head>
-      <link rel="stylesheet" href="/static/css/reviewFrontEndSingle.css" />
       <title>{`${blog.title} - ${APP_NAME}`}</title>
       <meta name="description" content={`${blog.mdesc}`} />
       <link rel="canonical" href={`${DOMAIN}/reviews/${blog.slug}`} />
@@ -56,12 +57,12 @@ const SingleBlogReview = ({ blog, reviews, mobiles, newsStories }) => {
       <meta
         alt="Photo by sam loyd on Unsplash"
         property="og:image"
-        content={`${DOMAIN}/static/images/sam-loyd-single-brand-cover-page.jpg`}
+        content={`/static/images/sam-loyd-single-brand-cover-page.jpg`}
       />
       <meta
         alt="Photo by sam loyd on Unsplash"
         property="og:image:secure_url"
-        content={`${DOMAIN}/static/images/sam-loyd-single-brand-cover-page.jpg`}
+        content={`/static/images/sam-loyd-single-brand-cover-page.jpg`}
       />
       <meta property="og:image:type" content="image/jpg" />
       <meta property="fb:app_id" content={`${FB_APP_ID}`} />
@@ -71,8 +72,8 @@ const SingleBlogReview = ({ blog, reviews, mobiles, newsStories }) => {
   const showSideBarReviews = () => {
     return reviews.map((blog, i) => (
       <React.Fragment key={i}>
-        <div key={i} className="sidebar_review_container">
-          <div className="image_review">
+        <div key={i} className={styles.sidebar_review_container}>
+          <div className={styles.image_review}>
             <Link href={`/reviews/${blog.slug}`}>
               <a style={{ textDecoration: "none", width: "100%" }}>
                 <img
@@ -84,10 +85,10 @@ const SingleBlogReview = ({ blog, reviews, mobiles, newsStories }) => {
             </Link>
           </div>
           <div
-            className="content_review"
+            className={styles.content_review}
             style={{ display: "flex", flexDirection: "column" }}
           >
-            <div className="content_div_review">
+            <div className={styles.content_div_review}>
               <Link href={`/reviews/${blog.slug}`}>
                 <a style={{ textDecoration: "none", width: "100%" }}>
                   <h1>{blog.title}</h1>
@@ -95,7 +96,7 @@ const SingleBlogReview = ({ blog, reviews, mobiles, newsStories }) => {
               </Link>
             </div>
 
-            <div className="author_div_review">
+            <div className={styles.author_div_review}>
               <span>
                 {moment(blog.updatedAt).fromNow()} | by {blog.postedBy.username}
               </span>
@@ -109,15 +110,15 @@ const SingleBlogReview = ({ blog, reviews, mobiles, newsStories }) => {
   const showSideBarMobiles = () => {
     return mobiles.map((m, i) => (
       <React.Fragment key={i}>
-        <div className="single__card__phone">
-          <div className="card__image__container__phone">
+        <div className={styles.single__card__phone}>
+          <div className={styles.card__image__container__phone}>
             <Link href={`/phones/brand/${m.slug}`}>
               <a>
                 <img src={`${API}/mobile/photo/${m.slug}`} alt={`${m.title}`} />
               </a>
             </Link>
           </div>
-          <div className="card__content__phone">
+          <div className={styles.card__content__phone}>
             <Link href={`/phones/brand/${m.slug}`}>
               <a>
                 <h1>{m.title}</h1>
@@ -209,8 +210,8 @@ const SingleBlogReview = ({ blog, reviews, mobiles, newsStories }) => {
   const showNewsStories = () => {
     return currentPost.map((blog, i) => (
       <React.Fragment key={i}>
-        <div key={i} className="news__container">
-          <div className="image__news">
+        <div key={i} className={styles.news__container}>
+          <div className={styles.image__news}>
             <Link href={`/news/${blog.slug}`}>
               <a style={{ textDecoration: "none", width: "100%" }}>
                 <img
@@ -222,24 +223,24 @@ const SingleBlogReview = ({ blog, reviews, mobiles, newsStories }) => {
             </Link>
           </div>
           <div
-            className="content__news"
+            className={styles.content__news}
             style={{ display: "flex", flexDirection: "column" }}
           >
-            <div className="content__div">
+            <div className={styles.content__div}>
               <Link href={`/news/${blog.slug}`}>
                 <a style={{ textDecoration: "none", width: "100%" }}>
                   <h1>{blog.title}</h1>
                 </a>
               </Link>
             </div>
-            <div className="excerpt_div">
+            <div className={styles.excerpt_div}>
               <Link href={`/news/${blog.slug}`}>
                 <a style={{ textDecoration: "none", width: "100%" }}>
                   {renderHTML(blog.excerpt)}
                 </a>
               </Link>
             </div>
-            <div className="author__div">
+            <div className={styles.author__div}>
               <span>
                 {moment(blog.updatedAt).fromNow()} | by {blog.postedBy.username}
               </span>
@@ -255,7 +256,7 @@ const SingleBlogReview = ({ blog, reviews, mobiles, newsStories }) => {
       return (
         <React.Fragment key={i}>
           <Link href={`/tag/${t.slug}`}>
-            <a className="btn sub__tab__style">{t.name}</a>
+            <a className={`btn ${styles.sub__tab__style}`}>{t.name}</a>
           </Link>
         </React.Fragment>
       );
@@ -308,9 +309,13 @@ const SingleBlogReview = ({ blog, reviews, mobiles, newsStories }) => {
                       }}
                     >
                       <div>
-                        <h1 className="main__div__main__topic">{blog.title}</h1>
+                        <h1 className={styles.main__div__main__topic}>
+                          {blog.title}
+                        </h1>
                       </div>
-                      <div className="tag__container">{showTags(blog)}</div>
+                      <div className={styles.tag__container}>
+                        {showTags(blog)}
+                      </div>
                       <hr style={{ width: "100%" }} />
                       <div
                         style={{
@@ -324,10 +329,10 @@ const SingleBlogReview = ({ blog, reviews, mobiles, newsStories }) => {
                           <img
                             src={`${API}/user/photo/${blog.postedBy.username}`}
                             alt="Avatar"
-                            className="avatar"
+                            className={styles.avatar}
                           />
                         </div>
-                        <div className="author__name">
+                        <div className={styles.author__name}>
                           <span>
                             <Link href={`/profile/${blog.postedBy.username}`}>
                               <a> {blog.postedBy.username} </a>
@@ -347,11 +352,14 @@ const SingleBlogReview = ({ blog, reviews, mobiles, newsStories }) => {
                       <div style={{ width: "100%" }}>
                         {showReview(blog.body)}
                       </div>
-                      <hr className="disappear" style={{ width: "100%" }} />
+                      <hr
+                        className={styles.disappear}
+                        style={{ width: "100%" }}
+                      />
 
-                      <div className="comment__width">
+                      <div className={styles.comment__width}>
                         <div
-                          className="col-md-12 disappear"
+                          className={`col-md-12 ${styles.disappear}`}
                           style={{
                             display: "flex",
                             flexDirection: "row",
@@ -377,7 +385,7 @@ const SingleBlogReview = ({ blog, reviews, mobiles, newsStories }) => {
                           </div>
                         </div>
                         <div
-                          className="comments disappear"
+                          className={`${styles.comments} ${styles.disappear}`}
                           style={{ overflowX: "hidden" }}
                         >
                           {showComments()}
@@ -388,9 +396,9 @@ const SingleBlogReview = ({ blog, reviews, mobiles, newsStories }) => {
                 </div>
               </div>
 
-              <div className="row side__bar__riverse">
+              <div className={`row ${styles.side__bar__riverse}`}>
                 <div
-                  className="row mr-0 side__bar__single__brand"
+                  className={`row mr-0 ${styles.side__bar__single__brand}`}
                   style={{
                     backgroundColor: "white",
                     boxShadow: "0px 0px 1px rgba(0,0,0,0.5)",
@@ -414,7 +422,7 @@ const SingleBlogReview = ({ blog, reviews, mobiles, newsStories }) => {
                     <div style={{ width: "100%", paddingTop: 0 }}>
                       <hr
                         style={{ marginTop: "6px" }}
-                        className="hrText"
+                        className={styles.hrText}
                         data-content="related phones"
                       />
                     </div>
@@ -427,7 +435,9 @@ const SingleBlogReview = ({ blog, reviews, mobiles, newsStories }) => {
                       width: "100%",
                     }}
                   >
-                    <div className="cards__phone box__sizing__phone side__bar__phones">
+                    <div
+                      className={`${styles.cards__phone} ${styles.box__sizing__phone} ${styles.side__bar__phones}`}
+                    >
                       {showSideBarMobiles()}
                     </div>
                     <div
@@ -481,7 +491,7 @@ const SingleBlogReview = ({ blog, reviews, mobiles, newsStories }) => {
                 </div>
 
                 <div
-                  className="row mr-0 side__bar__single__brand"
+                  className={`row mr-0 ${styles.side__bar__single__brand}`}
                   style={{
                     backgroundColor: "white",
                     boxShadow: "0px 0px 1px rgba(0,0,0,0.5)",
@@ -502,7 +512,7 @@ const SingleBlogReview = ({ blog, reviews, mobiles, newsStories }) => {
                     <div style={{ width: "100%", paddingTop: 0 }}>
                       <hr
                         style={{ marginTop: "6px" }}
-                        className="hrText"
+                        className={styles.hrText}
                         data-content="related reviews"
                       />
                     </div>
@@ -567,7 +577,9 @@ const SingleBlogReview = ({ blog, reviews, mobiles, newsStories }) => {
                 </div>
               </div>
 
-              <div className="row mt-2 add__margin__in__small__divices">
+              <div
+                className={`row mt-2 ${styles.add__margin__in__small__divices}`}
+              >
                 <div className="col-md-12">
                   <div
                     className="row"
@@ -591,7 +603,7 @@ const SingleBlogReview = ({ blog, reviews, mobiles, newsStories }) => {
                       <div style={{ width: "100%", paddingTop: 0 }}>
                         <hr
                           style={{ marginTop: "7px" }}
-                          className="hrText"
+                          className={styles.hrText}
                           data-content="Top stories"
                         />
                       </div>
@@ -613,9 +625,11 @@ const SingleBlogReview = ({ blog, reviews, mobiles, newsStories }) => {
               </div>
             </div>
 
-            <div className="col-lg-4 side__bar__single__brand__main side__bar__riverse__display__none">
+            <div
+              className={`col-lg-4 ${styles.side__bar__single__brand__main} ${styles.side__bar__riverse__display__none}`}
+            >
               <div
-                className="row mr-0 side__bar__single__brand"
+                className={`row mr-0 ${styles.side__bar__single__brand}`}
                 style={{
                   backgroundColor: "white",
                   boxShadow: "0px 0px 1px rgba(0,0,0,0.5)",
@@ -638,7 +652,7 @@ const SingleBlogReview = ({ blog, reviews, mobiles, newsStories }) => {
                   <div style={{ width: "100%", paddingTop: 0 }}>
                     <hr
                       style={{ marginTop: "6px" }}
-                      className="hrText"
+                      className={styles.hrText}
                       data-content="related phones"
                     />
                   </div>
@@ -650,7 +664,9 @@ const SingleBlogReview = ({ blog, reviews, mobiles, newsStories }) => {
                     paddingLeft: "12px",
                   }}
                 >
-                  <div className="cards__phone box__sizing__phone side__bar__phones">
+                  <div
+                    className={`${styles.cards__phone} ${styles.box__sizing__phone} ${styles.side__bar__phones}`}
+                  >
                     {showSideBarMobiles()}
                   </div>
                   <div
@@ -704,7 +720,7 @@ const SingleBlogReview = ({ blog, reviews, mobiles, newsStories }) => {
               </div>
 
               <div
-                className="row mr-0 side__bar__single__brand"
+                className={`row mr-0 ${styles.side__bar__single__brand}`}
                 style={{
                   backgroundColor: "white",
                   boxShadow: "0px 0px 1px rgba(0,0,0,0.5)",
@@ -725,7 +741,7 @@ const SingleBlogReview = ({ blog, reviews, mobiles, newsStories }) => {
                   <div style={{ width: "100%", paddingTop: 0 }}>
                     <hr
                       style={{ marginTop: "6px" }}
-                      className="hrText"
+                      className={styles.hrText}
                       data-content="related reviews"
                     />
                   </div>

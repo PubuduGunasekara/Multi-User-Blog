@@ -461,7 +461,7 @@
   margin-top: 16px;
   margin-bottom: 16px;
 }
-.featured__display-controller {
+.featured__display_controller {
   width: 100%;
   height: 280px !important;
   margin-top: 16px !important;
@@ -480,7 +480,7 @@
 }
 
 @media (max-width: 767px) {
-  .featured__display-controller {
+  .featured__display_controller {
     margin-bottom: 16px;
   }
   .first__row {
@@ -502,7 +502,7 @@
   .main__div__main__topic {
     font-size: 28px !important;
   }
-  .featured__display-controller {
+  .featured__display_controller {
     height: auto !important;
     margin-bottom: 6px !important;
   }
@@ -536,7 +536,7 @@
     margin-left: auto;
     margin-right: auto;
   }
-  .featured__display-controller {
+  .featured__display_controller {
     margin-top: 0 !important;
   }
 

@@ -1,9 +1,10 @@
 import Head from "next/head";
 import Link from "next/link";
-import { withRouter } from "next/router";
+import DefaultErrorPage from "next/error";
+import { useRouter } from "next/router";
 import Layout from "../../../components/Layout";
-import { useState, useEffect } from "react";
 import {
+  mobileListPublic,
   singleMobile,
   listRelatedReviews,
   listRelatedNews,
@@ -32,48 +33,32 @@ import {
   AiOutlineColumnWidth,
   AiOutlineMobile,
 } from "react-icons/ai";
+import styles from "../../../styles/singlemobile.module.css";
+import React from "react";
 
 /**
  * completed!
  */
-const SingleBlog = ({ blog }) => {
-  const [related, setRelated] = useState([]);
-  const [relatedNews, setRelatedNews] = useState([]);
-  const [relatedReviews, setRelatedReviews] = useState([]);
+const SingleBlog = ({ blog, related, relatedNews, relatedReviews }) => {
+  const router = useRouter();
 
-  const loadRelated = () => {
-    listRelated({ blog }).then((data) => {
-      if (data.error) {
-        console.log(data.error);
-      } else {
-        setRelated(data);
-      }
-    });
-
-    listRelatedNews({ blog }).then((data) => {
-      if (data.error) {
-        console.log(data.error);
-      } else {
-        setRelatedNews(data);
-      }
-    });
-
-    listRelatedReviews({ blog }).then((data) => {
-      if (data.error) {
-        console.log(data.error);
-      } else {
-        setRelatedReviews(data);
-      }
-    });
-  };
-
-  useEffect(() => {
-    loadRelated();
-  }, []);
-
+  // If the page is not yet generated, this will be displayed
+  // initially until getStaticProps() finishes running
+  if (router.isFallback) {
+    return <div>Loading...</div>;
+  }
+  if (!blog) {
+    return (
+      <React.Fragment>
+        <Head>
+          <meta name="robots" content="noindex" />
+        </Head>
+        <DefaultErrorPage statusCode={404} />
+      </React.Fragment>
+    );
+  }
   const head = () => (
     <Head>
-      <link rel="stylesheet" href="/static/css/singlemobile.css" />
       <title>
         {blog.title} - Full Phone Specs | {`${APP_NAME}`}
       </title>
@@ -100,13 +85,13 @@ const SingleBlog = ({ blog }) => {
   const showRelatedBlogs = () => {
     return (
       <div
-        className="col-lg-12 cards__phone box__sizing__phone side__bar__phones pb-1"
+        className={`col-lg-12 ${styles.cards__phone} ${styles.box__sizing__phone} ${styles.side__bar__phones} pb-1`}
         style={{ marginTop: "15px" }}
       >
         {related.map((m, i) => (
           <React.Fragment key={i}>
-            <div className="single__card__phone">
-              <div className="card__image__container__phone">
+            <div className={styles.single__card__phone}>
+              <div className={styles.card__image__container__phone}>
                 <Link href={`/phones/brand/${m.slug}`}>
                   <a>
                     <img
@@ -116,7 +101,7 @@ const SingleBlog = ({ blog }) => {
                   </a>
                 </Link>
               </div>
-              <div className="card__content__phone">
+              <div className={styles.card__content__phone}>
                 <Link href={`/phones/brand/${m.slug}`}>
                   <a>
                     <h1>{m.title}</h1>
@@ -133,8 +118,8 @@ const SingleBlog = ({ blog }) => {
   const showSideBarNews = () => {
     return relatedNews.map((blog, i) => (
       <React.Fragment key={i}>
-        <div key={i} className="sidebar_news_container">
-          <div className="image_news">
+        <div key={i} className={styles.sidebar_news_container}>
+          <div className={styles.image_news}>
             <Link href={`/news/${blog.slug}`}>
               <a style={{ textDecoration: "none", width: "100%" }}>
                 <img
@@ -146,10 +131,10 @@ const SingleBlog = ({ blog }) => {
             </Link>
           </div>
           <div
-            className="content_news"
+            className={styles.content_news}
             style={{ display: "flex", flexDirection: "column" }}
           >
-            <div className="content_div_news">
+            <div className={styles.content_div_news}>
               <Link href={`/news/${blog.slug}`}>
                 <a style={{ textDecoration: "none", width: "100%" }}>
                   <h1>{blog.title}</h1>
@@ -157,7 +142,7 @@ const SingleBlog = ({ blog }) => {
               </Link>
             </div>
 
-            <div className="author_div_news">
+            <div className={styles.author_div_news}>
               <span>
                 {moment(blog.updatedAt).fromNow()} | by {blog.postedBy.username}
               </span>
@@ -171,8 +156,8 @@ const SingleBlog = ({ blog }) => {
   const showSideBarReviews = () => {
     return relatedReviews.map((blog, i) => (
       <React.Fragment key={i}>
-        <div key={i} className="sidebar_news_container">
-          <div className="image_news">
+        <div key={i} className={styles.sidebar_news_container}>
+          <div className={styles.image_news}>
             <Link href={`/reviews/${blog.slug}`}>
               <a style={{ textDecoration: "none", width: "100%" }}>
                 <img
@@ -184,10 +169,10 @@ const SingleBlog = ({ blog }) => {
             </Link>
           </div>
           <div
-            className="content_news"
+            className={styles.content_news}
             style={{ display: "flex", flexDirection: "column" }}
           >
-            <div className="content_div_news">
+            <div className={styles.content_div_news}>
               <Link href={`/reviews/${blog.slug}`}>
                 <a style={{ textDecoration: "none", width: "100%" }}>
                   <h1>{blog.title}</h1>
@@ -195,7 +180,7 @@ const SingleBlog = ({ blog }) => {
               </Link>
             </div>
 
-            <div className="author_div_news">
+            <div className={styles.author_div_news}>
               <span>
                 {moment(blog.updatedAt).fromNow()} | by {blog.postedBy.username}
               </span>
@@ -792,30 +777,37 @@ const SingleBlog = ({ blog }) => {
     <React.Fragment>
       {head()}
       <Layout>
-        <div className="container mt-5 mb-5 pl-0 pr-0 set__container__margin">
+        <div
+          className={`container mt-5 mb-5 pl-0 pr-0 ${styles.set__container__margin}`}
+        >
           <div className="row ml-0 mr-0">
             <div className="col-lg-8 pl-0 pr-0">
               <div
-                className="row main__div ml-0 mr-0"
+                className={`${styles.main__div} row ml-0 mr-0`}
                 style={{
                   backgroundColor: "white",
                   boxShadow: "0px 0px 1px rgba(0,0,0,0.5)",
                 }}
               >
-                <h1 title="Smartphone Name" className="main__div__main__topic">
+                <h1
+                  title="Smartphone Name"
+                  className={styles.main__div__main__topic}
+                >
                   {blog.title}
                 </h1>
                 <div className="col-md-12">
                   <div className="row">
                     <img
                       src={`${API}/mobile/photo/${blog.slug}`}
-                      className="img img-fluid col-md-4 main__div__main_img"
+                      className={`img img-fluid col-md-4 ${styles.main__div__main_img}`}
                       alt={blog.title}
                       title="Phone Image"
                     />
-                    <div className="col-md-8 featured__display-controller">
+                    <div
+                      className={`col-md-8 ${styles.featured__display_controller}`}
+                    >
                       <div
-                        className="row first__row row__flex__control"
+                        className={`row ${styles.row__flex__control} ${styles.first__row}`}
                         style={{
                           display: "flex",
                           flexDirection: "row",
@@ -824,12 +816,12 @@ const SingleBlog = ({ blog }) => {
                         }}
                       >
                         <div
-                          className="row__item row__item__first__left"
+                          className={`${styles.row__item} ${styles.row__item__first__left}`}
                           style={{ width: "50%", overflow: "auto" }}
                         >
                           <div
                             title="Display highlights"
-                            className="featured__display"
+                            className={styles.featured__display}
                             style={{ display: "flex", flexDirection: "row" }}
                           >
                             <div style={{ margin: "10px" }}>
@@ -849,12 +841,12 @@ const SingleBlog = ({ blog }) => {
                           </div>
                         </div>
                         <div
-                          className="row__item row__item__first__right"
+                          className={`${styles.row__item} ${styles.row__item__first__right}`}
                           style={{ width: "50%", overflow: "auto" }}
                         >
                           <div
                             title="Battery highlights"
-                            className="featured__display"
+                            className={styles.featured__display}
                             style={{ display: "flex", flexDirection: "row" }}
                           >
                             <div style={{ margin: "10px" }}>
@@ -876,7 +868,7 @@ const SingleBlog = ({ blog }) => {
                       </div>
 
                       <div
-                        className="row row__flex__control second__row"
+                        className={`row ${styles.row__flex__control} ${styles.second__row}`}
                         style={{
                           display: "flex",
                           flexDirection: "row",
@@ -885,12 +877,12 @@ const SingleBlog = ({ blog }) => {
                         }}
                       >
                         <div
-                          className="row__item row__item__second__left"
+                          className={`${styles.row__item} ${styles.row__item__second__left}`}
                           style={{ width: "50%", overflow: "auto" }}
                         >
                           <div
                             title="Storage highlights"
-                            className="featured__display"
+                            className={styles.featured__display}
                             style={{ display: "flex", flexDirection: "row" }}
                           >
                             <div style={{ margin: "10px" }}>
@@ -910,12 +902,12 @@ const SingleBlog = ({ blog }) => {
                           </div>
                         </div>
                         <div
-                          className="row__item row__item__second__right"
+                          className={`${styles.row__item} ${styles.row__item__second__right}`}
                           style={{ width: "50%", overflow: "auto" }}
                         >
                           <div
                             title="Camera highlights"
-                            className="featured__display"
+                            className={styles.featured__display}
                             style={{ display: "flex", flexDirection: "row" }}
                           >
                             <div style={{ margin: "10px" }}>
@@ -937,7 +929,7 @@ const SingleBlog = ({ blog }) => {
                       </div>
 
                       <div
-                        className="row row__flex__control third__row"
+                        className={`row ${styles.row__flex__control} ${styles.third__row}`}
                         style={{
                           display: "flex",
                           flexDirection: "row",
@@ -946,12 +938,12 @@ const SingleBlog = ({ blog }) => {
                         }}
                       >
                         <div
-                          className="row__item row__item__third__left"
+                          className={`${styles.row__item__third__left} ${styles.row__item}`}
                           style={{ width: "50%", overflow: "auto" }}
                         >
                           <div
                             title="Operating System highlights"
-                            className="featured__display"
+                            className={styles.featured__display}
                             style={{ display: "flex", flexDirection: "row" }}
                           >
                             <div style={{ margin: "10px" }}>
@@ -971,12 +963,12 @@ const SingleBlog = ({ blog }) => {
                           </div>
                         </div>
                         <div
-                          className="row__item row__item__third__right"
+                          className={`${styles.row__item} ${styles.row__item__third__right}`}
                           style={{ width: "50%", overflow: "auto" }}
                         >
                           <div
                             title="Chipset highlights"
-                            className="featured__display"
+                            className={styles.featured__display}
                             style={{ display: "flex", flexDirection: "row" }}
                           >
                             <div style={{ margin: "10px" }}>
@@ -1146,9 +1138,11 @@ const SingleBlog = ({ blog }) => {
               </div>
             </div>
 
-            <div className="col-lg-4 side__bar__single__brand__main">
+            <div
+              className={`col-lg-4  ${styles.side__bar__single__brand__main}`}
+            >
               <div
-                className="row mr-0 side__bar__single__brand"
+                className={`row mr-0 ${styles.side__bar__single__brand}`}
                 style={{
                   backgroundColor: "white",
                   boxShadow: "0px 0px 1px rgba(0,0,0,0.5)",
@@ -1171,7 +1165,7 @@ const SingleBlog = ({ blog }) => {
                   <div style={{ width: "100%", paddingTop: 0 }}>
                     <hr
                       style={{ marginTop: "6px" }}
-                      className="hrText"
+                      className={styles.hrText}
                       data-content="related reviews"
                     />
                   </div>
@@ -1234,7 +1228,7 @@ const SingleBlog = ({ blog }) => {
                 </div>
               </div>
               <div
-                className="row mr-0 side__bar__single__brand"
+                className={`row mr-0 ${styles.side__bar__single__brand}`}
                 style={{
                   backgroundColor: "white",
                   boxShadow: "0px 0px 1px rgba(0,0,0,0.5)",
@@ -1256,7 +1250,7 @@ const SingleBlog = ({ blog }) => {
                   <div style={{ width: "100%", paddingTop: 0 }}>
                     <hr
                       style={{ marginTop: "6px" }}
-                      className="hrText"
+                      className={styles.hrText}
                       data-content="related news"
                     />
                   </div>
@@ -1325,15 +1319,71 @@ const SingleBlog = ({ blog }) => {
     </React.Fragment>
   );
 };
-//this method exectes at the server side. query is same as the router . in server side slugcan be access thruogh query, in client side it can be access through router use JSON.stringify()
-SingleBlog.getInitialProps = ({ query }) => {
-  return singleMobile(query.slug).then((data) => {
+
+export async function getStaticPaths() {
+  const list = await mobileListPublic().then((data) => {
     if (data.error) {
       console.log(data.error);
     } else {
-      return { blog: data, query };
+      return data;
     }
   });
-};
 
-export default withRouter(SingleBlog);
+  const paths = list.map((post) => ({
+    params: { slug: post.slug },
+  }));
+
+  return {
+    paths,
+    fallback: true, // See the "fallback" section below
+  };
+}
+
+// This also gets called at build time
+export async function getStaticProps({ params }) {
+  const blog = await singleMobile(params.slug).then((data) => {
+    if (data.error) {
+      console.log(data.error);
+    } else {
+      return data;
+    }
+  });
+
+  const related = await listRelated({ blog }).then((data) => {
+    if (data.error) {
+      console.log(data.error);
+    } else {
+      return data;
+    }
+  });
+
+  const relatedNews = await listRelatedNews({ blog }).then((data) => {
+    if (data.error) {
+      console.log(data.error);
+    } else {
+      return data;
+    }
+  });
+
+  const relatedReviews = await listRelatedReviews({ blog }).then((data) => {
+    if (data.error) {
+      console.log(data.error);
+    } else {
+      return data;
+    }
+  });
+
+  return {
+    props: {
+      blog,
+      related,
+      relatedNews,
+      relatedReviews,
+    },
+    // Re-generate the post at most once per second
+    // if a request comes in
+    revalidate: 1,
+  };
+}
+
+export default SingleBlog;

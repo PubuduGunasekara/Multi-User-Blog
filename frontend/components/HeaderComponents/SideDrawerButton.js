@@ -1,6 +1,6 @@
-import { DOMAIN } from "../../config";
 import { FiSearch } from "react-icons/fi";
 import { MdClose } from "react-icons/md";
+import styles from "../../styles/Header.module.css";
 
 /**
  * completed!
@@ -9,10 +9,10 @@ import { MdClose } from "react-icons/md";
 const drawerToggleButton = (props) => {
   return (
     <div>
-      <div className="toggle-button__with-search">
+      <div className={styles.toggle_button__with_search}>
         {props.close ? (
           <div
-            className="toggle-button__with-search_icons"
+            className={styles.toggle_button__with_search_icons}
             onClick={props.closeFunction}
             title="cancel"
           >
@@ -20,7 +20,7 @@ const drawerToggleButton = (props) => {
           </div>
         ) : (
           <div
-            className="toggle-button__with-search_icons"
+            className={styles.toggle_button__with_search_icons}
             onClick={props.mobile}
             title="search techbot.com"
           >
@@ -30,12 +30,12 @@ const drawerToggleButton = (props) => {
 
         <button
           title="Menu Toggle Button"
-          className="toggle-button"
+          className={styles.toggle_button}
           onClick={props.click}
         >
-          <div className="toggle-botton__line" />
-          <div className="toggle-botton__line" />
-          <div className="toggle-botton__line" />
+          <div className={styles.toggle_botton__line} />
+          <div className={styles.toggle_botton__line} />
+          <div className={styles.toggle_botton__line} />
         </button>
       </div>
     </div>

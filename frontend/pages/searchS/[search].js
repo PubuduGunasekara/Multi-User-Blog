@@ -11,6 +11,8 @@ import moment from "moment";
 import { FiSmartphone } from "react-icons/fi";
 import { MdRateReview, MdNavigateNext } from "react-icons/md";
 import { FaNewspaper } from "react-icons/fa";
+import styles from "../../styles/mobileSearch.module.css";
+import React from "react";
 
 const SearchComponent = ({ router }) => {
   const [valuesNews, setValuesNews] = useState({
@@ -188,7 +190,6 @@ const SearchComponent = ({ router }) => {
     <React.Fragment>
       <div>
         <Head>
-          <link rel="stylesheet" href="/static/css/mobileSearch.css" />
           <title>Search Results Page - {APP_NAME}</title>
           <meta
             name="description"
@@ -200,7 +201,7 @@ const SearchComponent = ({ router }) => {
         <div
           alt="Photo by sam loyd on Unsplash"
           style={{
-            backgroundImage: `url(${DOMAIN}/static/images/sam-loyd-single-brand-cover-page.jpg)`,
+            backgroundImage: `url(/static/images/sam-loyd-single-brand-cover-page.jpg)`,
             backgroundPosition: "center",
             backgroundRepeat: "no-repeat",
             position: "relative",
@@ -226,7 +227,7 @@ const SearchComponent = ({ router }) => {
                 marginBottom: "15px",
               }}
             >
-              <h1 className="cover__image__div__main__topic">
+              <h1 className={styles.cover__image__div__main__topic}>
                 {resultsMobiles.length +
                   resultsNews.length +
                   resultsReviews.length}{" "}
@@ -358,7 +359,7 @@ const SearchComponent = ({ router }) => {
             ) : (
               <React.Fragment>
                 <div
-                  className="col-md-12  mobile-search-title-content"
+                  className={`col-md-12 ${styles.mobile_search_title_content}`}
                   style={{
                     display: "flex",
                     flexDirection: "row",
@@ -377,9 +378,13 @@ const SearchComponent = ({ router }) => {
                         >
                           <div
                             title="phone results"
-                            className="mobile__search__container"
+                            className={styles.mobile__search__container}
                           >
-                            <div className="mobile__search__container__image">
+                            <div
+                              className={
+                                styles.mobile__search__container__image
+                              }
+                            >
                               <img
                                 src={`${API}/mobile/photo/${m.slug}`}
                                 className="img img-fluid"
@@ -390,7 +395,9 @@ const SearchComponent = ({ router }) => {
                               />
                             </div>
                             <div
-                              className="mobile__search__container__content"
+                              className={
+                                styles.mobile__search__container__content
+                              }
                               style={{ overflowY: "auto" }}
                             >
                               <h1
@@ -546,7 +553,7 @@ const SearchComponent = ({ router }) => {
               </React.Fragment>
             ) : (
               <div
-                className="col-md-12 mobile-search-title-content"
+                className={`col-md-12 ${styles.mobile_search_title_content}`}
                 style={{
                   display: "flex",
                   flexDirection: "row",
@@ -566,9 +573,15 @@ const SearchComponent = ({ router }) => {
                         >
                           <div
                             title="reviews results"
-                            className="mobile__search__container__reviews"
+                            className={
+                              styles.mobile__search__container__reviews
+                            }
                           >
-                            <div className="mobile__search__container__image__reviews">
+                            <div
+                              className={
+                                styles.mobile__search__container__image__reviews
+                              }
+                            >
                               <img
                                 src={`${API}/reviews/photo/${m.slug}`}
                                 className="img img-fluid"
@@ -579,7 +592,9 @@ const SearchComponent = ({ router }) => {
                               />
                             </div>
                             <div
-                              className="mobile__search__container__content__reviews"
+                              className={
+                                styles.mobile__search__container__content__reviews
+                              }
                               style={{ overflowY: "auto" }}
                             >
                               <h1
@@ -749,16 +764,18 @@ const SearchComponent = ({ router }) => {
                         <a style={{ textDecoration: "none" }}>
                           <div
                             title="news results"
-                            className="mobile__search__news__container"
+                            className={styles.mobile__search__news__container}
                           >
-                            <div className="mobile__search__news__image">
+                            <div className={styles.mobile__search__news__image}>
                               <img
                                 className="img img-fluid"
                                 src={`${API}/news/photo/${blog.slug}`}
                                 alt={blog.title}
                               />
                             </div>
-                            <div className="mobile__search__news__content">
+                            <div
+                              className={styles.mobile__search__news__content}
+                            >
                               <h1>{blog.title}</h1>
                               <p>{moment(blog.updatedAt).fromNow()}</p>
                             </div>

@@ -18,6 +18,8 @@ import {
 } from "reactstrap";
 import classnames from "classnames";
 import moment from "moment";
+import styles from "../../styles/desktopSearch.module.css";
+import React from "react";
 
 const SearchComponent = ({ router }) => {
   const [valuesNews, setValuesNews] = useState({
@@ -252,15 +254,19 @@ const SearchComponent = ({ router }) => {
       <React.Fragment key={i}>
         <Link href={`/news/${blog.slug}`}>
           <a style={{ textDecoration: "none" }}>
-            <div title="news results" key={i} className="search__container">
-              <div className="search__image">
+            <div
+              title="news results"
+              key={i}
+              className={styles.search__container}
+            >
+              <div className={styles.search__image}>
                 <img
                   className="img img-fluid"
                   src={`${API}/news/photo/${blog.slug}`}
                   alt={blog.title}
                 />
               </div>
-              <div className="search__content">
+              <div className={styles.search__content}>
                 <h1>{blog.title}</h1>
                 <p>{moment(blog.updatedAt).fromNow()}</p>
               </div>
@@ -277,15 +283,19 @@ const SearchComponent = ({ router }) => {
       <React.Fragment key={i}>
         <Link href={`/reviews/${blog.slug}`}>
           <a style={{ textDecoration: "none" }}>
-            <div title="review results" key={i} className="search__container">
-              <div className="search__image">
+            <div
+              title="review results"
+              key={i}
+              className={styles.search__container}
+            >
+              <div className={styles.search__image}>
                 <img
                   className="img img-fluid"
                   src={`${API}/reviews/photo/${blog.slug}`}
                   alt={blog.title}
                 />
               </div>
-              <div className="search__content">
+              <div className={styles.search__content}>
                 <h1>{blog.title}</h1>
                 <p>{moment(blog.updatedAt).fromNow()}</p>
               </div>
@@ -303,9 +313,9 @@ const SearchComponent = ({ router }) => {
         <div
           title="mobile phone results"
           key={i}
-          className="single__card__phone"
+          className={styles.single__card__phone}
         >
-          <div className="card__image__container__phone">
+          <div className={styles.card__image__container__phone}>
             <Link href={`/phones/brand/${blog.slug}`}>
               <a style={{ textDecoration: "none" }}>
                 <img
@@ -316,7 +326,7 @@ const SearchComponent = ({ router }) => {
               </a>
             </Link>
           </div>
-          <div className="card__content__phone">
+          <div className={styles.card__content__phone}>
             <Link href={`/phones/brand/${blog.slug}`}>
               <a style={{ textDecoration: "none" }}>
                 <h1>{blog.title}</h1>
@@ -332,7 +342,6 @@ const SearchComponent = ({ router }) => {
     <React.Fragment>
       <div>
         <Head>
-          <link rel="stylesheet" href="/static/css/desktopSearch.css" />
           <title>Search Results Page - {APP_NAME}</title>
           <meta
             name="description"
@@ -344,7 +353,7 @@ const SearchComponent = ({ router }) => {
         <div
           alt="Photo by sam loyd on Unsplash"
           style={{
-            backgroundImage: `url(${DOMAIN}/static/images/sam-loyd-single-brand-cover-page.jpg)`,
+            backgroundImage: `url(/static/images/sam-loyd-single-brand-cover-page.jpg)`,
             backgroundPosition: "center",
             backgroundRepeat: "no-repeat",
             position: "relative",
@@ -370,7 +379,7 @@ const SearchComponent = ({ router }) => {
                 marginBottom: "15px",
               }}
             >
-              <h1 className="cover__image__div__main__topic">
+              <h1 className={styles.cover__image__div__main__topic}>
                 {resultsMobiles.length +
                   resultsNews.length +
                   resultsReviews.length}{" "}
@@ -435,7 +444,7 @@ const SearchComponent = ({ router }) => {
             >
               <Nav tabs>
                 <NavItem
-                  className="nav__item"
+                  className={styles.nav__item}
                   title="News results tab with no of results"
                 >
                   <NavLink
@@ -453,7 +462,7 @@ const SearchComponent = ({ router }) => {
                   </NavLink>
                 </NavItem>
                 <NavItem
-                  className="nav__item"
+                  className={styles.nav__item}
                   title="Reviews results tab with no of results"
                 >
                   <NavLink
@@ -471,7 +480,7 @@ const SearchComponent = ({ router }) => {
                   </NavLink>
                 </NavItem>
                 <NavItem
-                  className="nav__item"
+                  className={styles.nav__item}
                   title="phone results tab with no of results"
                 >
                   <NavLink
@@ -535,7 +544,7 @@ const SearchComponent = ({ router }) => {
                         </React.Fragment>
                       ) : (
                         <React.Fragment>
-                          <div className="main__container">
+                          <div className={styles.main__container}>
                             {showNewsResults()}
                           </div>
                           {Pagination(
@@ -590,7 +599,7 @@ const SearchComponent = ({ router }) => {
                         </React.Fragment>
                       ) : (
                         <React.Fragment>
-                          <div className="main__container">
+                          <div className={styles.main__container}>
                             {showReviewsResults()}
                           </div>
                           {Pagination(
@@ -645,7 +654,9 @@ const SearchComponent = ({ router }) => {
                         </React.Fragment>
                       ) : (
                         <React.Fragment>
-                          <div className="cards__phone box__sizing__phone side__bar__phones">
+                          <div
+                            className={` ${styles.cards__phone} ${styles.box__sizing__phone} ${styles.side__bar__phones}`}
+                          >
                             {showMobileResults()}
                           </div>
                           {Pagination(
