@@ -15,12 +15,11 @@ import {
   reviewPublicLatest,
   reviewPublicSecondLatest,
   reviewPublicEightLatest,
-  reviewListPublicMobileNews,
+  reviewListPublicHomePage,
   reviewListPublicLimitedSectionOne,
   reviewListPublicLimitedSectionTwo,
   reviewListPublic,
 } from "../actions/review.action";
-import { mCategoryListHomePage } from "../actions/mobileCategory.action";
 import { mobileListPublicNewsReviews } from "../actions/mobile.action";
 import { API, DOMAIN, APP_NAME, FB_APP_ID } from "../config";
 import { MdRateReview, MdNavigateNext } from "react-icons/md";
@@ -41,37 +40,51 @@ const Index = ({
   limitedReviewsSectionOne,
   limitedReviewsSectionTwo,
   reviewListLatest,
-  mobileCategoryList,
   mobileListLatest,
 }) => {
   const head = () => (
     <Head>
-      <title>Home Page - {APP_NAME}</title>
+      <title>{APP_NAME} - Phone specs, News and Reviews hub</title>
       <meta
         name="description"
-        content="List of all mobile phones,smartphones,tablets,wearables and accessories brands"
+        content={`${APP_NAME} - brings you the latest tech news, best mobile reviews and mobile specs to make your choices much easier. `}
       />
       <link rel="canonical" href={`${DOMAIN}/`} />
-      <meta property="og:title" content={`Home Pages - ${APP_NAME}`} />
+
+      <meta name="twitter:card" content="summary_large_image" />
+      <meta name="twitter:site" content="@TechbotL" />
+      <meta
+        name="twitter:title"
+        content={`${APP_NAME} - Phone specs, News and Reviews hub`}
+      />
+      <meta
+        name="twitter:description"
+        content={`${APP_NAME} - brings you the latest tech news, best mobile reviews and mobile specs to make your choices much easier. `}
+      />
+      <meta
+        alt="Photo by sam loyd on Unsplash"
+        name="twitter:image"
+        content={`${DOMAIN}/static/images/sam-loyd-single-brand-cover-page.jpg`}
+      />
+
+      <meta
+        property="og:title"
+        content={`${APP_NAME} - Phone specs, News and Reviews hub`}
+      />
       <meta
         property="og:description"
-        content="List of all mobile phones,smartphones,tablets,wearables and accessories brands"
+        content={`${APP_NAME} - brings you the latest tech news, best mobile reviews and mobile specs to make your choices much easier. `}
       />
       <meta property="og:type" content="website" />
-      <meta property="og:url" content={`${DOMAIN}/phones`} />
+      <meta property="og:url" content={`${DOMAIN}/`} />
       <meta property="og:site_name" content={`${APP_NAME}`} />
-
       <meta
         alt="Photo by sam loyd on Unsplash"
         property="og:image"
-        content={`/static/images/sam-loyd-single-brand-cover-page.jpg`}
-      />
-      <meta
-        alt="Photo by sam loyd on Unsplash"
-        property="og:image:secure_url"
-        content={`/static/images/sam-loyd-single-brand-cover-page.jpg`}
+        content={`${DOMAIN}/static/images/sam-loyd-single-brand-cover-page.jpg`}
       />
       <meta property="og:image:type" content="image/jpg" />
+
       <meta property="fb:app_id" content={`${FB_APP_ID}`} />
     </Head>
   );
@@ -151,6 +164,7 @@ const Index = ({
                         src={`${API}/news/photo/${secondLatestNews.slug}`}
                         alt={secondLatestNews.title}
                       />
+
                       <div
                         className={`${styles.news_title} ${styles.news_title_right_top}`}
                       >
@@ -537,6 +551,7 @@ const Index = ({
     );
   };
 
+  /**load more functions */
   const newsLimit = 10;
   const newsSkip = 32;
   const [limit, setLimit] = useState(newsLimit);
@@ -568,7 +583,54 @@ const Index = ({
       </div>
     );
   };
+  /**done */
+  const showNewsFinalSectionLoadedNews = () => {
+    return loadedNews.map((blog, i) => (
+      <div key={i}>
+        <div key={i} className={styles.news__container}>
+          <div className={styles.image__news}>
+            <Link href={`/news/${blog.slug}`}>
+              <a style={{ textDecoration: "none", width: "100%" }}>
+                <img
+                  className="img img-fluid"
+                  src={`${API}/news/photo/${blog.slug}`}
+                  alt={blog.title}
+                />
+              </a>
+            </Link>
+          </div>
+          <div
+            className={styles.content__news}
+            style={{ display: "flex", flexDirection: "column" }}
+          >
+            <div className={styles.content__div}>
+              <Link href={`/news/${blog.slug}`}>
+                <a style={{ textDecoration: "none", width: "100%" }}>
+                  <h1>{blog.title}</h1>
+                </a>
+              </Link>
+            </div>
+            <div className={styles.excerpt_div}>
+              <Link href={`/news/${blog.slug}`}>
+                <a style={{ textDecoration: "none", width: "100%" }}>
+                  {renderHTML(blog.excerpt)}
+                </a>
+              </Link>
+            </div>
+            <div className={styles.author__div}>
+              <span>
+                {" "}
+                {moment(blog.updatedAt).fromNow()} | by {blog.postedBy.username}
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    ));
+  };
+  /**load more ends here */
 
+  /**done */
   const showSideBarReviews = () => {
     return reviewListLatest.map((blog, i) => (
       <div key={i}>
@@ -608,6 +670,7 @@ const Index = ({
     ));
   };
 
+  /**done */
   const showSideBarMobiles = () => {
     return mobileListLatest.map((m, i) => (
       <React.Fragment key={i}>
@@ -631,6 +694,7 @@ const Index = ({
     ));
   };
 
+  /**done */
   const showReviewBlock = () => {
     return (
       <div className="col-md-12 pl-0 pr-0 mt-2" style={{ width: "100%" }}>
@@ -684,6 +748,7 @@ const Index = ({
     );
   };
 
+  /**done */
   const showReviewsInsideReviewBlockLeft = () => {
     return limitedReviewsSectionOne.map((blog, i) => (
       <div key={i}>
@@ -723,6 +788,7 @@ const Index = ({
     ));
   };
 
+  /**done */
   const showReviewsInsideReviewBlockRight = () => {
     return limitedReviewsSectionTwo.map((blog, i) => (
       <div key={i}>
@@ -762,6 +828,7 @@ const Index = ({
     ));
   };
 
+  /**done */
   const showNewsFirstSection = () => {
     return newsLimitFirstSection.map((blog, i) => (
       <div key={i}>
@@ -806,6 +873,7 @@ const Index = ({
     ));
   };
 
+  /**done */
   const showNewsSecondSection = () => {
     return newsLimitSecondSection.map((blog, i) => (
       <div key={i}>
@@ -851,53 +919,9 @@ const Index = ({
     ));
   };
 
+  /**done */
   const showNewsFinalSection = () => {
     return newsLimitFinalSection.map((blog, i) => (
-      <div key={i}>
-        <div key={i} className={styles.news__container}>
-          <div className={styles.image__news}>
-            <Link href={`/news/${blog.slug}`}>
-              <a style={{ textDecoration: "none", width: "100%" }}>
-                <img
-                  className="img img-fluid"
-                  src={`${API}/news/photo/${blog.slug}`}
-                  alt={blog.title}
-                />
-              </a>
-            </Link>
-          </div>
-          <div
-            className={styles.content__news}
-            style={{ display: "flex", flexDirection: "column" }}
-          >
-            <div className={styles.content__div}>
-              <Link href={`/news/${blog.slug}`}>
-                <a style={{ textDecoration: "none", width: "100%" }}>
-                  <h1>{blog.title}</h1>
-                </a>
-              </Link>
-            </div>
-            <div className={styles.excerpt_div}>
-              <Link href={`/news/${blog.slug}`}>
-                <a style={{ textDecoration: "none", width: "100%" }}>
-                  {renderHTML(blog.excerpt)}
-                </a>
-              </Link>
-            </div>
-            <div className={styles.author__div}>
-              <span>
-                {" "}
-                {moment(blog.updatedAt).fromNow()} | by {blog.postedBy.username}
-              </span>
-            </div>
-          </div>
-        </div>
-      </div>
-    ));
-  };
-
-  const showNewsFinalSectionLoadedNews = () => {
-    return loadedNews.map((blog, i) => (
       <div key={i}>
         <div key={i} className={styles.news__container}>
           <div className={styles.image__news}>
@@ -961,7 +985,7 @@ const Index = ({
             : ""}
         </div>
 
-        <div className="container mt-4 mb-4 pl-0 pr-0">
+        <div className="container mt-4 mb-5 pl-0 pr-0">
           <div className="row ml-0 mr-0">
             <div className="col-lg-8">
               <div className="row">
@@ -983,27 +1007,36 @@ const Index = ({
                     />
                     <div style={{ padding: "10px" }}>
                       {showNewsFirstSection()}
-                      <div
-                        className="col-md-12"
-                        style={{
-                          display: "flex",
-                          flexDirection: "row",
-                          width: "100%",
-                          marginTop: "20px",
-                        }}
-                      >
-                        <div style={{ marginRight: "5px" }}>
-                          <MdRateReview size="1rem" color="#818078" />
-                        </div>
-                        <div style={{ width: "100%", paddingTop: 0 }}>
-                          <hr
-                            style={{ marginTop: "6px" }}
-                            className={styles.hrText}
-                            data-content="reviews"
-                          />
-                        </div>
-                      </div>
-                      {showReviewBlock()}
+                      {eightLatestReview &&
+                      limitedReviewsSectionOne &&
+                      limitedReviewsSectionTwo ? (
+                        <React.Fragment>
+                          <div
+                            className="col-md-12"
+                            style={{
+                              display: "flex",
+                              flexDirection: "row",
+                              width: "100%",
+                              marginTop: "20px",
+                            }}
+                          >
+                            <div style={{ marginRight: "5px" }}>
+                              <MdRateReview size="1rem" color="#818078" />
+                            </div>
+                            <div style={{ width: "100%", paddingTop: 0 }}>
+                              <hr
+                                style={{ marginTop: "6px" }}
+                                className={styles.hrText}
+                                data-content="reviews"
+                              />
+                            </div>
+                          </div>
+                          {showReviewBlock()}
+                        </React.Fragment>
+                      ) : (
+                        ""
+                      )}
+
                       <div
                         className="col-md-12"
                         style={{
@@ -1026,15 +1059,25 @@ const Index = ({
                         </div>
                       </div>
                       {showNewsSecondSection()}
-                      <div className={styles.display_none_more_news_main_block}>
-                        {showNewsFinalSection()}
-                        {loadedNews ? (
-                          showNewsFinalSectionLoadedNews()
-                        ) : (
-                          <div>Loading...</div>
-                        )}
-                        <div className="container">{loadMoreButton()}</div>
-                      </div>
+                      {newsLimitFinalSection ? (
+                        <React.Fragment>
+                          <div
+                            className={styles.display_none_more_news_main_block}
+                          >
+                            {showNewsFinalSection()}
+                            {loadedNews ? (
+                              showNewsFinalSectionLoadedNews()
+                            ) : (
+                              <div>
+                                <h1>Loading...</h1>
+                              </div>
+                            )}
+                            <div className="container">{loadMoreButton()}</div>
+                          </div>
+                        </React.Fragment>
+                      ) : (
+                        ""
+                      )}
                     </div>
                   </div>
                 </div>
@@ -1140,7 +1183,7 @@ const Index = ({
                 ""
               )}
 
-              {reviewListPublic ? (
+              {reviewListLatest ? (
                 <div>
                   <div
                     className={`row mr-0 mt-2 ${styles.side__bar__single__brand} ${styles.display_none_side_bar_review}`}
@@ -1275,7 +1318,9 @@ const Index = ({
                           {loadedNews ? (
                             showNewsFinalSectionLoadedNews()
                           ) : (
-                            <div>Loading...</div>
+                            <div>
+                              <h1>Loading...</h1>
+                            </div>
                           )}
                           <div className="container">{loadMoreButton()}</div>
                         </div>
@@ -1296,6 +1341,8 @@ const Index = ({
 
 // This also gets called at build time
 export async function getStaticProps() {
+  /**news api */
+  /**done */
   const newsLimitFirstSection = await newsListPublicLimitFirstSection().then(
     (data) => {
       if (data.error) {
@@ -1306,6 +1353,7 @@ export async function getStaticProps() {
     }
   );
 
+  /**done */
   const newsLimitSecondSection = await newsListPublicLimitSecondSection().then(
     (data) => {
       if (data.error) {
@@ -1316,6 +1364,7 @@ export async function getStaticProps() {
     }
   );
 
+  /**done */
   let skip = 22;
   let limit = 10;
 
@@ -1329,20 +1378,37 @@ export async function getStaticProps() {
       return data;
     }
   });
-  const reviewListLatest = await reviewListPublicMobileNews().then((data) => {
+
+  /**done */
+  const latestNews = await newsPublicLatest().then((data) => {
     if (data.error) {
       console.log(data.error);
     } else {
       return data;
     }
   });
-  const mobileCategoryList = await mCategoryListHomePage().then((data) => {
+
+  /**done */
+  const secondLatestNews = await newsPublicSecondLatest().then((data) => {
     if (data.error) {
       console.log(data.error);
     } else {
       return data;
     }
   });
+
+  /**review list lates api */
+  /**done */
+  const reviewListLatest = await reviewListPublicHomePage().then((data) => {
+    if (data.error) {
+      console.log(data.error);
+    } else {
+      return data;
+    }
+  });
+
+  /**mobile list lates api */
+  /**done */
   const mobileListLatest = await mobileListPublicNewsReviews().then((data) => {
     if (data.error) {
       console.log(data.error);
@@ -1351,20 +1417,8 @@ export async function getStaticProps() {
     }
   });
 
-  const latestNews = await newsPublicLatest().then((data) => {
-    if (data.error) {
-      console.log(data.error);
-    } else {
-      return data;
-    }
-  });
-  const secondLatestNews = await newsPublicSecondLatest().then((data) => {
-    if (data.error) {
-      console.log(data.error);
-    } else {
-      return data;
-    }
-  });
+  /**review api */
+  /**done */
   const latestReview = await reviewPublicLatest().then((data) => {
     if (data.error) {
       console.log(data.error);
@@ -1372,6 +1426,8 @@ export async function getStaticProps() {
       return data;
     }
   });
+
+  /**done */
   const secondLatestReview = await reviewPublicSecondLatest().then((data) => {
     if (data.error) {
       console.log(data.error);
@@ -1380,6 +1436,7 @@ export async function getStaticProps() {
     }
   });
 
+  /**done */
   const eightLatestReview = await reviewPublicEightLatest().then((data) => {
     if (data.error) {
       console.log(data.error);
@@ -1387,6 +1444,8 @@ export async function getStaticProps() {
       return data;
     }
   });
+
+  /**done */
   const limitedReviewsSectionOne = await reviewListPublicLimitedSectionOne().then(
     (data) => {
       if (data.error) {
@@ -1396,6 +1455,8 @@ export async function getStaticProps() {
       }
     }
   );
+
+  /**done */
   const limitedReviewsSectionTwo = await reviewListPublicLimitedSectionTwo().then(
     (data) => {
       if (data.error) {
@@ -1419,7 +1480,6 @@ export async function getStaticProps() {
       limitedReviewsSectionOne,
       limitedReviewsSectionTwo,
       reviewListLatest,
-      mobileCategoryList,
       mobileListLatest,
     },
     // Re-generate the post at most once per second

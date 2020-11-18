@@ -698,6 +698,7 @@
   grid-row-gap: 10px;
   padding: 0px 10px 10px 10px;
 }
+
 .cards__phone {
   grid-column: 2 / span 12;
   grid-template-columns: repeat(12, minmax(auto, 60px));
@@ -711,8 +712,6 @@
   cursor: pointer;
   border-radius: 0%;
   width: 120px;
-  border: 1px solid rgba(255, 255, 255, 0.945);
-  transition: transform 0.3s;
 }
 
 @media screen and (min-width: 1200px) {
@@ -720,7 +719,7 @@
     width: 150px !important;
   }
 }
-@media screen and (max-width: 991px) {
+@media screen and (max-width: 991.5px) {
   .box__sizing__phone {
     display: flex !important;
     flex-direction: row !important;
@@ -732,6 +731,7 @@
   }
   .side__bar__phones {
     height: auto;
+    overflow-x: scroll;
   }
 
   .single__card__phone {
@@ -815,15 +815,12 @@
 .card__content__phone h1 {
   font-size: 14px;
   font-weight: 750;
+  font-family: Arial, Helvetica, sans-serif;
   text-align: center;
 }
-
-.single__card__phone:hover {
-  border: 1px solid rgba(255, 255, 255, 0.945);
-  transform: scale(1.01);
-  opacity: 0.9;
+.single__card__phone:hover .card__content__phone h1 {
+  color: rgba(202, 28, 28, 0.945) !important;
 }
-
 .card__image__container__phone img {
   width: 70%;
   overflow: hidden;

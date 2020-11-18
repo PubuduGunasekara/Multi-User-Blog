@@ -8,7 +8,6 @@ import { newsListPublic } from "../../actions/news.action";
 import moment from "moment";
 import { API, DOMAIN, APP_NAME, FB_APP_ID } from "../../config";
 import { MdRateReview, MdNavigateNext } from "react-icons/md";
-import { FaNewspaper } from "react-icons/fa";
 import { FiSmartphone } from "react-icons/fi";
 import renderHTML from "react-render-html";
 import React from "react";
@@ -20,30 +19,43 @@ import styles from "../../styles/newsFrontEnd.module.css";
 const AllNews = ({ news, reviews, mobiles }) => {
   const head = () => (
     <Head>
-      <title>Tech News - {APP_NAME}</title>
-      <meta name="description" content="hhh" />
+      <title>{APP_NAME} - News</title>
+      <meta name="description" content={`${APP_NAME} - News articles.`} />
       <link rel="canonical" href={`${DOMAIN}/news`} />
-      <meta property="og:title" content={`Tech News - ${APP_NAME}`} />
-      <meta property="og:description" content="ddd" />
-      <meta property="og:type" content="website" />
-      <meta property="og:url" content={`${DOMAIN}/reviews}`} />
-      <meta property="og:site_name" content={`${APP_NAME}`} />
 
+      <meta name="twitter:card" content="summary_large_image" />
+      <meta name="twitter:site" content="@TechbotL" />
+      <meta name="twitter:title" content={`${APP_NAME} - News`} />
       <meta
-        alt="Photo by sam loyd on Unsplash"
-        property="og:image"
-        content={`${DOMAIN}/static/images/sam-loyd-single-brand-cover-page.jpg`}
+        name="twitter:description"
+        content={`${APP_NAME} - News articles.`}
       />
       <meta
-        alt="Photo by sam loyd on Unsplash"
-        property="og:image:secure_url"
-        content={`${DOMAIN}/static/images/sam-loyd-single-brand-cover-page.jpg`}
+        alt="Photo by The Climate Reality Project on Unsplash"
+        name="twitter:image"
+        content={`${DOMAIN}/static/images/news_cover.jpg`}
+      />
+
+      <meta property="og:title" content={`${APP_NAME} - News`} />
+      <meta
+        property="og:description"
+        content={`${APP_NAME} - News articles.`}
+      />
+      <meta property="og:type" content="website" />
+      <meta property="og:url" content={`${DOMAIN}/news`} />
+      <meta property="og:site_name" content={`${APP_NAME}`} />
+      <meta
+        alt="Photo by The Climate Reality Project on Unsplash"
+        property="og:image"
+        content={`${DOMAIN}/static/images/news_cover.jpg`}
       />
       <meta property="og:image:type" content="image/jpg" />
+
       <meta property="fb:app_id" content={`${FB_APP_ID}`} />
     </Head>
   );
 
+  /**done */
   const showSideBarReviews = () => {
     return reviews.map((blog, i) => (
       <React.Fragment key={i}>
@@ -82,6 +94,7 @@ const AllNews = ({ news, reviews, mobiles }) => {
     ));
   };
 
+  /**done */
   const showSideBarMobiles = () => {
     return mobiles.map((m, i) => (
       <React.Fragment key={i}>
@@ -107,7 +120,7 @@ const AllNews = ({ news, reviews, mobiles }) => {
 
   /**news pagination states */
   const [currentPage, setCurrentPage] = useState(1);
-  const [postPerPage] = useState(10);
+  const [postPerPage] = useState(30);
   //const [numOfPost, setNumberOfPost] = useState(0);
 
   //pagination
@@ -182,6 +195,7 @@ const AllNews = ({ news, reviews, mobiles }) => {
     );
   };
 
+  /**done */
   const showNews = () => {
     return currentPost.map((blog, i) => (
       <React.Fragment key={i}>
@@ -197,6 +211,7 @@ const AllNews = ({ news, reviews, mobiles }) => {
               </a>
             </Link>
           </div>
+
           <div
             className={styles.content__news}
             style={{ display: "flex", flexDirection: "column" }}
@@ -208,6 +223,7 @@ const AllNews = ({ news, reviews, mobiles }) => {
                 </a>
               </Link>
             </div>
+
             <div className={styles.excerpt_div}>
               <Link href={`/news/${blog.slug}`}>
                 <a style={{ textDecoration: "none", width: "100%" }}>
@@ -215,6 +231,7 @@ const AllNews = ({ news, reviews, mobiles }) => {
                 </a>
               </Link>
             </div>
+
             <div className={styles.author__div}>
               <span>
                 {moment(blog.updatedAt).fromNow()} | by {blog.postedBy.username}
@@ -256,12 +273,11 @@ const AllNews = ({ news, reviews, mobiles }) => {
         );
       }),
     });
-    //console.log("after return", filteredContent);
   };
 
-  /**reviewSearch pagination states */
+  /**news Search pagination states */
   const [currentPageSearched, setCurrentPageSearched] = useState(1);
-  const [postPerPageSearched] = useState(20);
+  const [postPerPageSearched] = useState(30);
 
   //pagination
   const indexofLastPostSearched = currentPageSearched * postPerPageSearched;
@@ -271,6 +287,7 @@ const AllNews = ({ news, reviews, mobiles }) => {
     indexofFirstPostSearched,
     indexofLastPostSearched
   );
+
   const lastPageSearched = filteredContent.length / postPerPageSearched;
 
   //change the page
@@ -284,6 +301,7 @@ const AllNews = ({ news, reviews, mobiles }) => {
     setCurrentPageSearched(currentPageSearched - 1);
   };
 
+  /**done */
   const showSearchedNews = (filteredContent) => {
     return filteredContent.map((blog, i) => (
       <React.Fragment key={i}>
@@ -334,9 +352,9 @@ const AllNews = ({ news, reviews, mobiles }) => {
       <Layout>
         <div
           className={styles.main_top_banner}
-          alt="Photo by sam loyd on Unsplash"
+          alt="Photo by The Climate Reality Project on Unsplash"
           style={{
-            backgroundImage: `url(/static/images/sam-loyd-single-brand-cover-page.jpg)`,
+            backgroundImage: `url(/static/images/news_cover.jpg)`,
             backgroundPosition: "center",
             backgroundRepeat: "no-repeat",
             position: "relative",
@@ -424,7 +442,7 @@ const AllNews = ({ news, reviews, mobiles }) => {
             </div>
           </div>
         </div>
-        <div className="container mt-5 mb-5 pl-0 pr-0">
+        <div className="container mt-4 mb-5 pl-0 pr-0">
           <div className="row ml-0 mr-0">
             <div className="col-lg-8">
               <div className="row">
@@ -471,7 +489,7 @@ const AllNews = ({ news, reviews, mobiles }) => {
                             </div>
                           </div>
                           <div style={{ padding: "10px" }}>
-                            {showSearchedNews(filteredContent)}
+                            {showSearchedNews(currentPostSearched)}
                           </div>
 
                           <div style={{ width: "100%" }}>
@@ -502,7 +520,7 @@ const AllNews = ({ news, reviews, mobiles }) => {
                               width: "100%",
                               height: "100%",
                             }}
-                            className={`alert alert-danger  ${style.change__no__results__found__styles}`}
+                            className={`alert alert-danger  ${styles.change__no__results__found__styles}`}
                             role="alert"
                           >
                             <h2
@@ -735,6 +753,25 @@ const AllNews = ({ news, reviews, mobiles }) => {
             </div>
           </div>
         </div>
+        <div
+          style={{
+            width: "100%",
+            textAlign: "right",
+            backgroundColor: "white",
+            fontSize: "10px",
+          }}
+        >
+          <span>
+            Cover Photo by{" "}
+            <a href="https://unsplash.com/@climatereality?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText">
+              The Climate Reality Project
+            </a>{" "}
+            on{" "}
+            <a href="https://unsplash.com/s/photos/news?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText">
+              Unsplash
+            </a>
+          </span>
+        </div>
       </Layout>
     </React.Fragment>
   );
@@ -742,6 +779,7 @@ const AllNews = ({ news, reviews, mobiles }) => {
 
 // This also gets called at build time
 export async function getStaticProps() {
+  /**done */
   const news = await newsListPublic().then((data) => {
     if (data.error) {
       console.log(data.error);
@@ -750,6 +788,7 @@ export async function getStaticProps() {
     }
   });
 
+  /**done */
   const reviews = await reviewListPublicMobileNews().then((data) => {
     if (data.error) {
       console.log(data.error);
@@ -758,6 +797,7 @@ export async function getStaticProps() {
     }
   });
 
+  /**done */
   const mobiles = await mobileListPublicNewsReviews().then((data) => {
     if (data.error) {
       console.log(data.error);

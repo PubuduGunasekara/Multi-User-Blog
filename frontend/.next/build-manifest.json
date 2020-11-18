@@ -29,10 +29,30 @@
       "static/chunks/webpack.js",
       "static/chunks/pages/_error.js"
     ],
-    "/profile/[slug]": [
+    "/admin-panel/root-admin/news/[slug]": [
       "static/chunks/main.js",
       "static/chunks/webpack.js",
-      "static/chunks/pages/profile/[slug].js"
+      "static/chunks/pages/admin-panel/root-admin/news/[slug].js"
+    ],
+    "/news": [
+      "static/chunks/main.js",
+      "static/chunks/webpack.js",
+      "static/chunks/pages/news.js"
+    ],
+    "/next/dist/pages/_error": [
+      "static/chunks/main.js",
+      "static/chunks/webpack.js",
+      "static/chunks/pages/next/dist/pages/_error.js"
+    ],
+    "/phones": [
+      "static/chunks/main.js",
+      "static/chunks/webpack.js",
+      "static/chunks/pages/phones.js"
+    ],
+    "/reviews": [
+      "static/chunks/main.js",
+      "static/chunks/webpack.js",
+      "static/chunks/pages/reviews.js"
     ]
   },
   "ampFirstPages": []

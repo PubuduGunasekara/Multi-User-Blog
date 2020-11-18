@@ -15,7 +15,7 @@ const FooterComponent = () => {
           <script src="https://kit.fontawesome.com/a076d05399.js"></script>
         </Head>
       </div>
-      <footer style={{ background: "#2c2c2c" }} className="footer mt-5">
+      <footer style={{ background: "#2c2c2c" }} className="footer">
         <div
           style={{
             paddingLeft: 0,

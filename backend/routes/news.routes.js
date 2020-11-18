@@ -29,7 +29,7 @@ const {
   listPublicSecondLatestNews,
   listPublicLimitFirstSection,
   listPublicLimitSecondSection,
-  listPublicLimitFinalSection
+  listPublicLimitFinalSection,
 } = require("../controllers/news.controller");
 
 router.post("/news", requireSignIn, authMiddleware, create);

@@ -103,12 +103,12 @@ exports.create = (req, res) => {
   });
 };
 
+/**used to fetch all public news to the news page (news>Index) */
 exports.listPublic = (req, res) => {
   const flag = 1;
   News.find({ flag })
-    .populate("tags", "_id name slug")
-    .populate("postedBy", "_id name username")
-    .select("_id title slug excerpt tags postedBy createdAt updatedAt flag")
+    .populate("postedBy", "username")
+    .select("title slug excerpt postedBy updatedAt")
     .sort({ updatedAt: -1 })
     .exec((err, data) => {
       if (err) {
@@ -120,12 +120,12 @@ exports.listPublic = (req, res) => {
     });
 };
 
+/**used to fetch first 10 latest news for home page from 2nd one onward (Index page)*/
 exports.listPublicLimitFirstSection = (req, res) => {
   const flag = 1;
   News.find({ flag })
-    .populate("tags", "_id name slug")
-    .populate("postedBy", "_id name username")
-    .select("_id title slug excerpt tags postedBy createdAt updatedAt flag")
+    .populate("postedBy", "username")
+    .select("title slug excerpt postedBy updatedAt")
     .sort({ updatedAt: -1 })
     .skip(2)
     .limit(10)
@@ -139,12 +139,12 @@ exports.listPublicLimitFirstSection = (req, res) => {
     });
 };
 
+/**used to fetch second 10 latest news for home page from 13 th one onward (Index page)*/
 exports.listPublicLimitSecondSection = (req, res) => {
   const flag = 1;
   News.find({ flag })
-    .populate("tags", "_id name slug")
-    .populate("postedBy", "_id name username")
-    .select("_id title slug excerpt tags postedBy createdAt updatedAt flag")
+    .populate("postedBy", "username")
+    .select("title slug excerpt postedBy updatedAt")
     .sort({ updatedAt: -1 })
     .skip(12)
     .limit(10)
@@ -158,14 +158,14 @@ exports.listPublicLimitSecondSection = (req, res) => {
     });
 };
 
+/**used to fetch final 10 latest news for home page from 23 th one onward also used for load more functionality (Index page)*/
 exports.listPublicLimitFinalSection = (req, res) => {
   let limit = parseInt(req.body.limit);
   let skip = parseInt(req.body.skip);
   const flag = 1;
   News.find({ flag })
-    .populate("tags", "_id name slug")
-    .populate("postedBy", "_id name username")
-    .select("_id title slug excerpt tags postedBy createdAt updatedAt flag")
+    .populate("postedBy", "username")
+    .select("title slug excerpt postedBy updatedAt")
     .sort({ updatedAt: -1 })
     .skip(skip)
     .limit(limit)
@@ -179,12 +179,12 @@ exports.listPublicLimitFinalSection = (req, res) => {
     });
 };
 
+/**used to fetch latest news (Index page)*/
 exports.listPublicLatestNews = (req, res) => {
   const flag = 1;
   News.findOne({ flag })
-    .populate("tags", "_id name slug")
-    .populate("postedBy", "_id name username")
-    .select("_id title slug excerpt tags postedBy createdAt updatedAt flag")
+    .populate("postedBy", "username")
+    .select("title slug excerpt postedBy updatedAt")
     .sort({ updatedAt: -1 })
     .limit(1)
     .exec((err, data) => {
@@ -196,12 +196,13 @@ exports.listPublicLatestNews = (req, res) => {
       res.json(data);
     });
 };
+
+/**used to fetch second latest news(Index page) */
 exports.listPublicSecondLatestNews = (req, res) => {
   const flag = 1;
   News.findOne({ flag })
-    .populate("tags", "_id name slug")
-    .populate("postedBy", "_id name username")
-    .select("_id title slug excerpt tags postedBy createdAt updatedAt flag")
+    .populate("postedBy", "username")
+    .select("title slug excerpt postedBy updatedAt")
     .sort({ updatedAt: -1 })
     .skip(1)
     .limit(1)

@@ -32,6 +32,7 @@ export const newsListPrivate = () => {
     .catch((err) => console.log(err));
 };
 
+/**done (news>Index) */
 export const newsListPublic = () => {
   return fetch(`${API}/news-public-root`, {
     method: "GET",
@@ -42,6 +43,7 @@ export const newsListPublic = () => {
     .catch((err) => console.log(err));
 };
 
+/**done (Index page)*/
 export const newsListPublicLimitFirstSection = () => {
   return fetch(`${API}/news-public-limit-first-section`, {
     method: "GET",
@@ -52,6 +54,7 @@ export const newsListPublicLimitFirstSection = () => {
     .catch((err) => console.log(err));
 };
 
+/**done (Index page)*/
 export const newsListPublicLimitSecondSection = () => {
   return fetch(`${API}/news-public-limit-second-section`, {
     method: "GET",
@@ -62,21 +65,24 @@ export const newsListPublicLimitSecondSection = () => {
     .catch((err) => console.log(err));
 };
 
-export const newsListPublicLimitFinalSection = (skip,limit) => {
-  const data = {skip,limit}
+/**done (Index page)*/
+export const newsListPublicLimitFinalSection = (skip, limit) => {
+  const data = { skip, limit };
   return fetch(`${API}/news-public-limit-final-section`, {
     method: "POST",
     headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json'
+      Accept: "application/json",
+      "Content-Type": "application/json",
     },
-    body:JSON.stringify(data)
+    body: JSON.stringify(data),
   })
     .then((response) => {
       return response.json();
     })
     .catch((err) => console.log(err));
 };
+
+/**done (Index page) */
 export const newsPublicLatest = () => {
   return fetch(`${API}/news-public-latest`, {
     method: "GET",
@@ -87,6 +93,7 @@ export const newsPublicLatest = () => {
     .catch((err) => console.log(err));
 };
 
+/**done (Index page) */
 export const newsPublicSecondLatest = () => {
   return fetch(`${API}/news-public-second-latest`, {
     method: "GET",
@@ -96,6 +103,7 @@ export const newsPublicSecondLatest = () => {
     })
     .catch((err) => console.log(err));
 };
+
 export const newsListPublicTopStories = (blog) => {
   return fetch(`${API}/newsTopStories`, {
     method: "POST",

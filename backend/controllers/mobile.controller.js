@@ -602,12 +602,12 @@ exports.listPublicReleventBrands = (req, res) => {
     });
 };
 
+/**this function is used to fetch latest phone to home page, news and review pages.(home,news>Index,Reviews>Index) */
 exports.listForNewsReviews = (req, res) => {
   const flag = 1;
   const limit = 10;
   Mobile.find({ flag })
-    .populate("postedBy", "_id name username")
-    .select("_id title slug postedBy createdAt updatedAt")
+    .select("title slug updatedAt")
     .sort({ updatedAt: -1 })
     .limit(limit)
     .exec((err, data) => {

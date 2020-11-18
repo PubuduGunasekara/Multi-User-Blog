@@ -120,12 +120,12 @@ exports.listPublic = (req, res) => {
     });
 };
 
+/**this function fetch the first latest review (Index page) */
 exports.listPublicLatestReview = (req, res) => {
   const flag = 1;
   Review.findOne({ flag })
-    .populate("tags", "_id name slug")
-    .populate("postedBy", "_id name username")
-    .select("_id title slug excerpt tags postedBy createdAt updatedAt flag")
+    .populate("postedBy", "username")
+    .select("title slug postedBy updatedAt")
     .sort({ updatedAt: -1 })
     .limit(1)
     .exec((err, data) => {
@@ -137,12 +137,13 @@ exports.listPublicLatestReview = (req, res) => {
       res.json(data);
     });
 };
+
+/**this function fetch the second latest review (Index page)  */
 exports.listPublicSecondLatestReview = (req, res) => {
   const flag = 1;
   Review.findOne({ flag })
-    .populate("tags", "_id name slug")
-    .populate("postedBy", "_id name username")
-    .select("_id title slug excerpt tags postedBy createdAt updatedAt flag")
+    .populate("postedBy", "username")
+    .select("title slug postedBy updatedAt")
     .sort({ updatedAt: -1 })
     .skip(1)
     .limit(1)
@@ -156,12 +157,12 @@ exports.listPublicSecondLatestReview = (req, res) => {
     });
 };
 
+/**this function fetch the eight'th latest review (Index page)  */
 exports.listPublicEighthLatestReview = (req, res) => {
   const flag = 1;
   Review.findOne({ flag })
-    .populate("tags", "_id name slug")
-    .populate("postedBy", "_id name username")
-    .select("_id title slug excerpt tags postedBy createdAt updatedAt flag")
+    .populate("postedBy", "username")
+    .select("title slug postedBy updatedAt")
     .sort({ updatedAt: -1 })
     .skip(3)
     .limit(1)
@@ -173,6 +174,107 @@ exports.listPublicEighthLatestReview = (req, res) => {
       }
       console.log(data);
       res.json(data);
+    });
+};
+
+/**this function fetch 5 latest reviews from 8th one onward responsible for left part (Index page) */
+exports.listLimitedReviewsSectionOne = (req, res) => {
+  const flag = 1;
+  const limit = 5;
+  Review.find({ flag })
+    .populate("postedBy", "username")
+    .select("slug title updatedAt postedBy")
+    .skip(1)
+    .sort({ updatedAt: -1 })
+    .skip(8)
+    .limit(limit)
+    .exec((err, data) => {
+      if (err) {
+        return res.status(400).json({
+          error: errorHandler(err),
+        });
+      }
+      if (!data) {
+        return res.status(400).json({
+          error: "no data found",
+        });
+      }
+      res.status(200).json(data);
+    });
+};
+
+/**this function fetch 5 latest reviews from 14th one onward responsible for right part (Index page) */
+exports.listLimitedReviewsSectionTwo = (req, res) => {
+  const flag = 1;
+  const limit = 5;
+  Review.find({ flag })
+    .populate("postedBy", "username")
+    .select("slug title updatedAt postedBy")
+    .skip(1)
+    .sort({ updatedAt: -1 })
+    .skip(13)
+    .limit(limit)
+    .exec((err, data) => {
+      if (err) {
+        return res.status(400).json({
+          error: errorHandler(err),
+        });
+      }
+      if (!data) {
+        return res.status(400).json({
+          error: "no data found",
+        });
+      }
+      res.status(200).json(data);
+    });
+};
+
+/**completed this function is used to list popular latest reviews for home pages  (Index page) */
+exports.listForHomePage = (req, res) => {
+  const flag = 1;
+  const limit = 5;
+  Review.find({ flag })
+    .populate("postedBy", "username")
+    .select("slug title updatedAt postedBy")
+    .skip(2)
+    .sort({ updatedAt: -1 })
+    .limit(limit)
+    .exec((err, data) => {
+      if (err) {
+        return res.status(400).json({
+          error: errorHandler(err),
+        });
+      }
+      if (!data) {
+        return res.status(400).json({
+          error: "no data found",
+        });
+      }
+      res.status(200).json(data);
+    });
+};
+
+/**completed this function is used to list popular latest reviews for  mobile and news pages (Index page,news>Index)  */
+exports.listForNewsMobile = (req, res) => {
+  const flag = 1;
+  const limit = 5;
+  Review.find({ flag })
+    .populate("postedBy", "username")
+    .select("slug title updatedAt postedBy")
+    .sort({ updatedAt: -1 })
+    .limit(limit)
+    .exec((err, data) => {
+      if (err) {
+        return res.status(400).json({
+          error: errorHandler(err),
+        });
+      }
+      if (!data) {
+        return res.status(400).json({
+          error: "no data found",
+        });
+      }
+      res.status(200).json(data);
     });
 };
 
@@ -206,81 +308,6 @@ exports.listPrivate = (req, res) => {
       if (err) {
         return res.status(400).json({
           error: errorHandler(err),
-        });
-      }
-      res.status(200).json(data);
-    });
-};
-
-exports.listLimitedReviewsSectionOne = (req, res) => {
-  const flag = 1;
-  const limit = 5;
-  Review.find({ flag })
-    .populate("postedBy", "_id name username")
-    .select("_id slug title createdAt updatedAt postedBy")
-    .skip(1)
-    .sort({ updatedAt: -1 })
-    .skip(8)
-    .limit(limit)
-    .exec((err, data) => {
-      if (err) {
-        return res.status(400).json({
-          error: errorHandler(err),
-        });
-      }
-      if (!data) {
-        return res.status(400).json({
-          error: "no data found",
-        });
-      }
-      res.status(200).json(data);
-    });
-};
-
-exports.listLimitedReviewsSectionTwo = (req, res) => {
-  const flag = 1;
-  const limit = 5;
-  Review.find({ flag })
-    .populate("postedBy", "_id name username")
-    .select("_id slug title createdAt updatedAt postedBy")
-    .skip(1)
-    .sort({ updatedAt: -1 })
-    .skip(13)
-    .limit(limit)
-    .exec((err, data) => {
-      if (err) {
-        return res.status(400).json({
-          error: errorHandler(err),
-        });
-      }
-      if (!data) {
-        return res.status(400).json({
-          error: "no data found",
-        });
-      }
-      res.status(200).json(data);
-    });
-};
-
-/**completed this function is used to list popular news for mobile and review pages */
-exports.listForNewsMobile = (req, res) => {
-  const flag = 1;
-  const limit = 5;
-  Review.find({ flag })
-    .populate("postedBy", "_id name username")
-    .select("_id slug title createdAt updatedAt postedBy")
-    .skip(1)
-    .sort({ updatedAt: -1 })
-    .limit(limit)
-    .exec((err, data) => {
-      if (err) {
-        return res.status(400).json({
-          error: errorHandler(err),
-        });
-      }
-      if (!data) {
-        return res.status(400).json({
-          error: "no data found",
         });
       }
       res.status(200).json(data);

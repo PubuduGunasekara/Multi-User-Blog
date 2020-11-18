@@ -2,6 +2,10 @@
   "/_app": "pages/_app.js",
   "/_document": "pages/_document.js",
   "/_error": "pages/_error.js",
-  "/profile/[slug]": "pages/profile/[slug].js",
+  "/admin-panel/root-admin/news/[slug]": "pages/admin-panel/root-admin/news/[slug].js",
+  "/news": "pages/news.js",
+  "/next/dist/pages/_error": "pages/next/dist/pages/_error.js",
+  "/reviews": "pages/reviews.js",
+  "/phones": "pages/phones.js",
   "/": "pages/index.js"
 }

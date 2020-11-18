@@ -29,6 +29,7 @@ export const reviewListPrivate = () => {
     .catch((err) => console.log(err));
 };
 
+/**done (news>Index) */
 export const reviewListPublic = () => {
   return fetch(`${API}/reviews-public-root`, {
     method: "GET",
@@ -39,6 +40,7 @@ export const reviewListPublic = () => {
     .catch((err) => console.log(err));
 };
 
+/** done (Index page)  */
 export const reviewPublicLatest = () => {
   return fetch(`${API}/review-public-latest`, {
     method: "GET",
@@ -48,6 +50,8 @@ export const reviewPublicLatest = () => {
     })
     .catch((err) => console.log(err));
 };
+
+/** done (Index page)  */
 export const reviewPublicSecondLatest = () => {
   return fetch(`${API}/review-public-second-latest`, {
     method: "GET",
@@ -58,8 +62,42 @@ export const reviewPublicSecondLatest = () => {
     .catch((err) => console.log(err));
 };
 
+/** done (Index page)  */
 export const reviewPublicEightLatest = () => {
   return fetch(`${API}/review-public-eight-latest`, {
+    method: "GET",
+  })
+    .then((response) => {
+      return response.json();
+    })
+    .catch((err) => console.log(err));
+};
+
+/** done (Index page)  */
+export const reviewListPublicHomePage = () => {
+  return fetch(`${API}/reviews-home`, {
+    method: "GET",
+  })
+    .then((response) => {
+      return response.json();
+    })
+    .catch((err) => console.log(err));
+};
+
+/** done (Index page)  */
+export const reviewListPublicLimitedSectionOne = () => {
+  return fetch(`${API}/review-public-limited-list-section-one`, {
+    method: "GET",
+  })
+    .then((response) => {
+      return response.json();
+    })
+    .catch((err) => console.log(err));
+};
+
+/** done (Index page)  */
+export const reviewListPublicLimitedSectionTwo = () => {
+  return fetch(`${API}/review-public-limited-list-section-two`, {
     method: "GET",
   })
     .then((response) => {
@@ -80,26 +118,6 @@ export const newsListPublicTopStories = () => {
 
 export const reviewListPublicMobileNews = () => {
   return fetch(`${API}/reviews-news-mobile`, {
-    method: "GET",
-  })
-    .then((response) => {
-      return response.json();
-    })
-    .catch((err) => console.log(err));
-};
-
-export const reviewListPublicLimitedSectionOne = () => {
-  return fetch(`${API}/review-public-limited-list-section-one`, {
-    method: "GET",
-  })
-    .then((response) => {
-      return response.json();
-    })
-    .catch((err) => console.log(err));
-};
-
-export const reviewListPublicLimitedSectionTwo = () => {
-  return fetch(`${API}/review-public-limited-list-section-two`, {
     method: "GET",
   })
     .then((response) => {

@@ -20,6 +20,7 @@ const {
   listSearchAdmin,
   listSearchModerator,
   listForNewsMobile,
+  listForHomePage,
   listRelated,
   listRelatedMobiles,
   listRelatedNews,
@@ -29,7 +30,7 @@ const {
   listPublicSecondLatestReview,
   listPublicEighthLatestReview,
   listLimitedReviewsSectionOne,
-  listLimitedReviewsSectionTwo
+  listLimitedReviewsSectionTwo,
 } = require("../controllers/review.controllers");
 
 router.post("/review", requireSignIn, authMiddleware, create);
@@ -57,6 +58,7 @@ router.get("/review-search-moderator/search", listSearchModerator);
 //end user routes
 router.get("/newsTopStories", listPublicTopStories);
 router.get("/reviews-news-mobile", listForNewsMobile);
+router.get("/reviews-home", listForHomePage);
 router.post("/review/related", listRelated);
 router.post("/review/news-related", listRelatedNews);
 router.post("/review/mobiles-related", listRelatedMobiles);
@@ -64,8 +66,14 @@ router.get("/review-search-user/search", listSearchUser);
 router.get("/review-public-latest", listPublicLatestReview);
 router.get("/review-public-second-latest", listPublicSecondLatestReview);
 router.get("/review-public-eight-latest", listPublicEighthLatestReview);
-router.get("/review-public-limited-list-section-one", listLimitedReviewsSectionOne);
-router.get("/review-public-limited-list-section-two", listLimitedReviewsSectionTwo);
+router.get(
+  "/review-public-limited-list-section-one",
+  listLimitedReviewsSectionOne
+);
+router.get(
+  "/review-public-limited-list-section-two",
+  listLimitedReviewsSectionTwo
+);
 
 //moderator
 router.get("/review/moderator-private/:id", listForModeratorPrivate);
