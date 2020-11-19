@@ -87,22 +87,22 @@ const FooterComponent = () => {
               <Link href="/">
                 <a>home</a>
               </Link>
-              <Link href="/">
+              <Link href="/news">
                 <a>news</a>
               </Link>
-              <Link href="/">
+              <Link href="/reviews">
                 <a>reviews</a>
               </Link>
-              <Link href="/">
-                <a>mobiles</a>
+              <Link href="/phones">
+                <a>mobile phones</a>
               </Link>
-              <Link href="/">
+              <Link href="/site-map">
                 <a>site map</a>
               </Link>
-              <Link href="/">
+              <Link href="/about-us">
                 <a>about us</a>
               </Link>
-              <Link href="/">
+              <Link href="/contact-us">
                 <a>contact us</a>
               </Link>
             </div>
@@ -159,7 +159,7 @@ const FooterComponent = () => {
           <div style={{ float: "left" }}>
             <p style={{ color: "#4e4e4e" }}>
               @ 2020&nbsp;{" "}
-              <Link href="#">
+              <Link href="/">
                 <a style={{ color: "#4e4e4e", textDecoration: "underline" }}>
                   techbot.com
                 </a>
@@ -168,39 +168,39 @@ const FooterComponent = () => {
           </div>
           <div className={styles.copyright_section} style={{ float: "right" }}>
             <p style={{ marginLeft: "20px", marginRight: "20px" }}>
-              <Link href="#">
+              <Link href="/">
                 <a>home</a>
               </Link>
               &nbsp;&nbsp;
-              <Link href="/">
+              <Link href="/news">
                 <a>news</a>
               </Link>
               &nbsp;&nbsp;
-              <Link href="/">
+              <Link href="/reviews">
                 <a>reviews</a>
               </Link>
               &nbsp;&nbsp;
-              <Link href="/">
-                <a>mobiles</a>
+              <Link href="/phones">
+                <a>mobile phones</a>
               </Link>
               &nbsp;&nbsp;
-              <Link href="/">
+              <Link href="/site-map">
                 <a>site map</a>
               </Link>
               &nbsp;&nbsp;
-              <Link href="/">
+              <Link href="/about-us">
                 <a>about us</a>
               </Link>
               &nbsp;&nbsp;
-              <Link href="/">
+              <Link href="/contact-us">
                 <a>contact us</a>
               </Link>
               &nbsp;&nbsp;
-              <Link href="/">
+              <Link href="/terms -of-use">
                 <a>terms of use</a>
               </Link>
               &nbsp;&nbsp;
-              <Link href="/">
+              <Link href="/privacy-policy">
                 <a>privacy policy</a>
               </Link>
             </p>

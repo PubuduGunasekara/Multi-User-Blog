@@ -29,7 +29,7 @@ export const reviewListPrivate = () => {
     .catch((err) => console.log(err));
 };
 
-/**done (news>Index) */
+/**done (Reviews>Index) */
 export const reviewListPublic = () => {
   return fetch(`${API}/reviews-public-root`, {
     method: "GET",
@@ -116,6 +116,7 @@ export const newsListPublicTopStories = () => {
     .catch((err) => console.log(err));
 };
 
+/**done (news>index,phones>index) */
 export const reviewListPublicMobileNews = () => {
   return fetch(`${API}/reviews-news-mobile`, {
     method: "GET",

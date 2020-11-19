@@ -99,10 +99,10 @@ exports.read = (req, res) => {
     });
 };
 
-/**completed! this function is used in admin panel > create mobile category page  and user side all mobile brands page*/
+/**completed! this function is used in admin panel > create mobile category page  and user side all mobile brands page (phones>category)*/
 exports.list = (req, res) => {
   MobileCategory.find({})
-    .select("_id name body slug createdAt")
+    .select("name slug")
     .sort({ name: 1 })
     .exec((err, data) => {
       if (err) {

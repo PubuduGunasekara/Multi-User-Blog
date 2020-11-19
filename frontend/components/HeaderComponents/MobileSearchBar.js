@@ -33,6 +33,7 @@ const mobileSearchButton = (props) => {
         onSubmit={clickSubmit}
         style={{ width: "100%", display: "flex", flexDirection: "row" }}
       >
+        <label style={{ display: "none" }}>search</label>
         <input
           style={{
             paddingLeft: "20px",

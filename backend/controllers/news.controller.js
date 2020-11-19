@@ -254,13 +254,13 @@ exports.listPrivate = (req, res) => {
     });
 };
 
-/**completed this function is used to list popular news for mobile and review pages */
+/**completed this function is used to list popular news for mobile and review pages (reviews>index) */
 exports.listForMobileReviews = (req, res) => {
   const flag = 1;
   const limit = 5;
   News.find({ flag })
-    .populate("postedBy", "_id name username")
-    .select("_id slug title createdAt updatedAt postedBy")
+    .populate("postedBy", "username")
+    .select("slug title updatedAt postedBy")
     .sort({ updatedAt: -1 })
     .limit(limit)
     .exec((err, data) => {

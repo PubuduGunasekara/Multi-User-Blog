@@ -86,22 +86,22 @@ const sideDrawer = (props) => {
               }}
             >
               <li>
-                <a href="#">
+                <a href="/">
                   <FaFacebookF size="2rem" color="#666" />
                 </a>
               </li>
               <li>
-                <a href="#">
+                <a href="/">
                   <FaInstagram size="2rem" color="#666" />
                 </a>
               </li>
               <li>
-                <a href="#">
+                <a href="/">
                   <FaPinterestP size="2rem" color="#666" />
                 </a>
               </li>
               <li>
-                <a href="#">
+                <a href="/">
                   <FaYoutube size="2rem" color="#666" />
                 </a>
               </li>
@@ -110,10 +110,14 @@ const sideDrawer = (props) => {
           <nav>
             <ul>
               <li>
-                <a href="#">Privacy Policy</a>
+                <Link href="/privacy-policy">
+                  <a>Privacy Policy</a>
+                </Link>
               </li>
               <li>
-                <a href="#">Terms of Use</a>
+                <Link href="/terms-of-use">
+                  <a>Terms of Use</a>
+                </Link>
               </li>
             </ul>
           </nav>

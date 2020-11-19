@@ -1,4 +1,3 @@
-import Layout from "../components/Layout";
 import React from "react";
 import { useState } from "react";
 import Head from "next/head";
@@ -966,354 +965,103 @@ const Index = ({
   };
 
   return (
-    <Layout>
-      <div>
-        <div>{head()}</div>
-        <div className={styles.large_screen_featuring}>
-          {latestNews && latestReview && secondLatestReview && secondLatestNews
-            ? showHighlight()
-            : ""}
-        </div>
-        <div className={styles.medium_screen_featuring}>
-          {latestNews && latestReview && secondLatestNews
-            ? showHighlightMediumScreen()
-            : ""}
-        </div>
-        <div className={styles.small_screen_featuring}>
-          {latestNews && latestReview && secondLatestReview && secondLatestNews
-            ? smallScreenHighlight()
-            : ""}
-        </div>
+    <div>
+      <div>{head()}</div>
+      <div className={styles.large_screen_featuring}>
+        {latestNews && latestReview && secondLatestReview && secondLatestNews
+          ? showHighlight()
+          : ""}
+      </div>
+      <div className={styles.medium_screen_featuring}>
+        {latestNews && latestReview && secondLatestNews
+          ? showHighlightMediumScreen()
+          : ""}
+      </div>
+      <div className={styles.small_screen_featuring}>
+        {latestNews && latestReview && secondLatestReview && secondLatestNews
+          ? smallScreenHighlight()
+          : ""}
+      </div>
 
-        <div className="container mt-4 mb-5 pl-0 pr-0">
-          <div className="row ml-0 mr-0">
-            <div className="col-lg-8">
-              <div className="row">
-                <div className="col-md-12">
+      <div className="container mt-4 mb-5 pl-0 pr-0">
+        <div className="row ml-0 mr-0">
+          <div className="col-lg-8">
+            <div className="row">
+              <div className="col-md-12">
+                <div
+                  className="row"
+                  style={{
+                    backgroundColor: "white",
+                    boxShadow: "0px 0px 1px rgba(0,0,0,0.5)",
+                  }}
+                >
                   <div
-                    className="row"
                     style={{
-                      backgroundColor: "white",
-                      boxShadow: "0px 0px 1px rgba(0,0,0,0.5)",
+                      height: "10px",
+                      width: "100%",
+                      margin: 0,
+                      backgroundColor: "rgba(202, 28, 28, 0.945)",
                     }}
-                  >
-                    <div
-                      style={{
-                        height: "10px",
-                        width: "100%",
-                        margin: 0,
-                        backgroundColor: "rgba(202, 28, 28, 0.945)",
-                      }}
-                    />
-                    <div style={{ padding: "10px" }}>
-                      {showNewsFirstSection()}
-                      {eightLatestReview &&
-                      limitedReviewsSectionOne &&
-                      limitedReviewsSectionTwo ? (
-                        <React.Fragment>
-                          <div
-                            className="col-md-12"
-                            style={{
-                              display: "flex",
-                              flexDirection: "row",
-                              width: "100%",
-                              marginTop: "20px",
-                            }}
-                          >
-                            <div style={{ marginRight: "5px" }}>
-                              <MdRateReview size="1rem" color="#818078" />
-                            </div>
-                            <div style={{ width: "100%", paddingTop: 0 }}>
-                              <hr
-                                style={{ marginTop: "6px" }}
-                                className={styles.hrText}
-                                data-content="reviews"
-                              />
-                            </div>
+                  />
+                  <div style={{ padding: "10px" }}>
+                    {showNewsFirstSection()}
+                    {eightLatestReview &&
+                    limitedReviewsSectionOne &&
+                    limitedReviewsSectionTwo ? (
+                      <React.Fragment>
+                        <div
+                          className="col-md-12"
+                          style={{
+                            display: "flex",
+                            flexDirection: "row",
+                            width: "100%",
+                            marginTop: "20px",
+                          }}
+                        >
+                          <div style={{ marginRight: "5px" }}>
+                            <MdRateReview size="1rem" color="#818078" />
                           </div>
-                          {showReviewBlock()}
-                        </React.Fragment>
-                      ) : (
-                        ""
-                      )}
-
-                      <div
-                        className="col-md-12"
-                        style={{
-                          display: "flex",
-                          flexDirection: "row",
-                          width: "100%",
-                          marginTop: 0,
-                          marginBottom: "8px",
-                        }}
-                      >
-                        <div style={{ marginRight: "5px" }}>
-                          <FaNewspaper size="1rem" color="#818078" />
-                        </div>
-                        <div style={{ width: "100%", paddingTop: 0 }}>
-                          <hr
-                            style={{ marginTop: "6px" }}
-                            className={styles.hrText}
-                            data-content="more news"
-                          />
-                        </div>
-                      </div>
-                      {showNewsSecondSection()}
-                      {newsLimitFinalSection ? (
-                        <React.Fragment>
-                          <div
-                            className={styles.display_none_more_news_main_block}
-                          >
-                            {showNewsFinalSection()}
-                            {loadedNews ? (
-                              showNewsFinalSectionLoadedNews()
-                            ) : (
-                              <div>
-                                <h1>Loading...</h1>
-                              </div>
-                            )}
-                            <div className="container">{loadMoreButton()}</div>
+                          <div style={{ width: "100%", paddingTop: 0 }}>
+                            <hr
+                              style={{ marginTop: "6px" }}
+                              className={styles.hrText}
+                              data-content="reviews"
+                            />
                           </div>
-                        </React.Fragment>
-                      ) : (
-                        ""
-                      )}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+                        </div>
+                        {showReviewBlock()}
+                      </React.Fragment>
+                    ) : (
+                      ""
+                    )}
 
-            <div
-              className={`col-lg-4 ${styles.side__bar__single__brand__main}`}
-            >
-              {mobileListLatest ? (
-                <React.Fragment>
-                  <div
-                    className={`row mr-0 ${styles.side__bar__single__brand}`}
-                    style={{
-                      backgroundColor: "#fff",
-                      boxShadow: "0px 0px 1px rgba(0,0,0,0.5)",
-                    }}
-                  >
                     <div
                       className="col-md-12"
                       style={{
                         display: "flex",
                         flexDirection: "row",
                         width: "100%",
-                        marginTop: "20px",
-                        marginBottom: "10px",
+                        marginTop: 0,
+                        marginBottom: "8px",
                       }}
                     >
                       <div style={{ marginRight: "5px" }}>
-                        <FiSmartphone size="1rem" color="#818078" />
+                        <FaNewspaper size="1rem" color="#818078" />
                       </div>
                       <div style={{ width: "100%", paddingTop: 0 }}>
                         <hr
                           style={{ marginTop: "6px" }}
                           className={styles.hrText}
-                          data-content="latest phones"
+                          data-content="more news"
                         />
                       </div>
                     </div>
-                    <div
-                      className="col-md-12"
-                      style={{
-                        paddingRight: "12px",
-                        paddingLeft: "12px",
-                      }}
-                    >
-                      <div
-                        className={`${styles.cards__phone} ${styles.box__sizing__phone} ${styles.side__bar__phones}`}
-                      >
-                        {showSideBarMobiles()}
-                      </div>
-                      <div
-                        style={{
-                          height: "3px",
-                          width: "100%",
-                          margin: 0,
-                          backgroundColor: "rgba(202, 28, 28, 0.945)",
-                        }}
-                      />
-                      <div style={{ width: "100%" }}>
+                    {showNewsSecondSection()}
+                    {newsLimitFinalSection ? (
+                      <React.Fragment>
                         <div
-                          style={{
-                            display: "flex",
-                            flexDirection: "row",
-                            float: "right",
-                            marginBottom: "10px",
-                          }}
+                          className={styles.display_none_more_news_main_block}
                         >
-                          <div style={{ marginRight: 0 }}>
-                            <Link href={`/phones`}>
-                              <a>
-                                <h2
-                                  className="font-weight-bolder"
-                                  style={{
-                                    lineHeight: "130%",
-                                    textTransform: "capitalize",
-                                    fontSize: "16px",
-                                    fontWeight: "bold",
-                                    color: "#383838",
-                                    padding: "10px",
-                                    paddingRight: 0,
-                                    marginBottom: 0,
-                                  }}
-                                >
-                                  view all
-                                </h2>
-                              </a>
-                            </Link>
-                          </div>
-                          <div style={{ paddingTop: "8px", marginLeft: 0 }}>
-                            <Link href={`/phones`}>
-                              <a>
-                                <MdNavigateNext size="1.5rem" color="#000" />
-                              </a>
-                            </Link>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </React.Fragment>
-              ) : (
-                ""
-              )}
-
-              {reviewListLatest ? (
-                <div>
-                  <div
-                    className={`row mr-0 mt-2 ${styles.side__bar__single__brand} ${styles.display_none_side_bar_review}`}
-                    style={{
-                      backgroundColor: "#fff",
-                      boxShadow: "0px 0px 1px rgba(0,0,0,0.5)",
-                    }}
-                  >
-                    <div
-                      className="col-md-12"
-                      style={{
-                        display: "flex",
-                        flexDirection: "row",
-                        width: "100%",
-                        marginTop: "20px",
-                      }}
-                    >
-                      <div style={{ marginRight: "5px" }}>
-                        <MdRateReview size="1rem" color="#818078" />
-                      </div>
-                      <div style={{ width: "100%", paddingTop: 0 }}>
-                        <hr
-                          style={{ marginTop: "6px" }}
-                          className={styles.hrText}
-                          data-content="latest reviews"
-                        />
-                      </div>
-                    </div>
-                    <div
-                      className="col-md-12"
-                      style={{
-                        paddingTop: "10px",
-                        paddingRight: "12px",
-                        paddingLeft: "12px",
-                      }}
-                    >
-                      {showSideBarReviews()}
-                      <div
-                        style={{
-                          height: "3px",
-                          width: "100%",
-                          margin: 0,
-                          backgroundColor: "rgba(202, 28, 28, 0.945)",
-                        }}
-                      />
-                      <div style={{ width: "100%" }}>
-                        <div
-                          style={{
-                            display: "flex",
-                            flexDirection: "row",
-                            float: "right",
-                            marginBottom: "10px",
-                          }}
-                        >
-                          <div style={{ marginRight: 0 }}>
-                            <Link href={`/reviews`}>
-                              <a>
-                                <h2
-                                  className="font-weight-bolder"
-                                  style={{
-                                    lineHeight: "130%",
-                                    textTransform: "capitalize",
-                                    fontSize: "16px",
-                                    fontWeight: "bold",
-                                    color: "#383838",
-                                    padding: "10px",
-                                    paddingRight: 0,
-                                    marginBottom: 0,
-                                  }}
-                                >
-                                  view all
-                                </h2>
-                              </a>
-                            </Link>
-                          </div>
-                          <div style={{ paddingTop: "8px", marginLeft: 0 }}>
-                            <Link href={`/reviews`}>
-                              <a>
-                                <MdNavigateNext size="1.5rem" color="#000" />
-                              </a>
-                            </Link>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              ) : (
-                ""
-              )}
-            </div>
-          </div>
-
-          {newsLimitFinalSection ? (
-            <div>
-              <div
-                className={`row ml-0 mr-0 mt-2 ${styles.display_none_more_news_small_screen}`}
-              >
-                <div className="col-lg-8">
-                  <div className="row">
-                    <div className="col-md-12">
-                      <div
-                        className="row"
-                        style={{
-                          backgroundColor: "white",
-                          boxShadow: "0px 0px 1px rgba(0,0,0,0.5)",
-                        }}
-                      >
-                        <div style={{ padding: "10px" }}>
-                          <div
-                            className="col-md-12"
-                            style={{
-                              display: "flex",
-                              flexDirection: "row",
-                              width: "100%",
-                              marginTop: "10px",
-                              marginBottom: "8px",
-                            }}
-                          >
-                            <div style={{ marginRight: "5px" }}>
-                              <FaNewspaper size="1rem" color="#818078" />
-                            </div>
-                            <div style={{ width: "100%", paddingTop: 0 }}>
-                              <hr
-                                style={{ marginTop: "6px" }}
-                                className={styles.hrText}
-                                data-content="more news"
-                              />
-                            </div>
-                          </div>
                           {showNewsFinalSection()}
                           {loadedNews ? (
                             showNewsFinalSectionLoadedNews()
@@ -1324,18 +1072,265 @@ const Index = ({
                           )}
                           <div className="container">{loadMoreButton()}</div>
                         </div>
+                      </React.Fragment>
+                    ) : (
+                      ""
+                    )}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className={`col-lg-4 ${styles.side__bar__single__brand__main}`}>
+            {mobileListLatest ? (
+              <React.Fragment>
+                <div
+                  className={`row mr-0 ${styles.side__bar__single__brand}`}
+                  style={{
+                    backgroundColor: "#fff",
+                    boxShadow: "0px 0px 1px rgba(0,0,0,0.5)",
+                  }}
+                >
+                  <div
+                    className="col-md-12"
+                    style={{
+                      display: "flex",
+                      flexDirection: "row",
+                      width: "100%",
+                      marginTop: "20px",
+                      marginBottom: "10px",
+                    }}
+                  >
+                    <div style={{ marginRight: "5px" }}>
+                      <FiSmartphone size="1rem" color="#818078" />
+                    </div>
+                    <div style={{ width: "100%", paddingTop: 0 }}>
+                      <hr
+                        style={{ marginTop: "6px" }}
+                        className={styles.hrText}
+                        data-content="latest phones"
+                      />
+                    </div>
+                  </div>
+                  <div
+                    className="col-md-12"
+                    style={{
+                      paddingRight: "12px",
+                      paddingLeft: "12px",
+                    }}
+                  >
+                    <div
+                      className={`${styles.cards__phone} ${styles.box__sizing__phone} ${styles.side__bar__phones}`}
+                    >
+                      {showSideBarMobiles()}
+                    </div>
+                    <div
+                      style={{
+                        height: "3px",
+                        width: "100%",
+                        margin: 0,
+                        backgroundColor: "rgba(202, 28, 28, 0.945)",
+                      }}
+                    />
+                    <div style={{ width: "100%" }}>
+                      <div
+                        style={{
+                          display: "flex",
+                          flexDirection: "row",
+                          float: "right",
+                          marginBottom: "10px",
+                        }}
+                      >
+                        <div style={{ marginRight: 0 }}>
+                          <Link href={`/phones`}>
+                            <a>
+                              <h2
+                                className="font-weight-bolder"
+                                style={{
+                                  lineHeight: "130%",
+                                  textTransform: "capitalize",
+                                  fontSize: "16px",
+                                  fontWeight: "bold",
+                                  color: "#383838",
+                                  padding: "10px",
+                                  paddingRight: 0,
+                                  marginBottom: 0,
+                                }}
+                              >
+                                view all
+                              </h2>
+                            </a>
+                          </Link>
+                        </div>
+                        <div style={{ paddingTop: "8px", marginLeft: 0 }}>
+                          <Link href={`/phones`}>
+                            <a>
+                              <MdNavigateNext size="1.5rem" color="#000" />
+                            </a>
+                          </Link>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </React.Fragment>
+            ) : (
+              ""
+            )}
+
+            {reviewListLatest ? (
+              <div>
+                <div
+                  className={`row mr-0 mt-2 ${styles.side__bar__single__brand} ${styles.display_none_side_bar_review}`}
+                  style={{
+                    backgroundColor: "#fff",
+                    boxShadow: "0px 0px 1px rgba(0,0,0,0.5)",
+                  }}
+                >
+                  <div
+                    className="col-md-12"
+                    style={{
+                      display: "flex",
+                      flexDirection: "row",
+                      width: "100%",
+                      marginTop: "20px",
+                    }}
+                  >
+                    <div style={{ marginRight: "5px" }}>
+                      <MdRateReview size="1rem" color="#818078" />
+                    </div>
+                    <div style={{ width: "100%", paddingTop: 0 }}>
+                      <hr
+                        style={{ marginTop: "6px" }}
+                        className={styles.hrText}
+                        data-content="latest reviews"
+                      />
+                    </div>
+                  </div>
+                  <div
+                    className="col-md-12"
+                    style={{
+                      paddingTop: "10px",
+                      paddingRight: "12px",
+                      paddingLeft: "12px",
+                    }}
+                  >
+                    {showSideBarReviews()}
+                    <div
+                      style={{
+                        height: "3px",
+                        width: "100%",
+                        margin: 0,
+                        backgroundColor: "rgba(202, 28, 28, 0.945)",
+                      }}
+                    />
+                    <div style={{ width: "100%" }}>
+                      <div
+                        style={{
+                          display: "flex",
+                          flexDirection: "row",
+                          float: "right",
+                          marginBottom: "10px",
+                        }}
+                      >
+                        <div style={{ marginRight: 0 }}>
+                          <Link href={`/reviews`}>
+                            <a>
+                              <h2
+                                className="font-weight-bolder"
+                                style={{
+                                  lineHeight: "130%",
+                                  textTransform: "capitalize",
+                                  fontSize: "16px",
+                                  fontWeight: "bold",
+                                  color: "#383838",
+                                  padding: "10px",
+                                  paddingRight: 0,
+                                  marginBottom: 0,
+                                }}
+                              >
+                                view all
+                              </h2>
+                            </a>
+                          </Link>
+                        </div>
+                        <div style={{ paddingTop: "8px", marginLeft: 0 }}>
+                          <Link href={`/reviews`}>
+                            <a>
+                              <MdNavigateNext size="1.5rem" color="#000" />
+                            </a>
+                          </Link>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ) : (
+              ""
+            )}
+          </div>
+        </div>
+
+        {newsLimitFinalSection ? (
+          <div>
+            <div
+              className={`row ml-0 mr-0 mt-2 ${styles.display_none_more_news_small_screen}`}
+            >
+              <div className="col-lg-8">
+                <div className="row">
+                  <div className="col-md-12">
+                    <div
+                      className="row"
+                      style={{
+                        backgroundColor: "white",
+                        boxShadow: "0px 0px 1px rgba(0,0,0,0.5)",
+                      }}
+                    >
+                      <div style={{ padding: "10px" }}>
+                        <div
+                          className="col-md-12"
+                          style={{
+                            display: "flex",
+                            flexDirection: "row",
+                            width: "100%",
+                            marginTop: "10px",
+                            marginBottom: "8px",
+                          }}
+                        >
+                          <div style={{ marginRight: "5px" }}>
+                            <FaNewspaper size="1rem" color="#818078" />
+                          </div>
+                          <div style={{ width: "100%", paddingTop: 0 }}>
+                            <hr
+                              style={{ marginTop: "6px" }}
+                              className={styles.hrText}
+                              data-content="more news"
+                            />
+                          </div>
+                        </div>
+                        {showNewsFinalSection()}
+                        {loadedNews ? (
+                          showNewsFinalSectionLoadedNews()
+                        ) : (
+                          <div>
+                            <h1>Loading...</h1>
+                          </div>
+                        )}
+                        <div className="container">{loadMoreButton()}</div>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-          ) : (
-            ""
-          )}
-        </div>
+          </div>
+        ) : (
+          ""
+        )}
       </div>
-    </Layout>
+    </div>
   );
 };
 

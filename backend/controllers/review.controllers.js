@@ -103,12 +103,12 @@ exports.create = (req, res) => {
   });
 };
 
+/**this function is used to fetch all public review posts (reviews>Index) */
 exports.listPublic = (req, res) => {
   const flag = 1;
   Review.find({ flag })
-    .populate("tags", "_id name slug")
-    .populate("postedBy", "_id name username")
-    .select("_id title slug excerpt tags postedBy createdAt updatedAt flag")
+    .populate("postedBy", "username")
+    .select("title slug excerpt postedBy updatedAt")
     .sort({ updatedAt: -1 })
     .exec((err, data) => {
       if (err) {

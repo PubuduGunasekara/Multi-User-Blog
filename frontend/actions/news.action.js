@@ -119,6 +119,7 @@ export const newsListPublicTopStories = (blog) => {
     .catch((err) => console.log(err));
 };
 
+/**(review>Index,phones>Index) */
 export const newsListPublicMobileReviews = () => {
   return fetch(`${API}/news-mobile-reviews`, {
     method: "GET",

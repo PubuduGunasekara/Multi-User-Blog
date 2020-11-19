@@ -33,6 +33,7 @@ const mobileSearchButton = (props) => {
         onSubmit={clickSubmit}
         style={{ display: "flex", flexDirection: "row" }}
       >
+        <label style={{ display: "none" }}>search</label>
         <input
           style={{
             color: "#d8d8d8",
