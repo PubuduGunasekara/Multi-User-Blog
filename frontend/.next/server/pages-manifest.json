@@ -2,7 +2,6 @@
   "/_app": "pages/_app.js",
   "/_document": "pages/_document.js",
   "/_error": "pages/_error.js",
-  "/phones": "pages/phones.js",
-  "/phones/brands/[slug]": "pages/phones/brands/[slug].js",
-  "/next/dist/pages/_error": "pages/next/dist/pages/_error.js"
+  "/admin-panel/root-admin/list-all-post": "pages/admin-panel/root-admin/list-all-post.js",
+  "/tag/[slug]": "pages/tag/[slug].js"
 }

@@ -424,7 +424,7 @@ const AllPost = () => {
                     <h5 className="text-center mt-2 pt-4 pb-4">
                       public News - ({newsPublic.length})
                     </h5>
-                    {showPublicNews()}
+                    {showPublicNews(currentPostNewsPublic)}
                     {Pagination(
                       postPerPageNewsPublic,
                       newsPublic.length,
@@ -616,7 +616,7 @@ const AllPost = () => {
     });
   };
 
-  const showPublicNews = () => {
+  const showPublicNews = (currentPostNewsPublic) => {
     return currentPostNewsPublic.map((n, i) => {
       if (n.flag === 1) {
         return (

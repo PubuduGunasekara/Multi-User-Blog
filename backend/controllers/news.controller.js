@@ -108,7 +108,7 @@ exports.listPublic = (req, res) => {
   const flag = 1;
   News.find({ flag })
     .populate("postedBy", "username")
-    .select("title slug excerpt postedBy updatedAt")
+    .select("title slug excerpt postedBy updatedAt flag")
     .sort({ updatedAt: -1 })
     .exec((err, data) => {
       if (err) {

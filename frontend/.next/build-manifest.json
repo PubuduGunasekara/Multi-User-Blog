@@ -24,20 +24,15 @@
       "static/chunks/webpack.js",
       "static/chunks/pages/_error.js"
     ],
-    "/next/dist/pages/_error": [
+    "/admin-panel/root-admin/list-all-post": [
       "static/chunks/main.js",
       "static/chunks/webpack.js",
-      "static/chunks/pages/next/dist/pages/_error.js"
+      "static/chunks/pages/admin-panel/root-admin/list-all-post.js"
     ],
-    "/phones": [
+    "/tag/[slug]": [
       "static/chunks/main.js",
       "static/chunks/webpack.js",
-      "static/chunks/pages/phones.js"
-    ],
-    "/phones/brands/[slug]": [
-      "static/chunks/main.js",
-      "static/chunks/webpack.js",
-      "static/chunks/pages/phones/brands/[slug].js"
+      "static/chunks/pages/tag/[slug].js"
     ]
   },
   "ampFirstPages": []

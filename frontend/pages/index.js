@@ -17,7 +17,6 @@ import {
   reviewListPublicHomePage,
   reviewListPublicLimitedSectionOne,
   reviewListPublicLimitedSectionTwo,
-  reviewListPublic,
 } from "../actions/review.action";
 import { mobileListPublicNewsReviews } from "../actions/mobile.action";
 import { API, DOMAIN, APP_NAME, FB_APP_ID } from "../config";
