@@ -1,20 +1,47 @@
-import Layout from '../../components/Layout';
-import SingleTag from '../../components/singleTag.component/singleTag';
-import { withRouter } from "next/router";
+import SingleTag from "../../components/singleTag.component/singleTag";
+import { getTags, singleTags } from "../../actions/tag.action";
 
 const Index = (tag) => {
-    
-    return (
-        <Layout>
-            <SingleTag singleTag={tag.tag} />
-        </Layout>
-    )
-}
-//this method executes at the server side. query is same as the router . in server side slug can be access thruogh query, in client side it can be access through router use JSON.stringify()
-Index.getInitialProps = ({ query }) => {
-    return(
-      {tag:query.slug} 
-    )
+  return <SingleTag singleTag={tag} />;
+};
+
+export async function getStaticPaths() {
+  const tags = await getTags().then((data) => {
+    if (data.error) {
+      console.log(data.error);
+    } else {
+      return data;
+    }
+  });
+
+  const paths = tags.map((post) => ({
+    params: { slug: post.slug },
+  }));
+
+  return {
+    paths,
+    fallback: true, // See the "fallback" section below
   };
-  
-  export default withRouter(Index);
+}
+
+// This also gets called at build time
+export async function getStaticProps({ params }) {
+  const tag = await singleTags(params.slug).then((data) => {
+    if (data.error) {
+      return console.log(data.error);
+    } else {
+      return data;
+    }
+  });
+
+  return {
+    props: {
+      tag,
+    },
+    // Re-generate the post at most once per second
+    // if a request comes in
+    revalidate: 1,
+  };
+}
+
+export default Index;

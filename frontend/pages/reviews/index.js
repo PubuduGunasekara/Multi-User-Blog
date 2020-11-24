@@ -6,12 +6,11 @@ import { mobileListPublicNewsReviews } from "../../actions/mobile.action";
 import { reviewListPublic } from "../../actions/review.action";
 import moment from "moment";
 import { API, DOMAIN, APP_NAME, FB_APP_ID } from "../../config";
-import { MdNavigateNext } from "react-icons/md";
 import { FaNewspaper } from "react-icons/fa";
 import { FiSmartphone } from "react-icons/fi";
 import React from "react";
 import styles from "../../styles/reviewFrontEnd.module.css";
-
+import Loader from "react-loader-spinner";
 /**
  * completed!
  */
@@ -326,111 +325,219 @@ const AllReviews = ({ reviews, news, mobiles }) => {
 
   return (
     <React.Fragment>
-      {head()}
-      <div
-        alt="Photo by Glenn Carstens-Peters on Unsplash"
-        style={{
-          backgroundImage: `url(/static/images/review_cover.jpg)`,
-          backgroundPosition: "center",
-          backgroundRepeat: "no-repeat",
-          position: "relative",
-          backgroundSize: "cover",
-          height: "300px",
-          width: "100%",
-          boxShadow: "0px 0px 0px rgba(0,0,0,0.9)",
-        }}
-      >
-        <div
-          className="container"
-          style={{ paddingTop: "50px", paddingBottom: "50px" }}
-        >
+      {reviews && news && mobiles ? (
+        <React.Fragment>
+          {head()}
           <div
+            alt="Photo by Glenn Carstens-Peters on Unsplash"
             style={{
-              height: "120px",
-              overflowY: "auto",
-              color: "#EEE1E1",
-              paddingBottom: 0,
-              paddingTop: 0,
-              marginTop: "15px",
-              marginBottom: "15px",
+              backgroundImage: `url(/static/images/review_cover.jpg)`,
+              backgroundPosition: "center",
+              backgroundRepeat: "no-repeat",
+              position: "relative",
+              backgroundSize: "cover",
+              height: "300px",
+              width: "100%",
+              boxShadow: "0px 0px 0px rgba(0,0,0,0.9)",
             }}
           >
-            <h1
-              title="Gear Reviews"
-              className={styles.cover__image__div__main__topic}
+            <div
+              className="container"
+              style={{ paddingTop: "50px", paddingBottom: "50px" }}
             >
-              Reviews
-            </h1>
-          </div>
-          <div style={{ overflow: "auto" }}>
-            <form
-              onSubmit={seacrhSubmit}
-              style={{
-                display: "flex",
-                flexDirection: "row",
-                height: "40px",
-              }}
-            >
-              <input
-                title={`search for Reviews`}
-                className="form-control"
-                onChange={handleChange}
-                value={search}
-                required
+              <div
                 style={{
-                  width: "77%",
-                  opacity: ".7",
-                  borderRadius: "0px",
-                  borderColor: "white",
-                  height: "40px",
-                }}
-                type="search"
-                placeholder="Search Here"
-              />
-              <button
-                type="submit"
-                className="btn btn-dark"
-                style={{
-                  border: "1px solid white",
-                  backgroundColor: "#2c2c2c",
-                  opacity: "0.9",
-                  height: "40px",
-                  borderRadius: "0px",
-                  width: "23%",
+                  height: "120px",
+                  overflowY: "auto",
+                  color: "#EEE1E1",
+                  paddingBottom: 0,
+                  paddingTop: 0,
+                  marginTop: "15px",
+                  marginBottom: "15px",
                 }}
               >
-                Search
-              </button>
-            </form>
-          </div>
-          <div>
-            {filteredContent.length > 0 ? (
-              <div>
-                <span
+                <h1
+                  title="Gear Reviews"
+                  className={styles.cover__image__div__main__topic}
+                >
+                  Reviews
+                </h1>
+              </div>
+              <div style={{ overflow: "auto" }}>
+                <form
+                  onSubmit={seacrhSubmit}
                   style={{
-                    color: "white",
-                    fontSize: "16px",
-                    fontWeight: "700",
-                    textTransform: "capitalize",
+                    display: "flex",
+                    flexDirection: "row",
+                    height: "40px",
                   }}
                 >
-                  {filteredContent.length} result(s) found!
-                </span>
+                  <input
+                    title={`search for Reviews`}
+                    className="form-control"
+                    onChange={handleChange}
+                    value={search}
+                    required
+                    style={{
+                      width: "77%",
+                      opacity: ".7",
+                      borderRadius: "0px",
+                      borderColor: "white",
+                      height: "40px",
+                    }}
+                    type="search"
+                    placeholder="Search Here"
+                  />
+                  <button
+                    type="submit"
+                    className="btn btn-dark"
+                    style={{
+                      border: "1px solid white",
+                      backgroundColor: "#2c2c2c",
+                      opacity: "0.9",
+                      height: "40px",
+                      borderRadius: "0px",
+                      width: "23%",
+                    }}
+                  >
+                    Search
+                  </button>
+                </form>
               </div>
-            ) : (
-              ""
-            )}
+              <div>
+                {filteredContent.length > 0 ? (
+                  <div>
+                    <span
+                      style={{
+                        color: "white",
+                        fontSize: "16px",
+                        fontWeight: "700",
+                        textTransform: "capitalize",
+                      }}
+                    >
+                      {filteredContent.length} result(s) found!
+                    </span>
+                  </div>
+                ) : (
+                  ""
+                )}
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
-      <div className="container mt-4 mb-5 pl-0 pr-0">
-        <div className="row ml-0 mr-0">
-          <div className="col-lg-8">
-            <div className="row">
-              <div className="col-md-12">
-                {showSearch ? (
-                  <React.Fragment>
-                    {filteredContent.length !== 0 ? (
+          <div className="container mt-3 mb-5 pl-0 pr-0">
+            <div className="row ml-0 mr-0">
+              <div style={{ width: "100%" }}>
+                <nav aria-label="breadcrumb">
+                  <ol
+                    style={{ backgroundColor: "#f3f3f3" }}
+                    className="breadcrumb pt-0 pb-0"
+                  >
+                    <li className="breadcrumb-item">
+                      <Link href="/">
+                        <a>Home</a>
+                      </Link>
+                    </li>
+                    <li className="breadcrumb-item active" aria-current="page">
+                      Reviews
+                    </li>
+                  </ol>
+                </nav>
+              </div>
+              <div className="col-lg-8">
+                <div className="row">
+                  <div className="col-md-12">
+                    {showSearch ? (
+                      <React.Fragment>
+                        {filteredContent.length !== 0 ? (
+                          <div
+                            className="row"
+                            style={{
+                              backgroundColor: "white",
+                              boxShadow: "0px 0px 1px rgba(0,0,0,0.5)",
+                            }}
+                          >
+                            <div
+                              style={{
+                                height: "10px",
+                                width: "100%",
+                                margin: 0,
+                                backgroundColor: "rgba(202, 28, 28, 0.945)",
+                              }}
+                            />
+                            <div
+                              className="col-md-12"
+                              style={{
+                                display: "flex",
+                                flexDirection: "row",
+                                width: "100%",
+                                marginTop: "20px",
+                                marginBottom: "10px",
+                              }}
+                            >
+                              <div
+                                style={{
+                                  width: "100%",
+                                  paddingTop: 0,
+                                }}
+                              >
+                                <hr
+                                  style={{ marginTop: "6px" }}
+                                  className={styles.hrText}
+                                  data-content={`${filteredContent.length} result(s) found!`}
+                                />
+                              </div>
+                            </div>
+                            <div
+                              className={`${styles.cards} ${styles.box__sizing}`}
+                            >
+                              {showSearchedReviews(currentPostSearched)}
+                            </div>
+                            <div style={{ width: "100%" }}>
+                              {Pagination(
+                                postPerPageSearched,
+                                filteredContent.length,
+                                paginateSearched,
+                                nextPageSearched,
+                                previousPageSearched,
+                                currentPageSearched,
+                                lastPageSearched
+                              )}
+                            </div>
+                          </div>
+                        ) : (
+                          <div
+                            className="row"
+                            style={{
+                              backgroundColor: "white",
+                              boxShadow: "0px 0px 1px rgba(0,0,0,0.5)",
+                            }}
+                          >
+                            <div
+                              style={{
+                                margin: "20px",
+                                padding: "20px",
+                                textAlign: "center",
+                                width: "100%",
+                                height: "100%",
+                              }}
+                              className={`alert alert-danger ${styles.change__no__results__found__styles}`}
+                              role="alert"
+                            >
+                              <h2
+                                style={{
+                                  margin: "20px",
+                                  padding: "20px",
+                                  textAlign: "center",
+                                  color: "#383838",
+                                }}
+                              >
+                                No Results found.
+                              </h2>
+                            </div>
+                          </div>
+                        )}
+                      </React.Fragment>
+                    ) : (
                       <div
                         className="row"
                         style={{
@@ -447,318 +554,198 @@ const AllReviews = ({ reviews, news, mobiles }) => {
                           }}
                         />
                         <div
-                          className="col-md-12"
-                          style={{
-                            display: "flex",
-                            flexDirection: "row",
-                            width: "100%",
-                            marginTop: "20px",
-                            marginBottom: "10px",
-                          }}
-                        >
-                          <div
-                            style={{
-                              width: "100%",
-                              paddingTop: 0,
-                            }}
-                          >
-                            <hr
-                              style={{ marginTop: "6px" }}
-                              className={styles.hrText}
-                              data-content={`${filteredContent.length} result(s) found!`}
-                            />
-                          </div>
-                        </div>
-                        <div
                           className={`${styles.cards} ${styles.box__sizing}`}
                         >
-                          {showSearchedReviews(currentPostSearched)}
+                          {showReviews()}
                         </div>
                         <div style={{ width: "100%" }}>
                           {Pagination(
-                            postPerPageSearched,
-                            filteredContent.length,
-                            paginateSearched,
-                            nextPageSearched,
-                            previousPageSearched,
-                            currentPageSearched,
-                            lastPageSearched
+                            postPerPage,
+                            reviews.length,
+                            paginate,
+                            nextPage,
+                            previousPage,
+                            currentPage,
+                            lastPage
                           )}
                         </div>
                       </div>
-                    ) : (
-                      <div
-                        className="row"
-                        style={{
-                          backgroundColor: "white",
-                          boxShadow: "0px 0px 1px rgba(0,0,0,0.5)",
-                        }}
-                      >
-                        <div
-                          style={{
-                            margin: "20px",
-                            padding: "20px",
-                            textAlign: "center",
-                            width: "100%",
-                            height: "100%",
-                          }}
-                          className={`alert alert-danger ${styles.change__no__results__found__styles}`}
-                          role="alert"
-                        >
-                          <h2
-                            style={{
-                              margin: "20px",
-                              padding: "20px",
-                              textAlign: "center",
-                              color: "#383838",
-                            }}
-                          >
-                            No Results found.
-                          </h2>
-                        </div>
-                      </div>
                     )}
-                  </React.Fragment>
-                ) : (
+                  </div>
+                </div>
+              </div>
+              <div
+                className={`col-lg-4 ${styles.side__bar__single__brand__main}`}
+              >
+                <div
+                  className={`row mr-0 ${styles.side__bar__single__brand}`}
+                  style={{
+                    backgroundColor: "white",
+                    boxShadow: "0px 0px 1px rgba(0,0,0,0.5)",
+                    marginBottom: "8px",
+                  }}
+                >
                   <div
-                    className="row"
+                    className="col-md-12"
                     style={{
-                      backgroundColor: "white",
-                      boxShadow: "0px 0px 1px rgba(0,0,0,0.5)",
+                      display: "flex",
+                      flexDirection: "row",
+                      width: "100%",
+                      marginTop: "20px",
+                      marginBottom: "10px",
+                    }}
+                  >
+                    <div style={{ marginRight: "5px" }}>
+                      <FiSmartphone size="1rem" color="#505050" />
+                    </div>
+                    <div style={{ width: "100%", paddingTop: 0 }}>
+                      <hr
+                        style={{ marginTop: "6px" }}
+                        className={styles.hrText}
+                        data-content="latest phones"
+                      />
+                    </div>
+                  </div>
+                  <div
+                    className="col-md-12"
+                    style={{
+                      paddingRight: "12px",
+                      paddingLeft: "12px",
                     }}
                   >
                     <div
+                      className={`${styles.side__bar__phones} ${styles.box__sizing__phone} ${styles.cards__phone}`}
+                    >
+                      {showSideBarMobiles()}
+                    </div>
+                    <div
                       style={{
-                        height: "10px",
+                        height: "3px",
                         width: "100%",
                         margin: 0,
                         backgroundColor: "rgba(202, 28, 28, 0.945)",
                       }}
                     />
-                    <div className={`${styles.cards} ${styles.box__sizing}`}>
-                      {showReviews()}
-                    </div>
                     <div style={{ width: "100%" }}>
-                      {Pagination(
-                        postPerPage,
-                        reviews.length,
-                        paginate,
-                        nextPage,
-                        previousPage,
-                        currentPage,
-                        lastPage
-                      )}
-                    </div>
-                  </div>
-                )}
-              </div>
-            </div>
-          </div>
-          <div className={`col-lg-4 ${styles.side__bar__single__brand__main}`}>
-            <div
-              className={`row mr-0 ${styles.side__bar__single__brand}`}
-              style={{
-                backgroundColor: "white",
-                boxShadow: "0px 0px 1px rgba(0,0,0,0.5)",
-                marginBottom: "8px",
-              }}
-            >
-              <div
-                className="col-md-12"
-                style={{
-                  display: "flex",
-                  flexDirection: "row",
-                  width: "100%",
-                  marginTop: "20px",
-                  marginBottom: "10px",
-                }}
-              >
-                <div style={{ marginRight: "5px" }}>
-                  <FiSmartphone size="1rem" color="#818078" />
-                </div>
-                <div style={{ width: "100%", paddingTop: 0 }}>
-                  <hr
-                    style={{ marginTop: "6px" }}
-                    className={styles.hrText}
-                    data-content="latest phones"
-                  />
-                </div>
-              </div>
-              <div
-                className="col-md-12"
-                style={{
-                  paddingRight: "12px",
-                  paddingLeft: "12px",
-                }}
-              >
-                <div
-                  className={`${styles.side__bar__phones} ${styles.box__sizing__phone} ${styles.cards__phone}`}
-                >
-                  {showSideBarMobiles()}
-                </div>
-                <div
-                  style={{
-                    height: "3px",
-                    width: "100%",
-                    margin: 0,
-                    backgroundColor: "rgba(202, 28, 28, 0.945)",
-                  }}
-                />
-                <div style={{ width: "100%" }}>
-                  <div
-                    style={{
-                      display: "flex",
-                      flexDirection: "row",
-                      float: "right",
-                      marginBottom: "10px",
-                    }}
-                  >
-                    <div style={{ marginRight: 0 }}>
-                      <Link href={`/phones`}>
-                        <a>
-                          <h2
-                            className="font-weight-bolder"
-                            style={{
-                              lineHeight: "130%",
-                              textTransform: "capitalize",
-                              fontSize: "16px",
-                              fontWeight: "bold",
-                              color: "#383838",
-                              padding: "10px",
-                              paddingRight: 0,
-                              marginBottom: 0,
-                            }}
-                          >
-                            view all
-                          </h2>
-                        </a>
-                      </Link>
-                    </div>
-                    <div style={{ paddingTop: "8px", marginLeft: 0 }}>
-                      <Link href={`/phones`}>
-                        <a>
-                          <MdNavigateNext size="1.5rem" color="#000" />
-                        </a>
-                      </Link>
+                      <div
+                        style={{
+                          display: "flex",
+                          flexDirection: "row",
+                          float: "right",
+                          marginBottom: "10px",
+                          marginTop: "6px",
+                        }}
+                      >
+                        <div style={{ marginRight: 0 }}>
+                          <Link href={`/phones`}>
+                            <a style={{ textDecoration: "none" }}>
+                              <div className={styles.view_all}>
+                                <span>view all</span>
+                              </div>
+                            </a>
+                          </Link>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            </div>
 
-            <div
-              className={`row mr-0 ${styles.side__bar__single__brand}`}
-              style={{
-                backgroundColor: "white",
-                boxShadow: "0px 0px 1px rgba(0,0,0,0.5)",
-              }}
-            >
-              <div
-                className="col-md-12"
-                style={{
-                  display: "flex",
-                  flexDirection: "row",
-                  width: "100%",
-                  marginTop: "20px",
-                }}
-              >
-                <div style={{ marginRight: "5px" }}>
-                  <FaNewspaper size="1rem" color="#818078" />
-                </div>
-                <div style={{ width: "100%", paddingTop: 0 }}>
-                  <hr
-                    style={{ marginTop: "7px" }}
-                    className={styles.hrText}
-                    data-content="latest news"
-                  />
-                </div>
-              </div>
-              <div
-                className="col-md-12"
-                style={{
-                  paddingTop: "15px",
-                  paddingRight: "12px",
-                  paddingLeft: "12px",
-                }}
-              >
-                {showSideBarNews()}
                 <div
+                  className={`row mr-0 ${styles.side__bar__single__brand}`}
                   style={{
-                    height: "3px",
-                    width: "100%",
-                    margin: 0,
-                    backgroundColor: "rgba(202, 28, 28, 0.945)",
+                    backgroundColor: "white",
+                    boxShadow: "0px 0px 1px rgba(0,0,0,0.5)",
                   }}
-                />
-                <div style={{ width: "100%" }}>
+                >
                   <div
+                    className="col-md-12"
                     style={{
                       display: "flex",
                       flexDirection: "row",
-                      float: "right",
-                      marginBottom: "10px",
+                      width: "100%",
+                      marginTop: "20px",
                     }}
                   >
-                    <div style={{ marginRight: 0 }}>
-                      <Link href={`/news`}>
-                        <a>
-                          <h2
-                            className="font-weight-bolder"
-                            style={{
-                              lineHeight: "130%",
-                              textTransform: "capitalize",
-                              fontSize: "16px",
-                              fontWeight: "bold",
-                              color: "#383838",
-                              padding: "10px",
-                              paddingRight: 0,
-                              marginBottom: 0,
-                            }}
-                          >
-                            view all
-                          </h2>
-                        </a>
-                      </Link>
+                    <div style={{ marginRight: "5px" }}>
+                      <FaNewspaper size="1rem" color="#505050" />
                     </div>
-                    <div style={{ paddingTop: "8px", marginLeft: 0 }}>
-                      <Link href={`/news`}>
-                        <a>
-                          <MdNavigateNext size="1.5rem" color="#000" />
-                        </a>
-                      </Link>
+                    <div style={{ width: "100%", paddingTop: 0 }}>
+                      <hr
+                        style={{ marginTop: "7px" }}
+                        className={styles.hrText}
+                        data-content="latest news"
+                      />
+                    </div>
+                  </div>
+                  <div
+                    className="col-md-12"
+                    style={{
+                      paddingTop: "15px",
+                      paddingRight: "12px",
+                      paddingLeft: "12px",
+                    }}
+                  >
+                    {showSideBarNews()}
+                    <div
+                      style={{
+                        height: "3px",
+                        width: "100%",
+                        margin: 0,
+                        backgroundColor: "rgba(202, 28, 28, 0.945)",
+                      }}
+                    />
+                    <div style={{ width: "100%" }}>
+                      <div
+                        style={{
+                          display: "flex",
+                          flexDirection: "row",
+                          float: "right",
+                          marginBottom: "10px",
+                          marginTop: "6px",
+                        }}
+                      >
+                        <div style={{ marginRight: 0 }}>
+                          <Link href={`/news`}>
+                            <a style={{ textDecoration: "none" }}>
+                              <div className={styles.view_all}>
+                                <span>view all</span>
+                              </div>
+                            </a>
+                          </Link>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-      </div>
-      <div
-        style={{
-          width: "100%",
-          textAlign: "right",
-          backgroundColor: "white",
-          fontSize: "10px",
-        }}
-      >
-        <span>
-          Cover Photo by{" "}
-          <a
-            rel="nofollow"
-            href="https://unsplash.com/@glenncarstenspeters?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText"
+        </React.Fragment>
+      ) : (
+        <React.Fragment>
+          <div
+            style={{
+              textAlign: "center",
+              top: "50%",
+              bottom: "50%",
+              minHeight: "100vh",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              margin: "auto",
+              padding: "auto",
+            }}
           >
-            Glenn Carstens-Peters
-          </a>{" "}
-          on{" "}
-          <a
-            rel="nofollow"
-            href="https://unsplash.com/s/photos/tech?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText"
-          >
-            Unsplash
-          </a>
-        </span>
-      </div>
+            <Loader
+              type="Bars"
+              color="rgba(202, 28, 28, 0.945)"
+              height={100}
+              width={100}
+              timeout={30000} //3 secs
+            />
+          </div>
+        </React.Fragment>
+      )}
     </React.Fragment>
   );
 };

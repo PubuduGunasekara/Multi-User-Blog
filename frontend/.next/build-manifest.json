@@ -24,15 +24,15 @@
       "static/chunks/webpack.js",
       "static/chunks/pages/_error.js"
     ],
-    "/admin-panel/root-admin/list-all-post": [
+    "/profile/[slug]": [
       "static/chunks/main.js",
       "static/chunks/webpack.js",
-      "static/chunks/pages/admin-panel/root-admin/list-all-post.js"
+      "static/chunks/pages/profile/[slug].js"
     ],
-    "/tag/[slug]": [
+    "/search/[search]": [
       "static/chunks/main.js",
       "static/chunks/webpack.js",
-      "static/chunks/pages/tag/[slug].js"
+      "static/chunks/pages/search/[search].js"
     ]
   },
   "ampFirstPages": []

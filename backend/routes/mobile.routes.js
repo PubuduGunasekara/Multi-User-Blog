@@ -47,7 +47,7 @@ router.get("/mobile-search/search", listSearchAdmin);
 
 //end user routes
 router.get("/mobile-search-user/search", listSearchUser);
-router.get("/mobile-news-reviews", listForNewsReviews);
+router.get("/mobile-news-reviews", listForNewsReviews); //done (INDEX,NEWS>INDEX,REVIEWS>INDEX)
 router.post("/mobile/related", listRelated);
 router.post("/mobile/news-related", listRelatedNews);
 router.post("/mobile/reviews-related", listRelatedReviews);

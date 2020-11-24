@@ -1,11 +1,11 @@
 import Router from "next/router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "../../styles/Header.module.css";
 
 /**
  * completed!
  */
-const mobileSearchButton = (props) => {
+const SearchButton = (props) => {
   let drawerClasses = `${styles.large__screen__search}`;
 
   if (props.show) {
@@ -77,4 +77,4 @@ const mobileSearchButton = (props) => {
   );
 };
 
-export default mobileSearchButton;
+export default SearchButton;

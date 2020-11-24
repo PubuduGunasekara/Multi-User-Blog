@@ -1,23 +1,50 @@
-import Layout from '../../components/Layout';
-import Profile from '../../components/publicUserProfile/publicUser';
-import { withRouter } from "next/router";
+import Profile from "../../components/publicUserProfile/publicUser";
+import {
+  listProfiles,
+  userPublicProfile,
+} from "../../actions/userProfile.action";
 
 const Index = (profile) => {
-    
-    return (
-        <Layout>
-            <Profile username={profile.username} />
-        </Layout>
-    )
+  return <Profile profile={profile} />;
+};
+
+export async function getStaticPaths() {
+  const profiles = await listProfiles().then((data) => {
+    if (data.error) {
+      console.log(data.error);
+    } else {
+      return data;
+    }
+  });
+
+  const paths = profiles.map((post) => ({
+    params: { slug: post.username },
+  }));
+
+  return {
+    paths,
+    fallback: true, // See the "fallback" section below
+  };
 }
 
+// This also gets called at build time
+export async function getStaticProps({ params }) {
+  const profile = await userPublicProfile(params.slug).then((data) => {
+    if (data.error) {
+      console.log(data.error);
+    } else {
+      return data;
+    }
+  });
 
-
-//this method executes at the server side. query is same as the router . in server side slug can be access thruogh query, in client side it can be access through router use JSON.stringify()
-Index.getInitialProps = ({ query }) => {
-    return(
-      {username:query.slug} 
-    )
+  return {
+    props: {
+      profile,
+    },
+    // Re-generate the post at most once per second
+    // if a request comes in
+    revalidate: 1,
   };
-  
-  export default withRouter(Index);
+}
+
+export default Index;

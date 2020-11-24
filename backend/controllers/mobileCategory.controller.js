@@ -99,7 +99,7 @@ exports.read = (req, res) => {
     });
 };
 
-/**completed! this function is used in admin panel > create mobile category page  and user side all mobile brands page (phones>category)*/
+/**completed! this function is used in admin panel > create mobile category page  and user side all mobile brands page (phones>INDEX)*/
 exports.list = (req, res) => {
   MobileCategory.find({})
     .select("name slug")
@@ -108,11 +108,6 @@ exports.list = (req, res) => {
       if (err) {
         return res.status(400).json({
           error: errorHandler(err),
-        });
-      }
-      if (!data) {
-        return res.status(400).json({
-          error: "no data found",
         });
       }
       res.status(200).json(data);

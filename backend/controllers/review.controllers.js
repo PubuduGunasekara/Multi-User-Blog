@@ -130,11 +130,11 @@ exports.listPublicLatestReview = (req, res) => {
     .limit(1)
     .exec((err, data) => {
       if (err) {
-        return res.json({
+        return res.status(400).json({
           error: errorHandler(err),
         });
       }
-      res.json(data);
+      res.status(200).json(data);
     });
 };
 
@@ -149,11 +149,11 @@ exports.listPublicSecondLatestReview = (req, res) => {
     .limit(1)
     .exec((err, data) => {
       if (err) {
-        return res.json({
+        return res.status(400).json({
           error: errorHandler(err),
         });
       }
-      res.json(data);
+      res.status(200).json(data);
     });
 };
 
@@ -168,12 +168,11 @@ exports.listPublicEighthLatestReview = (req, res) => {
     .limit(1)
     .exec((err, data) => {
       if (err) {
-        return res.json({
+        return res.status(400).json({
           error: errorHandler(err),
         });
       }
-      console.log(data);
-      res.json(data);
+      res.status(200).json(data);
     });
 };
 
@@ -192,11 +191,6 @@ exports.listLimitedReviewsSectionOne = (req, res) => {
       if (err) {
         return res.status(400).json({
           error: errorHandler(err),
-        });
-      }
-      if (!data) {
-        return res.status(400).json({
-          error: "no data found",
         });
       }
       res.status(200).json(data);
@@ -218,11 +212,6 @@ exports.listLimitedReviewsSectionTwo = (req, res) => {
       if (err) {
         return res.status(400).json({
           error: errorHandler(err),
-        });
-      }
-      if (!data) {
-        return res.status(400).json({
-          error: "no data found",
         });
       }
       res.status(200).json(data);
@@ -254,7 +243,7 @@ exports.listForHomePage = (req, res) => {
     });
 };
 
-/**completed this function is used to list popular latest reviews for  mobile and news pages (Index page,news>Index)  */
+/**completed this function is used to list popular latest reviews for  mobile and news pages (Index page,news>Index,phones>INDEX)  */
 exports.listForNewsMobile = (req, res) => {
   const flag = 1;
   const limit = 5;

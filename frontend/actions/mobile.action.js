@@ -49,7 +49,7 @@ export const mobileListPublicReleventBrands = (id) => {
     .catch((err) => console.log(err));
 };
 
-/**done (news>Index,reviews>index) */
+/**done (news>Index,reviews>index,INDEX) */
 export const mobileListPublicNewsReviews = () => {
   return fetch(`${API}/mobile-news-reviews`, {
     method: "GET",

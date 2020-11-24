@@ -34,7 +34,7 @@ const {
 } = require("../controllers/review.controllers");
 
 router.post("/review", requireSignIn, authMiddleware, create);
-router.get("/reviews-public-root", listPublic);
+router.get("/reviews-public-root", listPublic); //done (REVIEWS>INDEX)
 router.get("/reviews-private-root", listPrivate);
 router.get("/reviews/photo/:slug", photo);
 router.get("/review/:slug", read);
@@ -57,23 +57,23 @@ router.get("/review-search-moderator/search", listSearchModerator);
 
 //end user routes
 router.get("/newsTopStories", listPublicTopStories);
-router.get("/reviews-news-mobile", listForNewsMobile);
-router.get("/reviews-home", listForHomePage);
+router.get("/reviews-news-mobile", listForNewsMobile); //done (NEWS>INDEX)
+router.get("/reviews-home", listForHomePage); //done (INDEX)
 router.post("/review/related", listRelated);
 router.post("/review/news-related", listRelatedNews);
 router.post("/review/mobiles-related", listRelatedMobiles);
 router.get("/review-search-user/search", listSearchUser);
-router.get("/review-public-latest", listPublicLatestReview);
-router.get("/review-public-second-latest", listPublicSecondLatestReview);
-router.get("/review-public-eight-latest", listPublicEighthLatestReview);
+router.get("/review-public-latest", listPublicLatestReview); //done (INDEX)
+router.get("/review-public-second-latest", listPublicSecondLatestReview); //done (INDEX)
+router.get("/review-public-eight-latest", listPublicEighthLatestReview); //done (INDEX)
 router.get(
   "/review-public-limited-list-section-one",
   listLimitedReviewsSectionOne
-);
+); //done (INDEX)
 router.get(
   "/review-public-limited-list-section-two",
   listLimitedReviewsSectionTwo
-);
+); //done (INDEX)
 
 //moderator
 router.get("/review/moderator-private/:id", listForModeratorPrivate);

@@ -34,7 +34,7 @@ const {
 
 router.post("/news", requireSignIn, authMiddleware, create);
 router.get("/news-private-root", listPrivate);
-router.get("/news-public-root", listPublic);
+router.get("/news-public-root", listPublic); //done (NEWS>INDEX)
 router.get("/news/photo/:slug", photo);
 router.get("/news/:slug", read);
 router.delete("/news/:slug", requireSignIn, adminMiddleware, remove);
@@ -51,16 +51,16 @@ router.get("/news-search-moderator/search", listSearchModerator);
 
 //end user routes
 router.post("/newsTopStories", listPublicTopStories);
-router.get("/news-mobile-reviews", listForMobileReviews);
+router.get("/news-mobile-reviews", listForMobileReviews); //done (REVIEWS>INDEX)
 router.post("/news/related", listRelated);
 router.post("/news/reviews-related", listRelatedReviews);
 router.post("/news/mobiles-related", listRelatedMobiles);
 router.get("/news-search-user/search", listSearchUser);
-router.get("/news-public-latest", listPublicLatestNews);
-router.get("/news-public-second-latest", listPublicSecondLatestNews);
-router.get("/news-public-limit-first-section", listPublicLimitFirstSection);
-router.get("/news-public-limit-second-section", listPublicLimitSecondSection);
-router.post("/news-public-limit-final-section", listPublicLimitFinalSection);
+router.get("/news-public-latest", listPublicLatestNews); //done (INDEX)
+router.get("/news-public-second-latest", listPublicSecondLatestNews); //done (INDEX)
+router.get("/news-public-limit-first-section", listPublicLimitFirstSection); //done (INDEX)
+router.get("/news-public-limit-second-section", listPublicLimitSecondSection); //done (INDEX)
+router.post("/news-public-limit-final-section", listPublicLimitFinalSection); //done (INDEX)
 
 //moderator
 router.get("/news/moderator-private/:id", listForModeratorPrivate);

@@ -96,7 +96,7 @@ exports.create = (req, res) => {
             error: errorHandler(err),
           });
         } else {
-          res.json(result);
+          res.status(200).json(result);
         }
       }); //update
     }); //save
@@ -112,11 +112,11 @@ exports.listPublic = (req, res) => {
     .sort({ updatedAt: -1 })
     .exec((err, data) => {
       if (err) {
-        return res.json({
+        res.status(400).json({
           error: errorHandler(err),
         });
       }
-      res.json(data);
+      res.status(200).json(data);
     });
 };
 
@@ -131,11 +131,11 @@ exports.listPublicLimitFirstSection = (req, res) => {
     .limit(10)
     .exec((err, data) => {
       if (err) {
-        return res.json({
+        return res.status(400).json({
           error: errorHandler(err),
         });
       }
-      res.json(data);
+      res.status(200).json(data);
     });
 };
 
@@ -150,11 +150,11 @@ exports.listPublicLimitSecondSection = (req, res) => {
     .limit(10)
     .exec((err, data) => {
       if (err) {
-        return res.json({
+        return res.status(400).json({
           error: errorHandler(err),
         });
       }
-      res.json(data);
+      res.status(200).json(data);
     });
 };
 
@@ -171,11 +171,11 @@ exports.listPublicLimitFinalSection = (req, res) => {
     .limit(limit)
     .exec((err, data) => {
       if (err) {
-        return res.json({
+        return res.status(400).json({
           error: errorHandler(err),
         });
       }
-      res.json(data);
+      res.status(200).json(data);
     });
 };
 
@@ -189,11 +189,11 @@ exports.listPublicLatestNews = (req, res) => {
     .limit(1)
     .exec((err, data) => {
       if (err) {
-        return res.json({
+        return res.status(400).json({
           error: errorHandler(err),
         });
       }
-      res.json(data);
+      res.status(200).json(data);
     });
 };
 
@@ -208,11 +208,11 @@ exports.listPublicSecondLatestNews = (req, res) => {
     .limit(1)
     .exec((err, data) => {
       if (err) {
-        return res.json({
+        return res.status(400).json({
           error: errorHandler(err),
         });
       }
-      res.json(data);
+      res.status(200).json(data);
     });
 };
 
@@ -254,7 +254,7 @@ exports.listPrivate = (req, res) => {
     });
 };
 
-/**completed this function is used to list popular news for mobile and review pages (reviews>index) */
+/**completed this function is used to list popular news for mobile and review pages (reviews>index,phones>Index) */
 exports.listForMobileReviews = (req, res) => {
   const flag = 1;
   const limit = 5;
@@ -267,11 +267,6 @@ exports.listForMobileReviews = (req, res) => {
       if (err) {
         return res.status(400).json({
           error: errorHandler(err),
-        });
-      }
-      if (!data) {
-        return res.status(400).json({
-          error: "no data found",
         });
       }
 

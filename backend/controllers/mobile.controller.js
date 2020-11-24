@@ -616,11 +616,6 @@ exports.listForNewsReviews = (req, res) => {
           error: errorHandler(err),
         });
       }
-      if (!data) {
-        return res.status(400).json({
-          error: "no data found",
-        });
-      }
       res.status(200).json(data);
     });
 };
