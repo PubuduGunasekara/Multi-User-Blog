@@ -1331,24 +1331,46 @@ exports.listSearchAdmin = (req, res) => {
   }
 };
 
-/**complted */
 exports.listSearchUser = (req, res) => {
   //console.log(req.query);
   const { search } = req.query;
 
   if (search) {
-    Mobile.find(
-      {
-        $or: [{ title: { $regex: search, $options: "i" }, flag: 1 }],
-      },
-      (err, blogs) => {
+    Mobile.find({
+      $or: [{ title: { $regex: search, $options: "i" }, flag: 1 }],
+    })
+      .select("title slug")
+      .sort({ updatedAt: -1 })
+      .exec((err, blogs) => {
         if (err) {
           return res.status(400).json({
             error: errorHandler(err),
           });
         }
-        res.json(blogs);
-      }
-    ).select("-photo -body");
+        //console.log("from news : ", blogs);
+        res.status(200).json(blogs);
+      });
   }
 };
+
+/**complted */
+// exports.listSearchUser = (req, res) => {
+//   //console.log(req.query);
+//   const { search } = req.query;
+
+//   if (search) {
+//     Mobile.find(
+//       {
+//         $or: [{ title: { $regex: search, $options: "i" }, flag: 1 }],
+//       },
+//       (err, blogs) => {
+//         if (err) {
+//           return res.status(400).json({
+//             error: errorHandler(err),
+//           });
+//         }
+//         res.json(blogs);
+//       }
+//     ).select("-photo -body");
+//   }
+// };

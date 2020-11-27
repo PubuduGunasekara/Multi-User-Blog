@@ -50,3 +50,32 @@ body {
 ::-webkit-scrollbar-thumb:hover {
   background: rgba(70, 70, 70, 0.438);
 }
+
+/*search */
+/*nav link ackgroun color*/
+.nav-tabs .nav-link.active {
+  color: white !important;
+  background-color: rgba(202, 28, 28, 0.945);
+  border-color: rgba(202, 28, 28, 0.945);
+}
+
+.header-active NavLink:active {
+  color: black;
+  font-weight: bolder;
+}
+
+.btn-next-tab {
+  border: none;
+  background-color: inherit;
+  padding: 0x 0px;
+  font-size: 16px;
+  cursor: pointer;
+  display: inline-block;
+}
+.btn-next-tab:hover {
+  background: #eee;
+}
+
+.info-tab {
+  color: dodgerblue;
+}

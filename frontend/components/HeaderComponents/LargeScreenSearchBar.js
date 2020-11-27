@@ -1,4 +1,4 @@
-import Router from "next/router";
+import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import styles from "../../styles/Header.module.css";
 
@@ -6,6 +6,7 @@ import styles from "../../styles/Header.module.css";
  * completed!
  */
 const SearchButton = (props) => {
+  const router = useRouter(); //router init
   let drawerClasses = `${styles.large__screen__search}`;
 
   if (props.show) {
@@ -24,7 +25,7 @@ const SearchButton = (props) => {
 
   const clickSubmit = (e) => {
     e.preventDefault();
-    Router.push(`/search/${searchKey}`);
+    router.push(`/search/${searchKey}`);
   };
 
   return (

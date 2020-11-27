@@ -286,8 +286,11 @@ export const listSearchAdmin = (params) => {
 
 /**completed list all reviews item in user end */
 export const listSearchUser = (params) => {
-  let query = queryString.stringify(params);
-
+  let query;
+  console.log("query from : ", queryString.stringify(params));
+  if (queryString.stringify(params)) {
+    query = queryString.stringify(params);
+  }
   return fetch(`${API}/review-search-user/search?${query}`, {
     method: "GET",
   })

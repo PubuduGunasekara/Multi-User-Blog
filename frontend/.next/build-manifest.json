@@ -24,10 +24,10 @@
       "static/chunks/webpack.js",
       "static/chunks/pages/_error.js"
     ],
-    "/profile/[slug]": [
+    "/admin-panel/root-admin/list-all-post": [
       "static/chunks/main.js",
       "static/chunks/webpack.js",
-      "static/chunks/pages/profile/[slug].js"
+      "static/chunks/pages/admin-panel/root-admin/list-all-post.js"
     ],
     "/search/[search]": [
       "static/chunks/main.js",

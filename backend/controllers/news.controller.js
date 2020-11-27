@@ -599,28 +599,51 @@ exports.listSearchAdmin = (req, res) => {
   }
 };
 
-/**completed */
 exports.listSearchUser = (req, res) => {
   //console.log(req.query);
   const { search } = req.query;
 
   if (search) {
-    News.find(
-      {
-        $or: [{ title: { $regex: search, $options: "i" }, flag: 1 }],
-      },
-      (err, blogs) => {
+    News.find({
+      $or: [{ title: { $regex: search, $options: "i" }, flag: 1 }],
+    })
+      .populate("postedBy", "name")
+      .select("postedBy title updatedAt slug")
+      .sort({ updatedAt: -1 })
+      .exec((err, blogs) => {
         if (err) {
           return res.status(400).json({
             error: errorHandler(err),
           });
         }
         //console.log("from news : ", blogs);
-        res.json(blogs);
-      }
-    ).select("-photo -body");
+        res.status(200).json(blogs);
+      });
   }
 };
+
+/**completed */
+// exports.listSearchUser = (req, res) => {
+//   //console.log(req.query);
+//   const { search } = req.query;
+
+//   if (search) {
+//     News.find(
+//       {
+//         $or: [{ title: { $regex: search, $options: "i" }, flag: 1 }],
+//       },
+//       (err, blogs) => {
+//         if (err) {
+//           return res.status(400).json({
+//             error: errorHandler(err),
+//           });
+//         }
+//         //console.log("from news : ", blogs);
+//         res.json(blogs);
+//       }
+//     ).select("-photo -body");
+//   }
+// };
 
 exports.listSearchModerator = (req, res) => {
   console.log("query ", req.query);

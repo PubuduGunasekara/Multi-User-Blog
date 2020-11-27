@@ -5,7 +5,6 @@ import { useState, useEffect } from "react";
 import { listSearchUser as ReviewSearch } from "../../actions/review.action";
 import { listSearchUser as NewsSearch } from "../../actions/news.action";
 import { listSearchUser as MobileSearch } from "../../actions/mobile.action";
-import Layout from "../../components/Layout";
 import { DOMAIN, API, APP_NAME } from "../../config";
 import {
   TabContent,
@@ -20,6 +19,7 @@ import classnames from "classnames";
 import moment from "moment";
 import styles from "../../styles/desktopSearch.module.css";
 import React from "react";
+import Loader from "react-loader-spinner";
 
 const SearchComponent = ({ router }) => {
   const [valuesNews, setValuesNews] = useState({
@@ -46,7 +46,7 @@ const SearchComponent = ({ router }) => {
 
   /**news pagination states */
   const [currentPageNews, setCurrentPageNews] = useState(1);
-  const [postPerPageNews] = useState(5);
+  const [postPerPageNews] = useState(30);
   //const [numOfPost, setNumberOfPost] = useState(0);
 
   //pagination
@@ -71,7 +71,7 @@ const SearchComponent = ({ router }) => {
 
   /**reviews pagination states */
   const [currentPageReviews, setCurrentPageReviews] = useState(1);
-  const [postPerPageReviews] = useState(5);
+  const [postPerPageReviews] = useState(30);
   //const [numOfPost, setNumberOfPost] = useState(0);
 
   //pagination
@@ -96,7 +96,7 @@ const SearchComponent = ({ router }) => {
 
   /**mobiles pagination states */
   const [currentPageMobiles, setCurrentPageMobiles] = useState(1);
-  const [postPerPageMobiles] = useState(5);
+  const [postPerPageMobiles] = useState(30);
   //const [numOfPost, setNumberOfPost] = useState(0);
 
   //pagination
@@ -200,11 +200,13 @@ const SearchComponent = ({ router }) => {
     });
   };
 
-  useEffect(() => {
-    searchMethods(router.query.search);
+  useEffect(async () => {
+    await searchMethods(router.query.search);
   }, [router.query.search]);
 
-  const [search, setSearch] = useState("");
+  const searchInit = router.query.search;
+
+  const [search, setSearch] = useState(searchInit);
   const [searchKey, setSearchKey] = useState("");
 
   const seacrhSubmit = async (e) => {
@@ -252,28 +254,38 @@ const SearchComponent = ({ router }) => {
   const showNewsResults = () => {
     return currentPostNews.map((blog, i) => (
       <React.Fragment key={i}>
-        <Link href={`/news/${blog.slug}`}>
-          <a style={{ textDecoration: "none" }}>
-            <div
-              title="news results"
-              key={i}
-              className={styles.search__container}
-            >
-              <div className={styles.search__image}>
+        <div key={i} className={styles.news__container}>
+          <div className={styles.image__news}>
+            <Link href={`/news/${blog.slug}`}>
+              <a style={{ textDecoration: "none", width: "100%" }}>
                 <img
                   className="img img-fluid"
                   src={`${API}/news/photo/${blog.slug}`}
                   alt={blog.title}
                 />
-              </div>
-              <div className={styles.search__content}>
-                <h1>{blog.title}</h1>
-                <p>{moment(blog.updatedAt).fromNow()}</p>
-              </div>
+              </a>
+            </Link>
+          </div>
+
+          <div
+            className={styles.content__news}
+            style={{ display: "flex", flexDirection: "column" }}
+          >
+            <div className={styles.content__div}>
+              <Link href={`/news/${blog.slug}`}>
+                <a style={{ textDecoration: "none", width: "100%" }}>
+                  <h1>{blog.title}</h1>
+                </a>
+              </Link>
             </div>
-          </a>
-        </Link>
-        <hr style={{ marginTop: 0, marginBottom: "10px" }} />
+
+            <div className={styles.author__div}>
+              <span>
+                {moment(blog.updatedAt).fromNow()} | by {blog.postedBy.name}
+              </span>
+            </div>
+          </div>
+        </div>
       </React.Fragment>
     ));
   };
@@ -281,28 +293,38 @@ const SearchComponent = ({ router }) => {
   const showReviewsResults = () => {
     return currentPostReviews.map((blog, i) => (
       <React.Fragment key={i}>
-        <Link href={`/reviews/${blog.slug}`}>
-          <a style={{ textDecoration: "none" }}>
-            <div
-              title="review results"
-              key={i}
-              className={styles.search__container}
-            >
-              <div className={styles.search__image}>
+        <div key={i} className={styles.news__container}>
+          <div className={styles.image__news}>
+            <Link href={`/reviews/${blog.slug}`}>
+              <a style={{ textDecoration: "none", width: "100%" }}>
                 <img
                   className="img img-fluid"
                   src={`${API}/reviews/photo/${blog.slug}`}
                   alt={blog.title}
                 />
-              </div>
-              <div className={styles.search__content}>
-                <h1>{blog.title}</h1>
-                <p>{moment(blog.updatedAt).fromNow()}</p>
-              </div>
+              </a>
+            </Link>
+          </div>
+
+          <div
+            className={styles.content__news}
+            style={{ display: "flex", flexDirection: "column" }}
+          >
+            <div className={styles.content__div}>
+              <Link href={`/reviews/${blog.slug}`}>
+                <a style={{ textDecoration: "none", width: "100%" }}>
+                  <h1>{blog.title}</h1>
+                </a>
+              </Link>
             </div>
-          </a>
-        </Link>
-        <hr style={{ marginTop: 0, marginBottom: "10px" }} />
+
+            <div className={styles.author__div}>
+              <span>
+                {moment(blog.updatedAt).fromNow()} | by {blog.postedBy.name}
+              </span>
+            </div>
+          </div>
+        </div>
       </React.Fragment>
     ));
   };
@@ -310,11 +332,7 @@ const SearchComponent = ({ router }) => {
   const showMobileResults = () => {
     return currentPostMobiles.map((blog, i) => (
       <React.Fragment key={i}>
-        <div
-          title="mobile phone results"
-          key={i}
-          className={styles.single__card__phone}
-        >
+        <div key={i} className={styles.single__card__phone}>
           <div className={styles.card__image__container__phone}>
             <Link href={`/phones/brand/${blog.slug}`}>
               <a style={{ textDecoration: "none" }}>
@@ -340,344 +358,461 @@ const SearchComponent = ({ router }) => {
 
   return (
     <React.Fragment>
-      <div>
-        <Head>
-          <title>Search Results Page - {APP_NAME}</title>
-          <meta
-            name="description"
-            content="search results of  all mobile phones news reviews and more stories"
-          />
-        </Head>
-      </div>
-      <Layout>
-        <div
-          alt="Photo by sam loyd on Unsplash"
-          style={{
-            backgroundImage: `url(/static/images/sam-loyd-single-brand-cover-page.jpg)`,
-            backgroundPosition: "center",
-            backgroundRepeat: "no-repeat",
-            position: "relative",
-            backgroundSize: "cover",
-            height: "300px",
-            width: "100%",
-            boxShadow: "0px 0px 0px rgba(0,0,0,0.9)",
-          }}
-        >
+      {resultsMobiles && resultsNews && resultsReviews ? (
+        <React.Fragment>
+          <div>
+            <Head>
+              <title>Search Results Page - {APP_NAME}</title>
+              <meta
+                name="description"
+                content="search results of  all mobile phones news reviews and more stories"
+              />
+            </Head>
+          </div>
           <div
-            className="container"
-            style={{ paddingTop: "50px", paddingBottom: "50px" }}
+            alt="Photo by sam loyd on Unsplash"
+            style={{
+              backgroundImage: `url(/static/images/sam-loyd-single-brand-cover-page.jpg)`,
+              backgroundPosition: "center",
+              backgroundRepeat: "no-repeat",
+              position: "relative",
+              backgroundSize: "cover",
+              height: "300px",
+              width: "100%",
+              boxShadow: "0px 0px 0px rgba(0,0,0,0.9)",
+            }}
           >
             <div
-              title="Search results"
-              style={{
-                height: "120px",
-                overflowY: "auto",
-                color: "#EEE1E1",
-                paddingBottom: 0,
-                paddingTop: 0,
-                marginTop: "15px",
-                marginBottom: "15px",
-              }}
+              className="container"
+              style={{ paddingTop: "50px", paddingBottom: "50px" }}
             >
-              <h1 className={styles.cover__image__div__main__topic}>
-                {resultsMobiles.length +
-                  resultsNews.length +
-                  resultsReviews.length}{" "}
-                Results for: "{searchKey ? searchKey : router.query.search}"
-              </h1>
-            </div>
-            <div style={{ overflow: "auto" }}>
-              <form
-                onSubmit={seacrhSubmit}
+              <div
                 style={{
-                  display: "flex",
-                  flexDirection: "row",
-                  height: "40px",
+                  height: "120px",
+                  overflowY: "auto",
+                  color: "#EEE1E1",
+                  paddingBottom: 0,
+                  paddingTop: 0,
+                  marginTop: "15px",
+                  marginBottom: "15px",
                 }}
               >
-                <input
-                  title="search anything related to techbot.com"
-                  className="form-control"
-                  onChange={handleChange}
-                  value={search}
-                  required
+                <h1 className={styles.cover__image__div__main__topic}>
+                  {resultsMobiles.length +
+                    resultsNews.length +
+                    resultsReviews.length}{" "}
+                  Results for: "{searchKey ? searchKey : router.query.search}"
+                </h1>
+              </div>
+              <div style={{ overflow: "auto" }}>
+                <form
+                  onSubmit={seacrhSubmit}
                   style={{
-                    width: "77%",
-                    opacity: ".7",
-                    borderRadius: "0px",
-                    borderColor: "white",
+                    display: "flex",
+                    flexDirection: "row",
                     height: "40px",
-                  }}
-                  type="search"
-                  placeholder="Search Here"
-                />
-                <button
-                  type="submit"
-                  className="btn btn-dark"
-                  style={{
-                    border: "1px solid white",
-                    backgroundColor: "#2c2c2c",
-                    opacity: "0.9",
-                    height: "40px",
-                    borderRadius: "0px",
-                    width: "23%",
                   }}
                 >
-                  Search
-                </button>
-              </form>
+                  <input
+                    className="form-control"
+                    onChange={handleChange}
+                    value={search}
+                    required
+                    style={{
+                      width: "77%",
+                      opacity: ".7",
+                      borderRadius: "0px",
+                      borderColor: "white",
+                      height: "40px",
+                    }}
+                    type="search"
+                    placeholder="Search Here"
+                  />
+                  <button
+                    type="submit"
+                    className="btn btn-dark"
+                    style={{
+                      border: "1px solid white",
+                      backgroundColor: "#2c2c2c",
+                      opacity: "0.9",
+                      height: "40px",
+                      borderRadius: "0px",
+                      width: "23%",
+                    }}
+                  >
+                    Search
+                  </button>
+                </form>
+              </div>
             </div>
           </div>
-        </div>
 
-        <div className="container mt-5 pl-5 pr-5">
-          <div className="row">
-            <div
-              className="col-md-12"
-              style={{
-                width: "100%",
-                marginLeft: "0px",
-                marginRight: "0px",
-                paddingLeft: "0px",
-                paddingRight: "0px",
-              }}
-            >
-              <Nav tabs>
-                <NavItem
-                  className={styles.nav__item}
-                  title="News results tab with no of results"
-                >
-                  <NavLink
-                    style={{
-                      cursor: "pointer",
-                      color: "rgba(0, 0, 0, 0.781)",
-                      fontWeight: "bolder",
-                    }}
-                    className={classnames({ active: activeTab === "1" })}
-                    onClick={() => {
-                      toggle("1");
-                    }}
+          <div className="container mt-3 mb-5">
+            <div className="row">
+              <div style={{ width: "100%" }}>
+                <nav aria-label="breadcrumb">
+                  <ol
+                    style={{ backgroundColor: "#f3f3f3" }}
+                    className="breadcrumb pt-0 pb-0"
                   >
-                    News({resultsNews.length})
-                  </NavLink>
-                </NavItem>
-                <NavItem
-                  className={styles.nav__item}
-                  title="Reviews results tab with no of results"
-                >
-                  <NavLink
-                    style={{
-                      cursor: "pointer",
-                      color: "rgba(0, 0, 0, 0.781)",
-                      fontWeight: "bolder",
-                    }}
-                    className={classnames({ active: activeTab === "2" })}
-                    onClick={() => {
-                      toggle("2");
-                    }}
-                  >
-                    Reviews({resultsReviews.length})
-                  </NavLink>
-                </NavItem>
-                <NavItem
-                  className={styles.nav__item}
-                  title="phone results tab with no of results"
-                >
-                  <NavLink
-                    style={{
-                      cursor: "pointer",
-                      color: "rgba(0, 0, 0, 0.781)",
-                      fontWeight: "bolder",
-                    }}
-                    className={classnames({ active: activeTab === "3" })}
-                    onClick={() => {
-                      toggle("3");
-                    }}
-                  >
-                    Phones({resultsMobiles.length})
-                  </NavLink>
-                </NavItem>
-              </Nav>
-              <TabContent
+                    <li className="breadcrumb-item">
+                      <Link href="/">
+                        <a>Home</a>
+                      </Link>
+                    </li>
+                    <li className="breadcrumb-item active" aria-current="page">
+                      Search
+                    </li>
+                  </ol>
+                </nav>
+              </div>
+              <div
+                className="col-md-12"
                 style={{
-                  backgroundColor: "white",
-                  boxShadow: "0px 0px 5px rgba(0,0,0,0.1)",
+                  width: "100%",
                 }}
-                activeTab={activeTab}
               >
-                <TabPane tabId="1">
-                  <Row
-                    style={{
-                      height: "10px",
-                      backgroundColor: "rgba(202, 28, 28, 0.945)",
-                      margin: 0,
-                    }}
-                  />
-                  <Row>
-                    <Col md="12" style={{ paddingTop: "30px" }}>
-                      {resultsNews.length === 0 ? (
-                        <React.Fragment>
-                          {" "}
-                          <div className="col-md-12">
-                            <h5 style={{ fontWeight: "lighter" }}>
-                              No results on News&nbsp;
-                              <button
-                                className="btn-next-tab info-tab"
-                                onClick={() => {
-                                  setActiveTab("2");
-                                }}
-                              >
-                                &nbsp;view Reviews({resultsReviews.length}
-                                )&nbsp;
-                              </button>{" "}
-                              or{" "}
-                              <button
-                                className="btn-next-tab info-tab"
-                                onClick={() => {
-                                  setActiveTab("3");
-                                }}
-                              >
-                                &nbsp;view Mobiles({resultsMobiles.length})
-                              </button>
-                            </h5>
-                          </div>
-                        </React.Fragment>
-                      ) : (
-                        <React.Fragment>
-                          <div className={styles.main__container}>
-                            {showNewsResults()}
-                          </div>
-                          {Pagination(
-                            postPerPageNews,
-                            resultsNews.length,
-                            paginateNews,
-                            nextPageNews,
-                            previousPageNews,
-                            currentPageNews,
-                            lastPageNews
-                          )}
-                        </React.Fragment>
-                      )}
-                    </Col>
-                  </Row>
-                </TabPane>
-                <TabPane tabId="2">
-                  <Row
-                    style={{
-                      height: "10px",
-                      backgroundColor: "rgba(202, 28, 28, 0.945)",
-                      margin: 0,
-                    }}
-                  />
-                  <Row>
-                    <Col md="12" style={{ paddingTop: "30px" }}>
-                      {resultsReviews.length === 0 ? (
-                        <React.Fragment>
-                          {" "}
-                          <div className="col-md-12">
-                            <h5 style={{ fontWeight: "lighter" }}>
-                              No results on Reviews&nbsp;
-                              <button
-                                className="btn-next-tab info-tab"
-                                onClick={() => {
-                                  setActiveTab("1");
-                                }}
-                              >
-                                &nbsp;view News({resultsNews.length})&nbsp;
-                              </button>{" "}
-                              or{" "}
-                              <button
-                                className="btn-next-tab info-tab"
-                                onClick={() => {
-                                  setActiveTab("3");
-                                }}
-                              >
-                                &nbsp;view Mobiles({resultsMobiles.length})
-                              </button>
-                            </h5>
-                          </div>
-                        </React.Fragment>
-                      ) : (
-                        <React.Fragment>
-                          <div className={styles.main__container}>
-                            {showReviewsResults()}
-                          </div>
-                          {Pagination(
-                            postPerPageReviews,
-                            resultsReviews.length,
-                            paginateReviews,
-                            nextPageReviews,
-                            previousPageReviews,
-                            currentPageReviews,
-                            lastPageReviews
-                          )}
-                        </React.Fragment>
-                      )}
-                    </Col>
-                  </Row>
-                </TabPane>
-                <TabPane tabId="3">
-                  <Row
-                    style={{
-                      height: "10px",
-                      backgroundColor: "rgba(202, 28, 28, 0.945)",
-                      margin: 0,
-                    }}
-                  />
-                  <Row>
-                    <Col md="12" style={{ paddingTop: "30px" }}>
-                      {resultsMobiles.length === 0 ? (
-                        <React.Fragment>
-                          {" "}
-                          <div className="col-md-12">
-                            <h5 style={{ fontWeight: "lighter" }}>
-                              No results on Mobiles&nbsp;
-                              <button
-                                className="btn-next-tab info-tab"
-                                onClick={() => {
-                                  setActiveTab("1");
-                                }}
-                              >
-                                &nbsp;view News({resultsNews.length})&nbsp;
-                              </button>{" "}
-                              or{" "}
-                              <button
-                                className="btn-next-tab info-tab"
-                                onClick={() => {
-                                  setActiveTab("2");
-                                }}
-                              >
-                                &nbsp;view Reveiws({resultsReviews.length})
-                              </button>
-                            </h5>
-                          </div>
-                        </React.Fragment>
-                      ) : (
-                        <React.Fragment>
-                          <div
-                            className={` ${styles.cards__phone} ${styles.box__sizing__phone} ${styles.side__bar__phones}`}
-                          >
-                            {showMobileResults()}
-                          </div>
-                          {Pagination(
-                            postPerPageMobiles,
-                            resultsMobiles.length,
-                            paginateMobiles,
-                            nextPageMobiles,
-                            previousPageMobiles,
-                            currentPageMobiles,
-                            lastPageMobiles
-                          )}
-                        </React.Fragment>
-                      )}
-                    </Col>
-                  </Row>
-                </TabPane>
-              </TabContent>
+                <Nav tabs>
+                  <NavItem className={styles.nav__item}>
+                    <NavLink
+                      style={{
+                        cursor: "pointer",
+                        color: "rgba(0, 0, 0, 0.781)",
+                        fontWeight: "bolder",
+                      }}
+                      className={classnames({ active: activeTab === "1" })}
+                      onClick={() => {
+                        toggle("1");
+                      }}
+                    >
+                      News({resultsNews.length})
+                    </NavLink>
+                  </NavItem>
+                  <NavItem className={styles.nav__item}>
+                    <NavLink
+                      style={{
+                        cursor: "pointer",
+                        color: "rgba(0, 0, 0, 0.781)",
+                        fontWeight: "bolder",
+                      }}
+                      className={classnames({ active: activeTab === "2" })}
+                      onClick={() => {
+                        toggle("2");
+                      }}
+                    >
+                      Reviews({resultsReviews.length})
+                    </NavLink>
+                  </NavItem>
+                  <NavItem className={styles.nav__item}>
+                    <NavLink
+                      style={{
+                        cursor: "pointer",
+                        color: "rgba(0, 0, 0, 0.781)",
+                        fontWeight: "bolder",
+                      }}
+                      className={classnames({ active: activeTab === "3" })}
+                      onClick={() => {
+                        toggle("3");
+                      }}
+                    >
+                      Phones({resultsMobiles.length})
+                    </NavLink>
+                  </NavItem>
+                </Nav>
+                <TabContent
+                  style={{
+                    backgroundColor: "white",
+                    boxShadow: "0px 0px 5px rgba(0,0,0,0.1)",
+                  }}
+                  activeTab={activeTab}
+                >
+                  <React.Fragment>
+                    {resultsNews ? (
+                      <TabPane tabId="1">
+                        <Row
+                          style={{
+                            height: "10px",
+                            backgroundColor: "rgba(202, 28, 28, 0.945)",
+                            margin: 0,
+                          }}
+                        />
+                        <Row>
+                          <Col md="12">
+                            {resultsNews.length === 0 ? (
+                              <React.Fragment>
+                                {" "}
+                                <div className="col-md-12 pl-4 pl-4 pt-4 pb-4">
+                                  <h5 style={{ fontWeight: "lighter" }}>
+                                    No results on News&nbsp;
+                                    <button
+                                      className="btn-next-tab info-tab"
+                                      onClick={() => {
+                                        setActiveTab("2");
+                                      }}
+                                    >
+                                      &nbsp;view Reviews({resultsReviews.length}
+                                      )&nbsp;
+                                    </button>{" "}
+                                    or{" "}
+                                    <button
+                                      className="btn-next-tab info-tab"
+                                      onClick={() => {
+                                        setActiveTab("3");
+                                      }}
+                                    >
+                                      &nbsp;view Mobiles({resultsMobiles.length}
+                                      )
+                                    </button>
+                                  </h5>
+                                </div>
+                              </React.Fragment>
+                            ) : (
+                              <React.Fragment>
+                                <div className={styles.main__container}>
+                                  {showNewsResults()}
+                                </div>
+                                {Pagination(
+                                  postPerPageNews,
+                                  resultsNews.length,
+                                  paginateNews,
+                                  nextPageNews,
+                                  previousPageNews,
+                                  currentPageNews,
+                                  lastPageNews
+                                )}
+                              </React.Fragment>
+                            )}
+                          </Col>
+                        </Row>
+                      </TabPane>
+                    ) : (
+                      <React.Fragment>
+                        <div
+                          style={{
+                            textAlign: "center",
+                            top: "50%",
+                            bottom: "50%",
+                            minHeight: "100vh",
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            margin: "auto",
+                            padding: "auto",
+                          }}
+                        >
+                          <Loader
+                            type="Bars"
+                            color="rgba(202, 28, 28, 0.945)"
+                            height={100}
+                            width={100}
+                            timeout={30000} //3 secs
+                          />
+                        </div>
+                      </React.Fragment>
+                    )}
+                  </React.Fragment>
+                  <React.Fragment>
+                    {resultsReviews ? (
+                      <TabPane tabId="2">
+                        <Row
+                          style={{
+                            height: "10px",
+                            backgroundColor: "rgba(202, 28, 28, 0.945)",
+                            margin: 0,
+                          }}
+                        />
+                        <Row>
+                          <Col md="12">
+                            {resultsReviews.length === 0 ? (
+                              <React.Fragment>
+                                {" "}
+                                <div className=" pl-4 pl-4 pt-4 pb-4">
+                                  <h5 style={{ fontWeight: "lighter" }}>
+                                    No results on Reviews&nbsp;
+                                    <button
+                                      className="btn-next-tab info-tab"
+                                      onClick={() => {
+                                        setActiveTab("1");
+                                      }}
+                                    >
+                                      &nbsp;view News({resultsNews.length}
+                                      )&nbsp;
+                                    </button>{" "}
+                                    or{" "}
+                                    <button
+                                      className="btn-next-tab info-tab"
+                                      onClick={() => {
+                                        setActiveTab("3");
+                                      }}
+                                    >
+                                      &nbsp;view Mobiles({resultsMobiles.length}
+                                      )
+                                    </button>
+                                  </h5>
+                                </div>
+                              </React.Fragment>
+                            ) : (
+                              <React.Fragment>
+                                <div className={styles.main__container}>
+                                  {showReviewsResults()}
+                                </div>
+                                {Pagination(
+                                  postPerPageReviews,
+                                  resultsReviews.length,
+                                  paginateReviews,
+                                  nextPageReviews,
+                                  previousPageReviews,
+                                  currentPageReviews,
+                                  lastPageReviews
+                                )}
+                              </React.Fragment>
+                            )}
+                          </Col>
+                        </Row>
+                      </TabPane>
+                    ) : (
+                      <React.Fragment>
+                        <div
+                          style={{
+                            textAlign: "center",
+                            top: "50%",
+                            bottom: "50%",
+                            minHeight: "100vh",
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            margin: "auto",
+                            padding: "auto",
+                          }}
+                        >
+                          <Loader
+                            type="Bars"
+                            color="rgba(202, 28, 28, 0.945)"
+                            height={100}
+                            width={100}
+                            timeout={30000} //3 secs
+                          />
+                        </div>
+                      </React.Fragment>
+                    )}
+                  </React.Fragment>
+                  <React.Fragment>
+                    {resultsMobiles ? (
+                      <TabPane tabId="3">
+                        <Row
+                          style={{
+                            height: "10px",
+                            backgroundColor: "rgba(202, 28, 28, 0.945)",
+                            margin: 0,
+                          }}
+                        />
+                        <Row>
+                          <Col md="12">
+                            {resultsMobiles.length === 0 ? (
+                              <React.Fragment>
+                                {" "}
+                                <div className=" pl-4 pl-4 pt-4 pb-4">
+                                  <h5 style={{ fontWeight: "lighter" }}>
+                                    No results on Mobiles&nbsp;
+                                    <button
+                                      className="btn-next-tab info-tab"
+                                      onClick={() => {
+                                        setActiveTab("1");
+                                      }}
+                                    >
+                                      &nbsp;view News({resultsNews.length}
+                                      )&nbsp;
+                                    </button>{" "}
+                                    or{" "}
+                                    <button
+                                      className="btn-next-tab info-tab"
+                                      onClick={() => {
+                                        setActiveTab("2");
+                                      }}
+                                    >
+                                      &nbsp;view Reveiws({resultsReviews.length}
+                                      )
+                                    </button>
+                                  </h5>
+                                </div>
+                              </React.Fragment>
+                            ) : (
+                              <React.Fragment>
+                                <div
+                                  className={`${styles.cards__phone} ${styles.box__sizing__phone} ${styles.side__bar__phones}`}
+                                >
+                                  {showMobileResults()}
+                                </div>
+                                {Pagination(
+                                  postPerPageMobiles,
+                                  resultsMobiles.length,
+                                  paginateMobiles,
+                                  nextPageMobiles,
+                                  previousPageMobiles,
+                                  currentPageMobiles,
+                                  lastPageMobiles
+                                )}
+                              </React.Fragment>
+                            )}
+                          </Col>
+                        </Row>
+                      </TabPane>
+                    ) : (
+                      <React.Fragment>
+                        <div
+                          style={{
+                            textAlign: "center",
+                            top: "50%",
+                            bottom: "50%",
+                            minHeight: "100vh",
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            margin: "auto",
+                            padding: "auto",
+                          }}
+                        >
+                          <Loader
+                            type="Bars"
+                            color="rgba(202, 28, 28, 0.945)"
+                            height={100}
+                            width={100}
+                            timeout={30000} //3 secs
+                          />
+                        </div>
+                      </React.Fragment>
+                    )}
+                  </React.Fragment>
+                </TabContent>
+              </div>
             </div>
           </div>
-        </div>
-      </Layout>
+        </React.Fragment>
+      ) : (
+        <React.Fragment>
+          <div
+            style={{
+              textAlign: "center",
+              top: "50%",
+              bottom: "50%",
+              minHeight: "100vh",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              margin: "auto",
+              padding: "auto",
+            }}
+          >
+            <Loader
+              type="Bars"
+              color="rgba(202, 28, 28, 0.945)"
+              height={100}
+              width={100}
+              timeout={30000} //3 secs
+            />
+          </div>
+        </React.Fragment>
+      )}
     </React.Fragment>
   );
 };
