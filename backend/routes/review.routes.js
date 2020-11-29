@@ -62,7 +62,7 @@ router.get("/reviews-home", listForHomePage); //done (INDEX)
 router.post("/review/related", listRelated);
 router.post("/review/news-related", listRelatedNews);
 router.post("/review/mobiles-related", listRelatedMobiles);
-router.get("/review-search-user/search", listSearchUser);
+router.get("/review-search-user/search", listSearchUser); //done (SEARCH)
 router.get("/review-public-latest", listPublicLatestReview); //done (INDEX)
 router.get("/review-public-second-latest", listPublicSecondLatestReview); //done (INDEX)
 router.get("/review-public-eight-latest", listPublicEighthLatestReview); //done (INDEX)

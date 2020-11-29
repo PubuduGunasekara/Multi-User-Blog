@@ -1331,6 +1331,7 @@ exports.listSearchAdmin = (req, res) => {
   }
 };
 
+//done (SEARCH)
 exports.listSearchUser = (req, res) => {
   //console.log(req.query);
   const { search } = req.query;

@@ -193,7 +193,7 @@ export const listSearchAdmin = (params) => {
     .catch((err) => console.log(err));
 };
 
-/**completed */
+/**completed (Search) */
 export const listSearchUser = (params) => {
   let query = queryString.stringify(params);
 

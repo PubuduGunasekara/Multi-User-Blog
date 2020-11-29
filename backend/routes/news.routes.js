@@ -55,7 +55,7 @@ router.get("/news-mobile-reviews", listForMobileReviews); //done (REVIEWS>INDEX)
 router.post("/news/related", listRelated);
 router.post("/news/reviews-related", listRelatedReviews);
 router.post("/news/mobiles-related", listRelatedMobiles);
-router.get("/news-search-user/search", listSearchUser);
+router.get("/news-search-user/search", listSearchUser); //done (SEARCH)
 router.get("/news-public-latest", listPublicLatestNews); //done (INDEX)
 router.get("/news-public-second-latest", listPublicSecondLatestNews); //done (INDEX)
 router.get("/news-public-limit-first-section", listPublicLimitFirstSection); //done (INDEX)

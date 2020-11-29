@@ -284,13 +284,10 @@ export const listSearchAdmin = (params) => {
     .catch((err) => console.log(err));
 };
 
-/**completed list all reviews item in user end */
+/**completed (Search) */
 export const listSearchUser = (params) => {
-  let query;
-  console.log("query from : ", queryString.stringify(params));
-  if (queryString.stringify(params)) {
-    query = queryString.stringify(params);
-  }
+  let query = queryString.stringify(params);
+
   return fetch(`${API}/review-search-user/search?${query}`, {
     method: "GET",
   })
@@ -301,11 +298,7 @@ export const listSearchUser = (params) => {
 };
 
 export const listSearchModerator = (params) => {
-  console.log("search params : ", params);
-
   let query = queryString.stringify(params);
-
-  console.log("query params : ", params);
 
   return fetch(`${API}/review-search-moderator/search?${query}`, {
     method: "GET",

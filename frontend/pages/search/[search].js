@@ -1,11 +1,11 @@
 import Head from "next/head";
 import Link from "next/link";
 import { withRouter } from "next/router";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { listSearchUser as ReviewSearch } from "../../actions/review.action";
 import { listSearchUser as NewsSearch } from "../../actions/news.action";
 import { listSearchUser as MobileSearch } from "../../actions/mobile.action";
-import { DOMAIN, API, APP_NAME } from "../../config";
+import { API, APP_NAME } from "../../config";
 import {
   TabContent,
   TabPane,
@@ -18,31 +18,24 @@ import {
 import classnames from "classnames";
 import moment from "moment";
 import styles from "../../styles/desktopSearch.module.css";
-import React from "react";
 import Loader from "react-loader-spinner";
 
 const SearchComponent = ({ router }) => {
   const [valuesNews, setValuesNews] = useState({
     resultsNews: [],
-    searchedNews: undefined,
-    messageNews: "",
   });
 
   const [valuesReviews, setValuesReviews] = useState({
     resultsReviews: [],
-    searchedReviews: undefined,
-    messageReviews: "",
   });
 
   const [valuesMobiles, setValuesMobiles] = useState({
     resultsMobiles: [],
-    searchedMobiles: undefined,
-    messageMobiles: "",
   });
 
-  const { resultsNews, searchedNews, messageNews } = valuesNews;
-  const { resultsReviews, searchedReviews, messageReviews } = valuesReviews;
-  const { resultsMobiles, searchedMobiles, messageMobiles } = valuesMobiles;
+  const { resultsNews } = valuesNews;
+  const { resultsReviews } = valuesReviews;
+  const { resultsMobiles } = valuesMobiles;
 
   /**news pagination states */
   const [currentPageNews, setCurrentPageNews] = useState(1);
@@ -180,13 +173,15 @@ const SearchComponent = ({ router }) => {
         setValuesReviews({
           ...valuesReviews,
           resultsReviews: data,
-          searchedReviews: true,
         });
       }
     });
     await NewsSearch({ search }).then((data) => {
       if (data) {
-        setValuesNews({ ...valuesNews, resultsNews: data, searchedNews: true });
+        setValuesNews({
+          ...valuesNews,
+          resultsNews: data,
+        });
       }
     });
     await MobileSearch({ search }).then((data) => {
@@ -194,52 +189,14 @@ const SearchComponent = ({ router }) => {
         setValuesMobiles({
           ...valuesMobiles,
           resultsMobiles: data,
-          searchedMobiles: true,
         });
       }
     });
   };
-
-  useEffect(async () => {
-    await searchMethods(router.query.search);
-  }, [router.query.search]);
-
   const searchInit = router.query.search;
-
-  const [search, setSearch] = useState(searchInit);
-  const [searchKey, setSearchKey] = useState("");
-
-  const seacrhSubmit = async (e) => {
-    e.preventDefault();
-    setSearchKey(search);
-    await ReviewSearch({ search }).then((data) => {
-      if (data) {
-        setValuesReviews({
-          ...valuesReviews,
-          resultsReviews: data,
-          searchedReviews: true,
-        });
-      }
-    });
-    await NewsSearch({ search }).then((data) => {
-      if (data) {
-        setValuesNews({ ...valuesNews, resultsNews: data, searchedNews: true });
-      }
-    });
-    await MobileSearch({ search }).then((data) => {
-      if (data) {
-        setValuesMobiles({
-          ...valuesMobiles,
-          resultsMobiles: data,
-          searchedMobiles: true,
-        });
-      }
-    });
-  };
-
-  const handleChange = (e) => {
-    setSearch(e.target.value);
-  };
+  useEffect(() => {
+    searchMethods(searchInit);
+  }, [searchInit]);
 
   /**Tab state */
   const [activeTab, setActiveTab] = useState("1");
@@ -249,7 +206,8 @@ const SearchComponent = ({ router }) => {
   const toggle = (tab) => {
     if (activeTab !== tab) setActiveTab(tab);
   };
-  /**end */
+/**end */
+
 
   const showNewsResults = () => {
     return currentPostNews.map((blog, i) => (
@@ -362,17 +320,17 @@ const SearchComponent = ({ router }) => {
         <React.Fragment>
           <div>
             <Head>
-              <title>Search Results Page - {APP_NAME}</title>
+              <title>{APP_NAME} - Search Results Page</title>
               <meta
                 name="description"
-                content="search results of  all mobile phones news reviews and more stories"
+                content="search results for  all mobile phones news reviews and more stories"
               />
             </Head>
           </div>
           <div
             alt="Photo by sam loyd on Unsplash"
             style={{
-              backgroundImage: `url(/static/images/sam-loyd-single-brand-cover-page.jpg)`,
+              backgroundImage: `url(/static/images/search_cover.jpg)`,
               backgroundPosition: "center",
               backgroundRepeat: "no-repeat",
               position: "relative",
@@ -393,7 +351,7 @@ const SearchComponent = ({ router }) => {
                   color: "#EEE1E1",
                   paddingBottom: 0,
                   paddingTop: 0,
-                  marginTop: "15px",
+                  marginTop: "65px",
                   marginBottom: "15px",
                 }}
               >
@@ -401,48 +359,8 @@ const SearchComponent = ({ router }) => {
                   {resultsMobiles.length +
                     resultsNews.length +
                     resultsReviews.length}{" "}
-                  Results for: "{searchKey ? searchKey : router.query.search}"
+                  Results for: "{searchInit}"
                 </h1>
-              </div>
-              <div style={{ overflow: "auto" }}>
-                <form
-                  onSubmit={seacrhSubmit}
-                  style={{
-                    display: "flex",
-                    flexDirection: "row",
-                    height: "40px",
-                  }}
-                >
-                  <input
-                    className="form-control"
-                    onChange={handleChange}
-                    value={search}
-                    required
-                    style={{
-                      width: "77%",
-                      opacity: ".7",
-                      borderRadius: "0px",
-                      borderColor: "white",
-                      height: "40px",
-                    }}
-                    type="search"
-                    placeholder="Search Here"
-                  />
-                  <button
-                    type="submit"
-                    className="btn btn-dark"
-                    style={{
-                      border: "1px solid white",
-                      backgroundColor: "#2c2c2c",
-                      opacity: "0.9",
-                      height: "40px",
-                      borderRadius: "0px",
-                      width: "23%",
-                    }}
-                  >
-                    Search
-                  </button>
-                </form>
               </div>
             </div>
           </div>

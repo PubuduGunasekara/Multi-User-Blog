@@ -2,6 +2,6 @@
   "/_app": "pages/_app.js",
   "/_document": "pages/_document.js",
   "/_error": "pages/_error.js",
-  "/admin-panel/root-admin/list-all-post": "pages/admin-panel/root-admin/list-all-post.js",
-  "/search/[search]": "pages/search/[search].js"
+  "/search/[search]": "pages/search/[search].js",
+  "/searchS/[search]": "pages/searchS/[search].js"
 }
