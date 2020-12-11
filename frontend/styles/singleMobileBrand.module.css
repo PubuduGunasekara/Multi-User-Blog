@@ -27,7 +27,7 @@
     width: 160px !important;
   }
 }
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 767.5px) {
   .single__card {
     grid-column-end: span 4 !important;
     width: 160px !important;
@@ -55,12 +55,12 @@
   }
 }
 
-@media screen and (max-width: 440px) {
+/* @media screen and (max-width: 440px) {
   .single__card {
     grid-column-end: span 6 !important;
     width: 160px !important;
   }
-}
+} */
 
 @media screen and (max-width: 440px) {
   .single__card {
@@ -355,3 +355,17 @@
   background-color: #ffffff;
 }
 /*end*/
+/**view all button*/
+.view_all span {
+  font-size: 10px;
+  text-transform: uppercase;
+  text-decoration: none;
+  font-weight: 700;
+  letter-spacing: 5px;
+  color: #505050;
+  line-height: 1em;
+}
+
+.view_all span:hover {
+  color: rgba(202, 28, 28, 0.945);
+}

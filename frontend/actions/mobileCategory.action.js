@@ -18,7 +18,7 @@ export const createMCategory = (mCategory, token) => {
     .catch((err) => console.log(err));
 };
 
-/**this method fetch all the mobile categories (MOBILES>INDEX) */
+/**this method fetch all the mobile categories (MOBILES>INDEX,Mobile>brands>slug) */
 export const mCategoryList = () => {
   return fetch(`${API}/mobile-category`, {
     method: "GET",
@@ -39,6 +39,7 @@ export const mCategoryListHomePage = () => {
     .catch((err) => console.log(err));
 };
 
+/**this method fetch single mobile category (Mobile>brands>slug) */
 export const singleMCategory = (slug) => {
   return fetch(`${API}/single-mobile-category/${slug}`, {
     method: "GET",

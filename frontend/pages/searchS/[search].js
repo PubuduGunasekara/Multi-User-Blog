@@ -33,7 +33,7 @@ const SearchComponent = ({ router }) => {
 
   /**news pagination states */
   const [currentPageNews, setCurrentPageNews] = useState(1);
-  const [postPerPageNews] = useState(5);
+  const [postPerPageNews] = useState(30);
   //const [numOfPost, setNumberOfPost] = useState(0);
 
   //pagination
@@ -170,14 +170,13 @@ const SearchComponent = ({ router }) => {
               style={{ paddingTop: "50px", paddingBottom: "50px" }}
             >
               <div
-                title="Search results"
                 style={{
                   height: "120px",
                   overflowY: "auto",
                   color: "#EEE1E1",
                   paddingBottom: 0,
                   paddingTop: 0,
-                  marginTop: "60px",
+                  marginTop: "65px",
                   marginBottom: "15px",
                 }}
               >
@@ -191,8 +190,32 @@ const SearchComponent = ({ router }) => {
             </div>
           </div>
 
+          {/**breadcrumb */}
+          <div className="container mt-3 mb-0 pl-0 pr-0">
+            <div className="row ml-0 mr-0">
+              <div style={{ width: "100%" }}>
+                <nav aria-label="breadcrumb">
+                  <ol
+                    style={{ backgroundColor: "#f3f3f3" }}
+                    className="breadcrumb pt-0 pb-0"
+                  >
+                    <li className="breadcrumb-item">
+                      <Link href="/">
+                        <a>Home</a>
+                      </Link>
+                    </li>
+                    <li className="breadcrumb-item active" aria-current="page">
+                      Search
+                    </li>
+                  </ol>
+                </nav>
+              </div>
+            </div>
+          </div>
+
+          {/**mobile code */}
           <div
-            className="container mt-5 mb-3"
+            className="container mt-0 mb-2"
             style={{
               boxShadow: "0px 0px 2px rgba(0,0,0,0.5)",
               backgroundColor: "white",
@@ -206,128 +229,150 @@ const SearchComponent = ({ router }) => {
                   display: "flex",
                   flexDirection: "row",
                   width: "100%",
-                  backgroundColor: "rgba(202, 28, 28, 0.945)",
-                  marginBottom: "10px",
+                  marginTop: "20px",
                 }}
               >
-                <div
-                  title="search results related to phones"
-                  style={{
-                    display: "flex",
-                    flexDirection: "row",
-                    textAlign: "left",
-                    width: "100%",
-                  }}
-                >
-                  <div style={{ margin: "10px" }}>
-                    <FiSmartphone size="2rem" color="#fff" />
-                  </div>
-                  <div>
-                    <h1
-                      className="font-weight-bolder"
-                      style={{
-                        lineHeight: "130%",
-                        textTransform: "capitalize",
-                        fontSize: "24px",
-                        fontWeight: "bold",
-                        color: "white",
-                        padding: "10px",
-                        marginBottom: 0,
-                      }}
-                    >
-                      phones({resultsMobiles.length})
-                    </h1>
-                  </div>
+                <div style={{ marginRight: "5px" }}>
+                  <FiSmartphone size="1rem" color="#505050" />
+                </div>
+                <div style={{ width: "100%", paddingTop: 0 }}>
+                  <hr
+                    style={{ marginTop: "6px" }}
+                    className={styles.hrText}
+                    data-content={`Phones (${resultsMobiles.length})`}
+                  />
                 </div>
               </div>
             </div>
             <div className="row">
-              {resultsMobiles.length === 0 ? (
+              {resultsMobiles ? (
                 <React.Fragment>
-                  <div
-                    className="container"
-                    style={{
-                      width: "100%",
-                      padding: "20px 35px",
-                      borderRadius: "5px",
-                      textTransform: "capitalize",
-                      marginBottom: "20px",
-                    }}
-                  >
-                    <h1
-                      style={{
-                        width: "100%",
-                        lineHeight: "120%",
-                        padding: "0px",
-                        fontSize: "20px",
-                        fontWeight: "lighter",
-                      }}
-                    >
-                      No results found on Phones, check Reviews(
-                      {resultsReviews.length}) or News(
-                      {resultsNews.length})
-                    </h1>
-                  </div>
+                  {resultsMobiles.length === 0 ? (
+                    <React.Fragment>
+                      <div
+                        className="container"
+                        style={{
+                          width: "100%",
+                          padding: "20px 35px",
+                          borderRadius: "5px",
+                          textTransform: "capitalize",
+                          marginBottom: "20px",
+                        }}
+                      >
+                        <h1
+                          style={{
+                            width: "100%",
+                            lineHeight: "140%",
+                            padding: "0px",
+                            fontSize: "20px",
+                            fontWeight: "lighter",
+                          }}
+                        >
+                          No results found on Phones, check{" "}
+                          <kbd
+                            style={{
+                              backgroundColor: "rgba(202, 28, 28, 0.945)",
+                            }}
+                          >
+                            Reviews(
+                            {resultsReviews.length})
+                          </kbd>{" "}
+                          or{" "}
+                          <kbd
+                            style={{
+                              backgroundColor: "rgba(202, 28, 28, 0.945)",
+                            }}
+                          >
+                            News(
+                            {resultsNews.length})
+                          </kbd>
+                        </h1>
+                      </div>
+                    </React.Fragment>
+                  ) : (
+                    <React.Fragment>
+                      <div
+                        className={`col-md-12 ${styles.mobile_search_title_content}`}
+                        style={{
+                          display: "flex",
+                          flexDirection: "row",
+                          overflowX: "scroll",
+                          overflowY: "hidden",
+                        }}
+                      >
+                        {resultsMobiles.map((m, i) => (
+                          <React.Fragment key={m._id}>
+                            <Link href={`/phones/brand/${m.slug}`}>
+                              <a
+                                style={{
+                                  textDecoration: "none",
+                                  color: "rgba(0, 0, 0, 0.781)",
+                                }}
+                              >
+                                <div
+                                  className={styles.mobile__search__container}
+                                >
+                                  <div
+                                    className={
+                                      styles.mobile__search__container__image
+                                    }
+                                  >
+                                    <img
+                                      src={`${API}/mobile/photo/${m.slug}`}
+                                      className="img img-fluid"
+                                      alt="review image cap"
+                                      style={{
+                                        height: "120px",
+                                      }}
+                                    />
+                                  </div>
+                                  <div
+                                    className={
+                                      styles.mobile__search__container__content
+                                    }
+                                    style={{ overflowY: "auto" }}
+                                  >
+                                    <h1
+                                      style={{
+                                        color: "rgba(0, 0, 0, 0.781)",
+                                        fontSize: "14px",
+                                        fontWeight: "bolder",
+                                      }}
+                                    >
+                                      {m.title}
+                                    </h1>
+                                  </div>
+                                </div>
+                              </a>
+                            </Link>
+                          </React.Fragment>
+                        ))}
+                      </div>
+                    </React.Fragment>
+                  )}
                 </React.Fragment>
               ) : (
                 <React.Fragment>
                   <div
-                    className={`col-md-12 ${styles.mobile_search_title_content}`}
                     style={{
+                      textAlign: "center",
+                      top: "50%",
+                      bottom: "50%",
+                      minHeight: "100vh",
                       display: "flex",
-                      flexDirection: "row",
-                      overflowX: "scroll",
-                      overflowY: "hidden",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      margin: "auto",
+                      padding: "auto",
                     }}
                   >
-                    {resultsMobiles.map((m, i) => (
-                      <React.Fragment key={m._id}>
-                        <Link href={`/phones/brand/${m.slug}`}>
-                          <a
-                            style={{
-                              textDecoration: "none",
-                              color: "rgba(0, 0, 0, 0.781)",
-                            }}
-                          >
-                            <div
-                              title="phone results"
-                              className={styles.mobile__search__container}
-                            >
-                              <div
-                                className={
-                                  styles.mobile__search__container__image
-                                }
-                              >
-                                <img
-                                  src={`${API}/mobile/photo/${m.slug}`}
-                                  className="img img-fluid"
-                                  alt="review image cap"
-                                  style={{
-                                    height: "120px",
-                                  }}
-                                />
-                              </div>
-                              <div
-                                className={
-                                  styles.mobile__search__container__content
-                                }
-                                style={{ overflowY: "auto" }}
-                              >
-                                <h1
-                                  style={{
-                                    color: "rgba(0, 0, 0, 0.781)",
-                                    fontSize: "14px",
-                                    fontWeight: "bolder",
-                                  }}
-                                >
-                                  {m.title}
-                                </h1>
-                              </div>
-                            </div>
-                          </a>
-                        </Link>
-                      </React.Fragment>
-                    ))}
+                    <Loader
+                      type="Bars"
+                      color="rgba(202, 28, 28, 0.945)"
+                      height={100}
+                      width={100}
+                      timeout={30000} //3 secs
+                    />
                   </div>
                 </React.Fragment>
               )}
@@ -344,40 +389,23 @@ const SearchComponent = ({ router }) => {
                   marginRight: "12px",
                 }}
               />
-              <div title="view all phones" style={{ width: "100%" }}>
+              <div style={{ width: "100%" }}>
                 <div
                   style={{
                     display: "flex",
                     flexDirection: "row",
                     float: "right",
                     marginBottom: "10px",
+                    marginTop: "6px",
+                    marginRight: "10px",
                   }}
                 >
                   <div style={{ marginRight: 0 }}>
                     <Link href={`/phones`}>
-                      <a>
-                        <h2
-                          className="font-weight-bolder"
-                          style={{
-                            lineHeight: "130%",
-                            textTransform: "capitalize",
-                            fontSize: "16px",
-                            fontWeight: "bold",
-                            color: "#383838",
-                            padding: "10px",
-                            paddingRight: 0,
-                            marginBottom: 0,
-                          }}
-                        >
-                          all phones
-                        </h2>
-                      </a>
-                    </Link>
-                  </div>
-                  <div style={{ paddingTop: "8px", marginLeft: 0 }}>
-                    <Link href={`/phones`}>
-                      <a>
-                        <MdNavigateNext size="1.5rem" color="#000" />
+                      <a style={{ textDecoration: "none" }}>
+                        <div className={styles.view_all}>
+                          <span>view all</span>
+                        </div>
                       </a>
                     </Link>
                   </div>
@@ -385,8 +413,10 @@ const SearchComponent = ({ router }) => {
               </div>
             </div>
           </div>
+          {/**end
+           * reviews code */}
           <div
-            className="container mb-3"
+            className="container mb-2"
             style={{
               boxShadow: "0px 0px 2px rgba(0,0,0,0.5)",
               backgroundColor: "white",
@@ -400,38 +430,18 @@ const SearchComponent = ({ router }) => {
                   display: "flex",
                   flexDirection: "row",
                   width: "100%",
-                  backgroundColor: "rgba(202, 28, 28, 0.945)",
-                  marginBottom: "10px",
+                  marginTop: "20px",
                 }}
               >
-                <div
-                  title="search results related to reviews"
-                  style={{
-                    display: "flex",
-                    flexDirection: "row",
-                    textAlign: "left",
-                    width: "100%",
-                  }}
-                >
-                  <div style={{ margin: "10px" }}>
-                    <MdRateReview size="2rem" color="#fff" />
-                  </div>
-                  <div>
-                    <h1
-                      className="font-weight-bolder"
-                      style={{
-                        lineHeight: "130%",
-                        textTransform: "capitalize",
-                        fontSize: "24px",
-                        fontWeight: "bold",
-                        color: "white",
-                        padding: "10px",
-                        marginBottom: 0,
-                      }}
-                    >
-                      Reviews({resultsReviews.length})
-                    </h1>
-                  </div>
+                <div style={{ marginRight: "5px" }}>
+                  <MdRateReview size="1rem" color="#505050" />
+                </div>
+                <div style={{ width: "100%", paddingTop: 0 }}>
+                  <hr
+                    style={{ marginTop: "6px" }}
+                    className={styles.hrText}
+                    data-content={`Reviews (${resultsReviews.length})`}
+                  />
                 </div>
               </div>
             </div>
@@ -451,15 +461,30 @@ const SearchComponent = ({ router }) => {
                     <h1
                       style={{
                         width: "100%",
-                        lineHeight: "120%",
+                        lineHeight: "140%",
                         padding: "0px",
                         fontSize: "20px",
                         fontWeight: "lighter",
                       }}
                     >
-                      No results found on Reviews, check phones(
-                      {resultsMobiles.length}) or News(
-                      {resultsNews.length})
+                      No results found on Reviews, check{" "}
+                      <kbd
+                        style={{
+                          backgroundColor: "rgba(202, 28, 28, 0.945)",
+                        }}
+                      >
+                        phones(
+                        {resultsMobiles.length})
+                      </kbd>{" "}
+                      or{" "}
+                      <kbd
+                        style={{
+                          backgroundColor: "rgba(202, 28, 28, 0.945)",
+                        }}
+                      >
+                        News(
+                        {resultsNews.length})
+                      </kbd>
                     </h1>
                   </div>
                 </React.Fragment>
@@ -484,7 +509,6 @@ const SearchComponent = ({ router }) => {
                             }}
                           >
                             <div
-                              title="reviews results"
                               className={
                                 styles.mobile__search__container__reviews
                               }
@@ -547,40 +571,23 @@ const SearchComponent = ({ router }) => {
                   marginRight: "12px",
                 }}
               />
-              <div title="view all Reviews" style={{ width: "100%" }}>
+              <div style={{ width: "100%" }}>
                 <div
                   style={{
                     display: "flex",
                     flexDirection: "row",
                     float: "right",
                     marginBottom: "10px",
+                    marginTop: "6px",
+                    marginRight: "10px",
                   }}
                 >
                   <div style={{ marginRight: 0 }}>
                     <Link href={`/reviews`}>
-                      <a>
-                        <h2
-                          className="font-weight-bolder"
-                          style={{
-                            lineHeight: "130%",
-                            textTransform: "capitalize",
-                            fontSize: "16px",
-                            fontWeight: "bold",
-                            color: "#383838",
-                            padding: "10px",
-                            paddingRight: 0,
-                            marginBottom: 0,
-                          }}
-                        >
-                          all Reviews
-                        </h2>
-                      </a>
-                    </Link>
-                  </div>
-                  <div style={{ paddingTop: "8px", marginLeft: 0 }}>
-                    <Link href={`/reviews`}>
-                      <a>
-                        <MdNavigateNext size="1.5rem" color="#000" />
+                      <a style={{ textDecoration: "none" }}>
+                        <div className={styles.view_all}>
+                          <span>view all</span>
+                        </div>
                       </a>
                     </Link>
                   </div>
@@ -588,6 +595,9 @@ const SearchComponent = ({ router }) => {
               </div>
             </div>
           </div>
+          {/**end
+           * news code */}
+
           <div
             className="container mb-5"
             style={{
@@ -603,44 +613,25 @@ const SearchComponent = ({ router }) => {
                   display: "flex",
                   flexDirection: "row",
                   width: "100%",
-                  backgroundColor: "rgba(202, 28, 28, 0.945)",
-                  marginBottom: "30px",
+                  marginTop: "20px",
+                  marginBottom: "10px",
                 }}
               >
-                <div
-                  title="search results related to news"
-                  style={{
-                    display: "flex",
-                    flexDirection: "row",
-                    textAlign: "left",
-                    width: "100%",
-                  }}
-                >
-                  <div style={{ margin: "10px" }}>
-                    <FaNewspaper size="2rem" color="#fff" />
-                  </div>
-                  <div>
-                    <h1
-                      className="font-weight-bolder"
-                      style={{
-                        lineHeight: "130%",
-                        textTransform: "capitalize",
-                        fontSize: "24px",
-                        fontWeight: "bold",
-                        color: "white",
-                        padding: "10px",
-                        marginBottom: 0,
-                      }}
-                    >
-                      News({resultsNews.length})
-                    </h1>
-                  </div>
+                <div style={{ marginRight: "5px" }}>
+                  <FaNewspaper size="1rem" color="#505050" />
+                </div>
+                <div style={{ width: "100%", paddingTop: 0 }}>
+                  <hr
+                    style={{ marginTop: "6px" }}
+                    className={styles.hrText}
+                    data-content={`News (${resultsNews.length})`}
+                  />
                 </div>
               </div>
             </div>
             <div className="row">
               <div className="col-md-12">
-                {resultsReviews.length === 0 ? (
+                {resultsNews.length === 0 ? (
                   <React.Fragment>
                     <div
                       className="container"
@@ -655,15 +646,30 @@ const SearchComponent = ({ router }) => {
                       <h1
                         style={{
                           width: "100%",
-                          lineHeight: "120%",
+                          lineHeight: "140%",
                           padding: "0px",
                           fontSize: "20px",
                           fontWeight: "lighter",
                         }}
                       >
-                        No results found on news, check phones(
-                        {resultsMobiles.length}) or reviews(
-                        {resultsReviews.length})
+                        No results found on news, check{" "}
+                        <kbd
+                          style={{
+                            backgroundColor: "rgba(202, 28, 28, 0.945)",
+                          }}
+                        >
+                          phones(
+                          {resultsMobiles.length})
+                        </kbd>{" "}
+                        or{" "}
+                        <kbd
+                          style={{
+                            backgroundColor: "rgba(202, 28, 28, 0.945)",
+                          }}
+                        >
+                          reviews(
+                          {resultsReviews.length})
+                        </kbd>
                       </h1>
                     </div>
                   </React.Fragment>
@@ -742,40 +748,23 @@ const SearchComponent = ({ router }) => {
                   marginRight: "12px",
                 }}
               />
-              <div title="view all News" style={{ width: "100%" }}>
+              <div style={{ width: "100%" }}>
                 <div
                   style={{
                     display: "flex",
                     flexDirection: "row",
                     float: "right",
                     marginBottom: "10px",
+                    marginTop: "6px",
+                    marginRight: "10px",
                   }}
                 >
                   <div style={{ marginRight: 0 }}>
                     <Link href={`/news`}>
-                      <a>
-                        <h2
-                          className="font-weight-bolder"
-                          style={{
-                            lineHeight: "130%",
-                            textTransform: "capitalize",
-                            fontSize: "16px",
-                            fontWeight: "bold",
-                            color: "#383838",
-                            padding: "10px",
-                            paddingRight: 0,
-                            marginBottom: 0,
-                          }}
-                        >
-                          all News
-                        </h2>
-                      </a>
-                    </Link>
-                  </div>
-                  <div style={{ paddingTop: "8px", marginLeft: 0 }}>
-                    <Link href={`/news`}>
-                      <a>
-                        <MdNavigateNext size="1.5rem" color="#000" />
+                      <a style={{ textDecoration: "none" }}>
+                        <div className={styles.view_all}>
+                          <span>view all</span>
+                        </div>
                       </a>
                     </Link>
                   </div>

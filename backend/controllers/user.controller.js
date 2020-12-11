@@ -219,7 +219,7 @@ exports.photo = (req, res) => {
 
 /**this function list all the profiles (PROFILES>SLUG) */
 exports.list = (req, res) => {
-  User.find()
+  User.find({})
     .select("name username _id role email updatedAt")
     .exec((err, data) => {
       if (err) {

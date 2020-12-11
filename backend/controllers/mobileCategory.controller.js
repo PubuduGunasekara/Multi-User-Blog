@@ -79,11 +79,11 @@ exports.create = (req, res) => {
   });
 };
 
-/**completed! this function is used to read all tha mobile category data*/
+/**completed! this function is used to read single mobile category data(phone>brands>slug)*/
 exports.read = (req, res) => {
-  const slug = req.params.slug.toLowerCase();
-  MobileCategory.findOne({ slug })
-    .select("_id name slug excerpt mtitle mdesc createdAt updatedAt")
+  let slug = req.params.slug.toLowerCase();
+  MobileCategory.findOne({ slug: slug })
+    .select("_id name mtitle mdesc")
     .exec((err, data) => {
       if (err) {
         return res.status(400).json({
@@ -91,15 +91,17 @@ exports.read = (req, res) => {
         });
       }
       if (!data) {
-        return res.status(400).json({
-          error: "no data found",
+        return res.status(404).json({
+          data: null,
         });
       }
-      res.status(200).json(data);
+      // console.log(err);
+      // console.log(data);
+      res.status(200).json({ data: data });
     });
 };
 
-/**completed! this function is used in admin panel > create mobile category page  and user side all mobile brands page (phones>INDEX)*/
+/**completed! this function is used in admin panel > create mobile category page  and user side all mobile brands page (phones>INDEX,phone>brands>slug)*/
 exports.list = (req, res) => {
   MobileCategory.find({})
     .select("name slug")
@@ -108,6 +110,11 @@ exports.list = (req, res) => {
       if (err) {
         return res.status(400).json({
           error: errorHandler(err),
+        });
+      }
+      if (!data) {
+        return res.status(404).json({
+          error: "no data found",
         });
       }
       res.status(200).json(data);

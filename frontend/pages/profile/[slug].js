@@ -17,6 +17,7 @@ export async function getStaticPaths() {
     }
   });
 
+  console.log(profiles);
   const paths = profiles.map((post) => ({
     params: { slug: post.username },
   }));
@@ -29,6 +30,7 @@ export async function getStaticPaths() {
 
 // This also gets called at build time
 export async function getStaticProps({ params }) {
+  console.log("from front end profiles", params);
   const profile = await userPublicProfile(params.slug).then((data) => {
     if (data.error) {
       console.log(data.error);

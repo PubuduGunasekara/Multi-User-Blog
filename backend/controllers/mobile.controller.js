@@ -580,12 +580,17 @@ exports.listPublic = (req, res) => {
     });
 };
 
-/**completed this function is used to list all tye relevent phones of a perticular brand */
+/**completed this function is used to list all the relevent phones of a perticular brand(mobiles>brands>slug) */
 exports.listPublicReleventBrands = (req, res) => {
+  if (req.params.id == null) {
+    return res.status(404).json({
+      error: "no data found",
+    });
+  }
   const flag = 1;
   const brand = req.params.id.toLowerCase();
   Mobile.find({ flag, brand })
-    .select("_id title slug updatedAt")
+    .select("title slug")
     .sort({ updatedAt: -1 })
     .exec((err, data) => {
       if (err) {
@@ -594,7 +599,7 @@ exports.listPublicReleventBrands = (req, res) => {
         });
       }
       if (!data) {
-        return res.status(400).json({
+        return res.status(404).json({
           error: "no data found",
         });
       }

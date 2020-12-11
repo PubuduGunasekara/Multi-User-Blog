@@ -50,15 +50,12 @@
   flex-direction: column;
   width: 140px;
   margin: 20px;
+  margin-top: 8px;
   margin-left: 10px;
   margin-right: 10px;
-  border: 2px solid rgba(255, 255, 255, 0);
-  transition: transform 0.3s;
 }
-.mobile__search__container:hover {
-  border: 2px solid rgba(255, 255, 255, 0.945);
-  transform: scale(1.01);
-  opacity: 0.9;
+.mobile__search__container:hover .mobile__search__container__content h1 {
+  color: rgba(202, 28, 28, 0.945) !important;
 }
 .mobile__search__container__content {
   width: 140px;
@@ -95,10 +92,14 @@
   flex-direction: column;
   width: 160px;
   margin: 20px;
-  border: 1px solid rgba(255, 255, 255, 0);
-  transition: transform 0.3s;
+  margin-top: 8px;
+  margin-left: 10px;
+  margin-right: 10px;
 }
 .mobile__search__container__image__reviews img {
+  object-fit: cover;
+  border-radius: 4px;
+  background-repeat: no-repeat;
   width: 100;
   overflow: hidden;
   position: relative;
@@ -116,10 +117,10 @@
   overflow-wrap: break-word;
   word-wrap: break-word;
 }
-.mobile__search__container__reviews:hover {
-  border: 1px solid rgba(202, 28, 28, 0.945);
-  transform: scale(1.01);
-  opacity: 0.9;
+.mobile__search__container__reviews:hover
+  .mobile__search__container__content__reviews
+  h1 {
+  color: rgba(202, 28, 28, 0.945) !important;
 }
 .mobile__search__container__content__reviews a {
   color: rgba(0, 0, 0, 0.781);
@@ -345,4 +346,55 @@
     font-size: 16px;
     height: auto;
   }
+}
+
+/*home page hr*/
+.hrText {
+  line-height: 1em;
+  position: relative;
+  outline: 0;
+  border: 0;
+  color: black;
+  text-align: left;
+  height: 1.5em;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 5px;
+  margin-right: 8px;
+  margin-bottom: 0;
+}
+.hrText::before {
+  content: "";
+  background: #ececec;
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 100%;
+  height: 1px;
+}
+.hrText::after {
+  content: attr(data-content);
+  position: relative;
+  display: inline-block;
+  padding: 0 0.5em;
+  line-height: 1.5em;
+  color: #505050;
+  background-color: #ffffff;
+}
+/*end*/
+
+/**view all button*/
+.view_all span {
+  font-size: 10px;
+  text-transform: uppercase;
+  text-decoration: none;
+  font-weight: 700;
+  letter-spacing: 5px;
+  color: #505050;
+  line-height: 1em;
+}
+
+.view_all span:hover {
+  color: rgba(202, 28, 28, 0.945);
 }

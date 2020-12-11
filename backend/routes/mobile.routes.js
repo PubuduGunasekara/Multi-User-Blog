@@ -46,11 +46,11 @@ router.get(
 router.get("/mobile-search/search", listSearchAdmin);
 
 //end user routes
-router.get("/mobile-search-user/search", listSearchUser);//done SEARCH)
+router.get("/mobile-search-user/search", listSearchUser); //done SEARCH)
 router.get("/mobile-news-reviews", listForNewsReviews); //done (INDEX,NEWS>INDEX,REVIEWS>INDEX)
 router.post("/mobile/related", listRelated);
 router.post("/mobile/news-related", listRelatedNews);
 router.post("/mobile/reviews-related", listRelatedReviews);
-router.get("/mobile-brands-list/:id", listPublicReleventBrands);
+router.get("/mobile-brands-list/:id", listPublicReleventBrands); //done(phone>brands>slug)
 
 module.exports = router;

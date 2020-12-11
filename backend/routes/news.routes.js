@@ -51,7 +51,7 @@ router.get("/news-search-moderator/search", listSearchModerator);
 
 //end user routes
 router.post("/newsTopStories", listPublicTopStories);
-router.get("/news-mobile-reviews", listForMobileReviews); //done (REVIEWS>INDEX)
+router.get("/news-mobile-reviews", listForMobileReviews); //done (REVIEWS>INDEX,phones>index,phones>brands>slug)
 router.post("/news/related", listRelated);
 router.post("/news/reviews-related", listRelatedReviews);
 router.post("/news/mobiles-related", listRelatedMobiles);

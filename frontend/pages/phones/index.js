@@ -10,6 +10,7 @@ import moment from "moment";
 import { API, DOMAIN, APP_NAME, FB_APP_ID } from "../../config";
 import styles from "../../styles/allBrands.module.css";
 import React from "react";
+import Loader from "react-loader-spinner";
 
 /**
  * completed!
