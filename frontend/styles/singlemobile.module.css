@@ -164,7 +164,7 @@
   cursor: pointer;
   height: 82px;
 }
-.featured__display h1 {
+.featured__display span {
   font-size: 16px;
   font-weight: 700;
 }
@@ -272,7 +272,7 @@
   grid-template-columns: repeat(12, minmax(auto, 60px));
 }
 .side__bar__phones {
-  height: auto;
+  height: 100%;
   overflow-y: scroll;
 }
 .single__card__phone {
@@ -280,8 +280,6 @@
   cursor: pointer;
   border-radius: 0%;
   width: 160px;
-  border: 1px solid rgba(255, 255, 255, 0.945);
-  transition: transform 0.3s;
 }
 
 @media screen and (min-width: 1200px) {
@@ -388,10 +386,8 @@
   text-transform: uppercase;
 }
 
-.single__card__phone:hover {
-  border: 1px solid rgba(255, 255, 255, 0.945);
-  transform: scale(1.01);
-  opacity: 0.9;
+.single__card__phone:hover .card__content__phone h1 {
+  color: rgba(202, 28, 28, 0.945);
 }
 
 .card__image__container__phone img {
@@ -580,3 +576,76 @@
   background-color: #ffffff;
 }
 /*end*/
+/**view all button*/
+.view_all span {
+  font-size: 10px;
+  text-transform: uppercase;
+  text-decoration: none;
+  font-weight: 700;
+  letter-spacing: 5px;
+  color: #505050;
+  line-height: 1em;
+}
+
+.view_all span:hover {
+  color: rgba(202, 28, 28, 0.945);
+}
+
+/* *social share buttons
+.section1 {
+  position: relative;
+  height: 600px;
+  background: #f1f5f8;
+  padding: 10px 0px;
+  width: 100%;
+}
+.section1 h2 {
+  text-align: center;
+  font-size: 40px;
+}
+.section1 p {
+  text-align: center;
+  padding: 0px 70px;
+  color: grey;
+}
+.sticky_social {
+  position: fixed;
+  top: 25%;
+  left: -40px;
+  padding: 0px;
+  margin: 0px;
+}
+.social {
+  list-style: none;
+}
+.social li {
+  padding: 10px 10px;
+  font-size: 25px;
+  transition: all 0.8s ease-in-out;
+}
+.social li:hover {
+  margin-right: -30px;
+  box-shadow: 2px 5px 10px grey;
+}
+.social li:hover .fa {
+  margin-left: 20px;
+}
+.fa {
+  color: #fff;
+  transition: all 0.8s ease-in-out;
+}
+.fb {
+  background-color: #3c5a98;
+}
+.twitter {
+  background-color: #1ea1f2;
+}
+.insta {
+  background-color: #dc4f42;
+}
+.pin {
+  background-color: #cb2128;
+}
+.vim {
+  background-color: #59bfbe;
+} */

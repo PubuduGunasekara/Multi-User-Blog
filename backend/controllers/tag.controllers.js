@@ -27,7 +27,7 @@ exports.create = (req, res) => {
 /**this method fetch all the tags (Tag) */
 exports.list = (req, res) => {
   Tag.find()
-    .select("slug")
+    .select("slug ")
     .exec((err, data) => {
       if (err) {
         return res.status(400).json({

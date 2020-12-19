@@ -36,7 +36,7 @@ router.post("/news", requireSignIn, authMiddleware, create);
 router.get("/news-private-root", listPrivate);
 router.get("/news-public-root", listPublic); //done (NEWS>INDEX)
 router.get("/news/photo/:slug", photo);
-router.get("/news/:slug", read);
+router.get("/news/:slug", read); //done (NEWS>slug)
 router.delete("/news/:slug", requireSignIn, adminMiddleware, remove);
 router.put("/news/:slug", requireSignIn, adminMiddleware, update);
 router.get("/news/approve/:slug", requireSignIn, adminMiddleware, approvePost);
@@ -50,11 +50,11 @@ router.get("/news-search/search", listSearchAdmin);
 router.get("/news-search-moderator/search", listSearchModerator);
 
 //end user routes
-router.post("/newsTopStories", listPublicTopStories);
+router.post("/newsTopStories", listPublicTopStories); //done(news>slug)
 router.get("/news-mobile-reviews", listForMobileReviews); //done (REVIEWS>INDEX,phones>index,phones>brands>slug)
 router.post("/news/related", listRelated);
-router.post("/news/reviews-related", listRelatedReviews);
-router.post("/news/mobiles-related", listRelatedMobiles);
+router.post("/news/reviews-related", listRelatedReviews); //done(news>slug)
+router.post("/news/mobiles-related", listRelatedMobiles); //done(news>slug)
 router.get("/news-search-user/search", listSearchUser); //done (SEARCH)
 router.get("/news-public-latest", listPublicLatestNews); //done (INDEX)
 router.get("/news-public-second-latest", listPublicSecondLatestNews); //done (INDEX)

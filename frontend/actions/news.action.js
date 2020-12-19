@@ -32,7 +32,7 @@ export const newsListPrivate = () => {
     .catch((err) => console.log(err));
 };
 
-/**done (news>Index) */
+/**done (news>Index,news>slug) */
 export const newsListPublic = () => {
   return fetch(`${API}/news-public-root`, {
     method: "GET",
@@ -104,6 +104,7 @@ export const newsPublicSecondLatest = () => {
     .catch((err) => console.log(err));
 };
 
+/**done (news>slug) */
 export const newsListPublicTopStories = (blog) => {
   return fetch(`${API}/newsTopStories`, {
     method: "POST",
@@ -154,6 +155,7 @@ export const newsListModeratorPublic = (id) => {
     .catch((err) => console.log(err));
 };
 
+//done(news>slug)
 export const singleNews = (slug) => {
   return fetch(`${API}/news/${slug}`, {
     method: "GET",
@@ -179,6 +181,7 @@ export const listRelated = (blog) => {
     .catch((err) => console.log(err));
 };
 
+//done(news>slug)
 export const listRelatedReviews = (blog) => {
   return fetch(`${API}/news/reviews-related`, {
     method: "POST",
@@ -194,6 +197,7 @@ export const listRelatedReviews = (blog) => {
     .catch((err) => console.log(err));
 };
 
+//done(news>slug)
 export const listRelatedMobiles = (blog) => {
   return fetch(`${API}/news/mobiles-related`, {
     method: "POST",

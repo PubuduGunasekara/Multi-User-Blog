@@ -2,7 +2,6 @@ import Head from "next/head";
 import Link from "next/link";
 import DefaultErrorPage from "next/error";
 import { useRouter } from "next/router";
-import Layout from "../../../components/Layout";
 import {
   mobileListPublic,
   singleMobile,
@@ -14,13 +13,7 @@ import { API, DOMAIN, APP_NAME, FB_APP_ID } from "../../../config";
 import moment from "moment";
 import { BsArrowsFullscreen, BsBattery } from "react-icons/bs";
 import { GoSettings } from "react-icons/go";
-import {
-  MdSdStorage,
-  MdCamera,
-  MdRateReview,
-  MdLaunch,
-  MdNavigateNext,
-} from "react-icons/md";
+import { MdSdStorage, MdCamera, MdRateReview, MdLaunch } from "react-icons/md";
 import {
   RiCameraSwitchLine,
   RiCheckboxMultipleBlankLine,
@@ -35,6 +28,8 @@ import {
 } from "react-icons/ai";
 import styles from "../../../styles/singlemobile.module.css";
 import React from "react";
+import Loader from "react-loader-spinner";
+import { InlineShareButtons } from "sharethis-reactjs";
 
 /**
  * completed!
@@ -45,9 +40,32 @@ const SingleBlog = ({ blog, related, relatedNews, relatedReviews }) => {
   // If the page is not yet generated, this will be displayed
   // initially until getStaticProps() finishes running
   if (router.isFallback) {
-    return <div>Loading...</div>;
+    return (
+      <div
+        style={{
+          textAlign: "center",
+          top: "50%",
+          bottom: "50%",
+          minHeight: "100vh",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          margin: "auto",
+          padding: "auto",
+        }}
+      >
+        <Loader
+          type="Bars"
+          color="rgba(202, 28, 28, 0.945)"
+          height={100}
+          width={100}
+          timeout={10000} //3 secs
+        />
+      </div>
+    );
   }
-  if (!blog) {
+
+  if (!blog.data) {
     return (
       <React.Fragment>
         <Head>
@@ -57,23 +75,27 @@ const SingleBlog = ({ blog, related, relatedNews, relatedReviews }) => {
       </React.Fragment>
     );
   }
+
   const head = () => (
     <Head>
       <title>
-        {blog.title} - Full Phone Specs | {`${APP_NAME}`}
+        {blog.data.title} - Full Phone Specs | {`${APP_NAME}`}
       </title>
-      <meta name="description" content={`${blog.mdesc}`} />
-      <link rel="canonical" href={`${DOMAIN}/phones/${blog.slug}`} />
+      <meta name="description" content={`${blog.data.mdesc}`} />
+      <link rel="canonical" href={`${DOMAIN}/phones/${blog.data.slug}`} />
       <meta
         property="og:title"
-        content={`${blog.title} - Full Phone Specs | ${APP_NAME}`}
+        content={`${blog.data.title} - Full Phone Specs | ${APP_NAME}`}
       />
-      <meta property="og:description" content={`${blog.mdesc}`} />
+      <meta property="og:description" content={`${blog.data.mdesc}`} />
       <meta property="og:type" content="website" />
-      <meta property="og:url" content={`${DOMAIN}/phones/${blog.slug}`} />
+      <meta property="og:url" content={`${DOMAIN}/phones/${blog.data.slug}`} />
       <meta property="og:site_name" content={`${APP_NAME}`} />
 
-      <meta property="og:image" content={`${API}/mobile/photo/${blog.slug}`} />
+      <meta
+        property="og:image"
+        content={`${API}/mobile/photo/${blog.data.slug}`}
+      />
       <meta
         property="og:image:secure_url"
         content={`${API}/mobile/photo/${blog.slug}`}
@@ -82,6 +104,8 @@ const SingleBlog = ({ blog, related, relatedNews, relatedReviews }) => {
       <meta property="fb:app_id" content={`${FB_APP_ID}`} />
     </Head>
   );
+
+  //done
   const showRelatedBlogs = () => {
     return (
       <div
@@ -115,6 +139,7 @@ const SingleBlog = ({ blog, related, relatedNews, relatedReviews }) => {
     );
   };
 
+  //done
   const showSideBarNews = () => {
     return relatedNews.map((blog, i) => (
       <React.Fragment key={i}>
@@ -153,6 +178,7 @@ const SingleBlog = ({ blog, related, relatedNews, relatedReviews }) => {
     ));
   };
 
+  //done
   const showSideBarReviews = () => {
     return relatedReviews.map((blog, i) => (
       <React.Fragment key={i}>
@@ -191,6 +217,7 @@ const SingleBlog = ({ blog, related, relatedNews, relatedReviews }) => {
     ));
   };
 
+  //done
   const mobileContent = (mobile) => {
     return (
       <div className="col-md-12" style={{ overflow: "auto" }}>
@@ -206,13 +233,9 @@ const SingleBlog = ({ blog, related, relatedNews, relatedReviews }) => {
             <MdLaunch size="2rem" color="#666" />
           </div>
           <div style={{ margin: "10px" }}>
-            <h2
-              title="Phone's released details"
-              style={{ fontSize: "22px" }}
-              className="font-weight-bolder"
-            >
+            <h4 style={{ fontSize: "22px" }} className="font-weight-bolder">
               Launch
-            </h2>
+            </h4>
           </div>
         </div>
         <table className="table table-hover">
@@ -244,13 +267,9 @@ const SingleBlog = ({ blog, related, relatedNews, relatedReviews }) => {
             <BsArrowsFullscreen size="2rem" color="#666" />
           </div>
           <div style={{ margin: "10px" }}>
-            <h2
-              title="Phone's display details"
-              style={{ fontSize: "22px" }}
-              className="font-weight-bolder"
-            >
+            <h4 style={{ fontSize: "22px" }} className="font-weight-bolder">
               Display
-            </h2>
+            </h4>
           </div>
         </div>
         <table className="table table-hover">
@@ -294,13 +313,9 @@ const SingleBlog = ({ blog, related, relatedNews, relatedReviews }) => {
             <GiNetworkBars size="2rem" color="#666" />
           </div>
           <div style={{ margin: "10px" }}>
-            <h2
-              title="Phone's network details"
-              style={{ fontSize: "22px" }}
-              className="font-weight-bolder"
-            >
+            <h4 style={{ fontSize: "22px" }} className="font-weight-bolder">
               Network
-            </h2>
+            </h4>
           </div>
         </div>
         <table className="table table-hover">
@@ -362,13 +377,9 @@ const SingleBlog = ({ blog, related, relatedNews, relatedReviews }) => {
             <GiProcessor size="2rem" color="#666" />
           </div>
           <div style={{ margin: "10px" }}>
-            <h2
-              title="Phone's hardware details"
-              style={{ fontSize: "22px" }}
-              className="font-weight-bolder"
-            >
+            <h4 style={{ fontSize: "22px" }} className="font-weight-bolder">
               Hardware
-            </h2>
+            </h4>
           </div>
         </div>
         <table className="table table-hover">
@@ -418,13 +429,9 @@ const SingleBlog = ({ blog, related, relatedNews, relatedReviews }) => {
             <GoSettings size="2rem" color="#666" />
           </div>
           <div style={{ margin: "10px" }}>
-            <h2
-              title="Phone's software details"
-              style={{ fontSize: "22px" }}
-              className="font-weight-bolder"
-            >
+            <h4 style={{ fontSize: "22px" }} className="font-weight-bolder">
               Software
-            </h2>
+            </h4>
           </div>
         </div>
         <table className="table table-hover">
@@ -450,13 +457,9 @@ const SingleBlog = ({ blog, related, relatedNews, relatedReviews }) => {
             <MdCamera size="2rem" color="#666" />
           </div>
           <div style={{ margin: "10px" }}>
-            <h2
-              title="Phone's main camera details"
-              style={{ fontSize: "22px" }}
-              className="font-weight-bolder"
-            >
+            <h4 style={{ fontSize: "22px" }} className="font-weight-bolder">
               Main Camera
-            </h2>
+            </h4>
           </div>
         </div>
         <table className="table table-hover">
@@ -494,13 +497,9 @@ const SingleBlog = ({ blog, related, relatedNews, relatedReviews }) => {
             <RiCameraSwitchLine size="2rem" color="#666" />
           </div>
           <div style={{ margin: "10px" }}>
-            <h2
-              title="Phone's selfy details"
-              style={{ fontSize: "22px" }}
-              className="font-weight-bolder"
-            >
+            <h4 style={{ fontSize: "22px" }} className="font-weight-bolder">
               Selfy Camera
-            </h2>
+            </h4>
           </div>
         </div>
         <table className="table table-hover">
@@ -538,13 +537,9 @@ const SingleBlog = ({ blog, related, relatedNews, relatedReviews }) => {
             <GrConnect size="2rem" color="#666" />
           </div>
           <div style={{ margin: "10px" }}>
-            <h2
-              title="Phone's conectivity and sensor details"
-              style={{ fontSize: "22px" }}
-              className="font-weight-bolder"
-            >
+            <h4 style={{ fontSize: "22px" }} className="font-weight-bolder">
               Connectivity & Sensors
-            </h2>
+            </h4>
           </div>
         </div>
         <table className="table table-hover">
@@ -602,13 +597,9 @@ const SingleBlog = ({ blog, related, relatedNews, relatedReviews }) => {
             <BsBattery size="2rem" color="#666" />
           </div>
           <div style={{ margin: "10px" }}>
-            <h2
-              title="Phone's battery details"
-              style={{ fontSize: "22px" }}
-              className="font-weight-bolder"
-            >
+            <h4 style={{ fontSize: "22px" }} className="font-weight-bolder">
               Battery
-            </h2>
+            </h4>
           </div>
         </div>
         <table className="table table-hover">
@@ -640,13 +631,9 @@ const SingleBlog = ({ blog, related, relatedNews, relatedReviews }) => {
             <AiOutlineSound size="2rem" color="#666" />
           </div>
           <div style={{ margin: "10px" }}>
-            <h2
-              title="Phone's sound details"
-              style={{ fontSize: "22px" }}
-              className="font-weight-bolder"
-            >
+            <h4 style={{ fontSize: "22px" }} className="font-weight-bolder">
               Sounds
-            </h2>
+            </h4>
           </div>
         </div>
         <table className="table table-hover">
@@ -678,13 +665,9 @@ const SingleBlog = ({ blog, related, relatedNews, relatedReviews }) => {
             <AiOutlineColumnWidth size="2rem" color="#666" />
           </div>
           <div style={{ margin: "10px" }}>
-            <h2
-              title="Phone's body and design details"
-              style={{ fontSize: "22px" }}
-              className="font-weight-bolder"
-            >
+            <h4 style={{ fontSize: "22px" }} className="font-weight-bolder">
               Body & Design
-            </h2>
+            </h4>
           </div>
         </div>
         <table className="table table-hover">
@@ -732,13 +715,9 @@ const SingleBlog = ({ blog, related, relatedNews, relatedReviews }) => {
             <AiOutlineMobile size="2rem" color="#666" />
           </div>
           <div style={{ margin: "10px" }}>
-            <h2
-              title="Product details"
-              style={{ fontSize: "22px" }}
-              className="font-weight-bolder"
-            >
+            <h4 style={{ fontSize: "22px" }} className="font-weight-bolder">
               Product Details
-            </h2>
+            </h4>
           </div>
         </div>
         <table className="table table-hover">
@@ -775,552 +754,670 @@ const SingleBlog = ({ blog, related, relatedNews, relatedReviews }) => {
 
   return (
     <React.Fragment>
-      {head()}
-      <Layout>
-        <div
-          className={`container mt-5 mb-5 pl-0 pr-0 ${styles.set__container__margin}`}
-        >
-          <div className="row ml-0 mr-0">
-            <div className="col-lg-8 pl-0 pr-0">
-              <div
-                className={`${styles.main__div} row ml-0 mr-0`}
-                style={{
-                  backgroundColor: "white",
-                  boxShadow: "0px 0px 1px rgba(0,0,0,0.5)",
-                }}
-              >
-                <h1
-                  title="Smartphone Name"
-                  className={styles.main__div__main__topic}
+      {blog.data && related && relatedNews && relatedReviews ? (
+        <React.Fragment>
+          {head()}
+          <div
+            className={`container mt-3 mb-5 pl-0 pr-0 ${styles.set__container__margin}`}
+          >
+            <div className="row ml-0 mr-0">
+              <div style={{ width: "100%" }}>
+                <nav aria-label="breadcrumb">
+                  <ol
+                    style={{ backgroundColor: "#f3f3f3" }}
+                    className="breadcrumb pt-0 pb-0"
+                  >
+                    <li className="breadcrumb-item">
+                      <Link href="/">
+                        <a>Home</a>
+                      </Link>
+                    </li>
+                    <li className="breadcrumb-item">
+                      <Link href="/phones">
+                        <a>Brands</a>
+                      </Link>
+                    </li>
+                    <li className="breadcrumb-item">
+                      <Link href={`/phones/brands/${blog.data.brand.name}`}>
+                        <a>{blog.data.brand.name} phones</a>
+                      </Link>
+                    </li>
+                    <li className="breadcrumb-item active" aria-current="page">
+                      Here
+                    </li>
+                  </ol>
+                </nav>
+              </div>
+              <div className="col-lg-8 pl-0 pr-0">
+                <div
+                  className={`${styles.main__div} row ml-0 mr-0`}
+                  style={{
+                    backgroundColor: "white",
+                    boxShadow: "0px 0px 1px rgba(0,0,0,0.5)",
+                  }}
                 >
-                  {blog.title}
-                </h1>
-                <div className="col-md-12">
-                  <div className="row">
-                    <img
-                      src={`${API}/mobile/photo/${blog.slug}`}
-                      className={`img img-fluid col-md-4 ${styles.main__div__main_img}`}
-                      alt={blog.title}
-                      title="Phone Image"
-                    />
-                    <div
-                      className={`col-md-8 ${styles.featured__display_controller}`}
-                    >
+                  <h1 className={styles.main__div__main__topic}>
+                    {blog.data.title}
+                  </h1>
+
+                  <div className="col-md-12">
+                    <div className="row">
+                      <img
+                        src={`${API}/mobile/photo/${blog.data.slug}`}
+                        className={`img img-fluid col-md-4 ${styles.main__div__main_img}`}
+                        alt={blog.data.title}
+                      />
                       <div
-                        className={`row ${styles.row__flex__control} ${styles.first__row}`}
-                        style={{
-                          display: "flex",
-                          flexDirection: "row",
-                          width: "100%",
-                          margin: 0,
-                        }}
+                        className={`col-md-8 ${styles.featured__display_controller}`}
                       >
                         <div
-                          className={`${styles.row__item} ${styles.row__item__first__left}`}
-                          style={{ width: "50%", overflow: "auto" }}
+                          className={`row ${styles.row__flex__control} ${styles.first__row}`}
+                          style={{
+                            display: "flex",
+                            flexDirection: "row",
+                            width: "100%",
+                            margin: 0,
+                          }}
                         >
                           <div
-                            title="Display highlights"
-                            className={styles.featured__display}
-                            style={{ display: "flex", flexDirection: "row" }}
+                            className={`${styles.row__item} ${styles.row__item__first__left}`}
+                            style={{ width: "50%", overflow: "auto" }}
                           >
-                            <div style={{ margin: "10px" }}>
-                              <BsArrowsFullscreen size="2rem" color="#666" />
-                            </div>
-
                             <div
-                              style={{
-                                display: "flex",
-                                flexDirection: "column",
-                                margin: "10px",
-                              }}
+                              className={styles.featured__display}
+                              style={{ display: "flex", flexDirection: "row" }}
                             >
-                              <h1 style={{ margin: 0 }}>Display</h1>
-                              {blog.fdDisplay}
+                              <div style={{ margin: "10px" }}>
+                                <BsArrowsFullscreen size="2rem" color="#666" />
+                              </div>
+
+                              <div
+                                style={{
+                                  display: "flex",
+                                  flexDirection: "column",
+                                  margin: "10px",
+                                }}
+                              >
+                                <span style={{ margin: 0 }}>Display</span>
+                                {blog.data.fdDisplay}
+                              </div>
+                            </div>
+                          </div>
+                          <div
+                            className={`${styles.row__item} ${styles.row__item__first__right}`}
+                            style={{ width: "50%", overflow: "auto" }}
+                          >
+                            <div
+                              className={styles.featured__display}
+                              style={{ display: "flex", flexDirection: "row" }}
+                            >
+                              <div style={{ margin: "10px" }}>
+                                <BsBattery size="2rem" color="#666" />
+                              </div>
+
+                              <div
+                                style={{
+                                  display: "flex",
+                                  flexDirection: "column",
+                                  margin: "10px",
+                                }}
+                              >
+                                <span style={{ margin: 0 }}>Battery</span>
+                                {blog.data.fdBattery}
+                              </div>
                             </div>
                           </div>
                         </div>
+
                         <div
-                          className={`${styles.row__item} ${styles.row__item__first__right}`}
-                          style={{ width: "50%", overflow: "auto" }}
+                          className={`row ${styles.row__flex__control} ${styles.second__row}`}
+                          style={{
+                            display: "flex",
+                            flexDirection: "row",
+                            width: "100%",
+                            margin: 0,
+                          }}
                         >
                           <div
-                            title="Battery highlights"
-                            className={styles.featured__display}
-                            style={{ display: "flex", flexDirection: "row" }}
+                            className={`${styles.row__item} ${styles.row__item__second__left}`}
+                            style={{ width: "50%", overflow: "auto" }}
                           >
-                            <div style={{ margin: "10px" }}>
-                              <BsBattery size="2rem" color="#666" />
-                            </div>
-
                             <div
-                              style={{
-                                display: "flex",
-                                flexDirection: "column",
-                                margin: "10px",
-                              }}
+                              className={styles.featured__display}
+                              style={{ display: "flex", flexDirection: "row" }}
                             >
-                              <h1 style={{ margin: 0 }}>Battery</h1>
-                              {blog.fdBattery}
+                              <div style={{ margin: "10px" }}>
+                                <MdSdStorage size="2rem" color="#666" />
+                              </div>
+
+                              <div
+                                style={{
+                                  display: "flex",
+                                  flexDirection: "column",
+                                  margin: "10px",
+                                }}
+                              >
+                                <span style={{ margin: 0 }}>Storage</span>
+                                {blog.data.fdStorage}
+                              </div>
+                            </div>
+                          </div>
+                          <div
+                            className={`${styles.row__item} ${styles.row__item__second__right}`}
+                            style={{ width: "50%", overflow: "auto" }}
+                          >
+                            <div
+                              className={styles.featured__display}
+                              style={{ display: "flex", flexDirection: "row" }}
+                            >
+                              <div style={{ margin: "10px" }}>
+                                <RiCameraSwitchLine size="2rem" color="#666" />
+                              </div>
+
+                              <div
+                                style={{
+                                  display: "flex",
+                                  flexDirection: "column",
+                                  margin: "10px",
+                                }}
+                              >
+                                <span style={{ margin: 0 }}>Camera</span>
+                                {blog.data.fdCamera}
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div
+                          className={`row ${styles.row__flex__control} ${styles.third__row}`}
+                          style={{
+                            display: "flex",
+                            flexDirection: "row",
+                            width: "100%",
+                            margin: 0,
+                          }}
+                        >
+                          <div
+                            className={`${styles.row__item__third__left} ${styles.row__item}`}
+                            style={{ width: "50%", overflow: "auto" }}
+                          >
+                            <div
+                              className={styles.featured__display}
+                              style={{ display: "flex", flexDirection: "row" }}
+                            >
+                              <div style={{ margin: "10px" }}>
+                                <GoSettings size="2rem" color="#666" />
+                              </div>
+
+                              <div
+                                style={{
+                                  display: "flex",
+                                  flexDirection: "column",
+                                  margin: "10px",
+                                }}
+                              >
+                                <span style={{ margin: 0 }}>Os</span>
+                                {blog.data.fdOs}
+                              </div>
+                            </div>
+                          </div>
+                          <div
+                            className={`${styles.row__item} ${styles.row__item__third__right}`}
+                            style={{ width: "50%", overflow: "auto" }}
+                          >
+                            <div
+                              className={styles.featured__display}
+                              style={{ display: "flex", flexDirection: "row" }}
+                            >
+                              <div style={{ margin: "10px" }}>
+                                <FaMicrochip size="2rem" color="#666" />
+                              </div>
+
+                              <div
+                                style={{
+                                  display: "flex",
+                                  flexDirection: "column",
+                                  margin: "10px",
+                                }}
+                              >
+                                <span style={{ margin: 0 }}>Chipset</span>
+                                {blog.data.fdChipset}
+                              </div>
                             </div>
                           </div>
                         </div>
                       </div>
+                      <div className="mb-3 ml-3 mr-3" style={{ width: "100%" }}>
+                        <InlineShareButtons
+                          config={{
+                            alignment: "justified", // alignment of buttons (left, center, right)
+                            color: "social", // set the color of buttons (social, white)
+                            enabled: true, // show/hide buttons (true, false)
+                            font_size: 12, // font size for the buttons
+                            labels: "cta", // button labels (cta, counts, null)
+                            language: "en", // which language to use (see LANGUAGES)
+                            networks: [
+                              // which networks to include (see SHARING NETWORKS)
+                              "facebook",
+                              "twitter",
+                              "pinterest",
+                              "linkedin",
+                              "whatsapp",
+                            ],
+                            padding: 10, // padding within buttons (INTEGER)
 
-                      <div
-                        className={`row ${styles.row__flex__control} ${styles.second__row}`}
-                        style={{
-                          display: "flex",
-                          flexDirection: "row",
-                          width: "100%",
-                          margin: 0,
-                        }}
-                      >
-                        <div
-                          className={`${styles.row__item} ${styles.row__item__second__left}`}
-                          style={{ width: "50%", overflow: "auto" }}
-                        >
-                          <div
-                            title="Storage highlights"
-                            className={styles.featured__display}
-                            style={{ display: "flex", flexDirection: "row" }}
-                          >
-                            <div style={{ margin: "10px" }}>
-                              <MdSdStorage size="2rem" color="#666" />
-                            </div>
+                            radius: 4, // the corner radius on each button (INTEGER)
+                            show_total: false,
 
-                            <div
-                              style={{
-                                display: "flex",
-                                flexDirection: "column",
-                                margin: "10px",
-                              }}
-                            >
-                              <h1 style={{ margin: 0 }}>Storage</h1>
-                              {blog.fdStorage}
-                            </div>
-                          </div>
-                        </div>
-                        <div
-                          className={`${styles.row__item} ${styles.row__item__second__right}`}
-                          style={{ width: "50%", overflow: "auto" }}
-                        >
-                          <div
-                            title="Camera highlights"
-                            className={styles.featured__display}
-                            style={{ display: "flex", flexDirection: "row" }}
-                          >
-                            <div style={{ margin: "10px" }}>
-                              <RiCameraSwitchLine size="2rem" color="#666" />
-                            </div>
+                            size: 30, // the size of each button (INTEGER)
 
-                            <div
-                              style={{
-                                display: "flex",
-                                flexDirection: "column",
-                                margin: "10px",
-                              }}
-                            >
-                              <h1 style={{ margin: 0 }}>Camera</h1>
-                              {blog.fdCamera}
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div
-                        className={`row ${styles.row__flex__control} ${styles.third__row}`}
-                        style={{
-                          display: "flex",
-                          flexDirection: "row",
-                          width: "100%",
-                          margin: 0,
-                        }}
-                      >
-                        <div
-                          className={`${styles.row__item__third__left} ${styles.row__item}`}
-                          style={{ width: "50%", overflow: "auto" }}
-                        >
-                          <div
-                            title="Operating System highlights"
-                            className={styles.featured__display}
-                            style={{ display: "flex", flexDirection: "row" }}
-                          >
-                            <div style={{ margin: "10px" }}>
-                              <GoSettings size="2rem" color="#666" />
-                            </div>
-
-                            <div
-                              style={{
-                                display: "flex",
-                                flexDirection: "column",
-                                margin: "10px",
-                              }}
-                            >
-                              <h1 style={{ margin: 0 }}>Os</h1>
-                              {blog.fdOs}
-                            </div>
-                          </div>
-                        </div>
-                        <div
-                          className={`${styles.row__item} ${styles.row__item__third__right}`}
-                          style={{ width: "50%", overflow: "auto" }}
-                        >
-                          <div
-                            title="Chipset highlights"
-                            className={styles.featured__display}
-                            style={{ display: "flex", flexDirection: "row" }}
-                          >
-                            <div style={{ margin: "10px" }}>
-                              <FaMicrochip size="2rem" color="#666" />
-                            </div>
-
-                            <div
-                              style={{
-                                display: "flex",
-                                flexDirection: "column",
-                                margin: "10px",
-                              }}
-                            >
-                              <h1 style={{ margin: 0 }}>Chipset</h1>
-                              {blog.fdChipset}
-                            </div>
-                          </div>
-                        </div>
+                            // OPTIONAL PARAMETERS
+                            url: `${DOMAIN}/phones/brand/${blog.data.slug}`, // (defaults to current url)
+                            image: "https://bit.ly/2CMhCMC", // (defaults to og:image or twitter:image)
+                            description: "custom text", // (defaults to og:description or twitter:description)
+                            title: "custom title", // (defaults to og:title or twitter:title)
+                            message: "custom email text", // (only for email sharing)
+                            subject: "custom email subject", // (only for email sharing)
+                            username: "custom twitter handle", // (only for twitter sharing)
+                          }}
+                        />
                       </div>
                     </div>
                   </div>
                 </div>
-              </div>
 
-              <div className="row mt-2 ml-0 mr-0">
-                <div className="col-md-12">
-                  <div
-                    className="row"
-                    style={{
-                      backgroundColor: "white",
-                      boxShadow: "0px 0px 1px rgba(0,0,0,0.5)",
-                    }}
-                  >
-                    <h1
-                      title="phone specifications"
-                      style={{
-                        lineHeight: "130%",
-                        backgroundColor: "rgba(202, 28, 28, 0.945)",
-                        textTransform: "capitalize",
-                        fontSize: "24px",
-                        fontWeight: "bold",
-                        width: "100%",
-                        color: "white",
-                        padding: "10px",
-                        marginBottom: "10px",
-                      }}
-                    >
-                      Full Phone Specs
-                    </h1>
-                    {mobileContent(blog)}
-                    <div title="Disclaimer" className="container">
-                      <p>
-                        <strong>Disclaimer.</strong> We can not guarantee that
-                        the information on this page is 100% correct.
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="row mt-2 ml-0 mr-0">
-                <div className="col-lg-12">
-                  <div
-                    className="row"
-                    style={{
-                      backgroundColor: "white",
-                      boxShadow: "0px 0px 1px rgba(0,0,0,0.5)",
-                    }}
-                  >
+                <div className="row mt-2 ml-0 mr-0">
+                  <div className="col-md-12">
                     <div
-                      className="col-lg-12"
+                      className="row"
                       style={{
-                        display: "flex",
-                        flexDirection: "row",
-                        width: "100%",
-                        backgroundColor: "rgba(202, 28, 28, 0.945)",
-                        marginBottom: "15px",
+                        backgroundColor: "white",
+                        boxShadow: "0px 0px 1px rgba(0,0,0,0.5)",
                       }}
                     >
-                      <div
+                      <h2
                         style={{
-                          display: "flex",
-                          flexDirection: "row",
-                          textAlign: "left",
+                          lineHeight: "130%",
+                          backgroundColor: "rgba(202, 28, 28, 0.945)",
+                          textTransform: "capitalize",
+                          fontSize: "24px",
+                          fontWeight: "bold",
                           width: "100%",
-                        }}
-                      >
-                        <div style={{ margin: "10px" }}>
-                          <RiCheckboxMultipleBlankLine
-                            size="2rem"
-                            color="#fff"
-                          />
-                        </div>
-                        <div>
-                          <h2
-                            title="related phones"
-                            className="font-weight-bolder"
-                            style={{
-                              lineHeight: "130%",
-                              textTransform: "capitalize",
-                              fontSize: "24px",
-                              fontWeight: "bold",
-                              color: "white",
-                              padding: "10px",
-                              marginBottom: 0,
-                            }}
-                          >
-                            related phones
-                          </h2>
-                        </div>
-                      </div>
-                    </div>
-                    {showRelatedBlogs()}
-                    <div
-                      style={{
-                        height: "3px",
-                        width: "100%",
-                        margin: 0,
-                        backgroundColor: "rgba(202, 28, 28, 0.945)",
-                        marginRight: "12px",
-                        marginLeft: "12px",
-                      }}
-                    />
-                    <div
-                      title="view all smart phone brands"
-                      style={{ width: "100%", marginRight: "15px" }}
-                    >
-                      <div
-                        style={{
-                          display: "flex",
-                          flexDirection: "row",
-                          float: "right",
+                          color: "white",
+                          padding: "10px",
                           marginBottom: "10px",
                         }}
                       >
-                        <div style={{ marginRight: 0 }}>
-                          <Link href={`/phones`}>
-                            <a>
-                              <h2
+                        Full Phone Specs
+                      </h2>
+                      {mobileContent(blog.data)}
+
+                      <div className="container">
+                        <p>
+                          <strong>Disclaimer.</strong> We can not guarantee that
+                          the information on this page is 100% correct.
+                        </p>
+                      </div>
+                      <div className="container">
+                        <p
+                          style={{
+                            color: "blue",
+                            cursor: "pointer",
+                            textDecoration: "underline",
+                          }}
+                        >
+                          <a
+                            rel="nofollow"
+                            onClick={() =>
+                              window.open(blog.data.source, "_blank")
+                            }
+                          >
+                            source
+                          </a>
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className="row mt-2 ml-0 mr-0">
+                  <div className="col-lg-12">
+                    {related.length !== 0 ? (
+                      <div
+                        className="row"
+                        style={{
+                          backgroundColor: "white",
+                          boxShadow: "0px 0px 1px rgba(0,0,0,0.5)",
+                        }}
+                      >
+                        <div
+                          className="col-lg-12"
+                          style={{
+                            display: "flex",
+                            flexDirection: "row",
+                            width: "100%",
+                            backgroundColor: "rgba(202, 28, 28, 0.945)",
+                            marginBottom: "15px",
+                          }}
+                        >
+                          <div
+                            style={{
+                              display: "flex",
+                              flexDirection: "row",
+                              textAlign: "left",
+                              width: "100%",
+                            }}
+                          >
+                            <div style={{ margin: "10px" }}>
+                              <RiCheckboxMultipleBlankLine
+                                size="2rem"
+                                color="#fff"
+                              />
+                            </div>
+                            <div>
+                              <h3
                                 className="font-weight-bolder"
                                 style={{
                                   lineHeight: "130%",
                                   textTransform: "capitalize",
-                                  fontSize: "16px",
+                                  fontSize: "24px",
                                   fontWeight: "bold",
-                                  color: "#383838",
+                                  color: "white",
                                   padding: "10px",
-                                  paddingRight: 0,
                                   marginBottom: 0,
                                 }}
                               >
-                                all brands
-                              </h2>
-                            </a>
-                          </Link>
+                                related phones
+                              </h3>
+                            </div>
+                          </div>
                         </div>
-                        <div style={{ paddingTop: "8px", marginLeft: 0 }}>
-                          <Link href={`/phones`}>
-                            <a>
-                              <MdNavigateNext size="1.5rem" color="#000" />
-                            </a>
-                          </Link>
+                        {showRelatedBlogs()}
+                        <div
+                          style={{
+                            height: "3px",
+                            width: "100%",
+                            margin: 0,
+                            backgroundColor: "rgba(202, 28, 28, 0.945)",
+                            marginRight: "12px",
+                            marginLeft: "12px",
+                          }}
+                        />
+                        <div style={{ width: "100%", paddingRight: "12px" }}>
+                          <div
+                            style={{
+                              display: "flex",
+                              flexDirection: "row",
+                              float: "right",
+                              marginBottom: "10px",
+                              marginTop: "6px",
+                            }}
+                          >
+                            <div style={{ marginRight: 0 }}>
+                              <Link href={`/phones`}>
+                                <a style={{ textDecoration: "none" }}>
+                                  <div className={styles.view_all}>
+                                    <span>view all</span>
+                                  </div>
+                                </a>
+                              </Link>
+                            </div>
+                          </div>
                         </div>
                       </div>
-                    </div>
+                    ) : (
+                      ""
+                    )}
                   </div>
                 </div>
               </div>
-            </div>
 
-            <div
-              className={`col-lg-4  ${styles.side__bar__single__brand__main}`}
-            >
               <div
-                className={`row mr-0 ${styles.side__bar__single__brand}`}
-                style={{
-                  backgroundColor: "white",
-                  boxShadow: "0px 0px 1px rgba(0,0,0,0.5)",
-                  marginBottom: "8px",
-                }}
+                className={`col-lg-4  ${styles.side__bar__single__brand__main}`}
               >
-                <div
-                  className="col-md-12"
-                  style={{
-                    display: "flex",
-                    flexDirection: "row",
-                    width: "100%",
-                    marginTop: "20px",
-                    marginBottom: "10px",
-                  }}
-                >
-                  <div style={{ marginRight: "5px" }}>
-                    <MdRateReview size="1rem" color="#818078" />
-                  </div>
-                  <div style={{ width: "100%", paddingTop: 0 }}>
-                    <hr
-                      style={{ marginTop: "6px" }}
-                      className={styles.hrText}
-                      data-content="related reviews"
-                    />
-                  </div>
-                </div>
-                <div
-                  className="col-md-12"
-                  style={{
-                    paddingRight: "12px",
-                    paddingLeft: "12px",
-                  }}
-                >
-                  {showSideBarReviews()}
+                {relatedReviews.length !== 0 ? (
                   <div
+                    className={`row mr-0 ${styles.side__bar__single__brand}`}
                     style={{
-                      height: "3px",
-                      width: "100%",
-                      margin: 0,
-                      backgroundColor: "rgba(202, 28, 28, 0.945)",
+                      backgroundColor: "white",
+                      boxShadow: "0px 0px 1px rgba(0,0,0,0.5)",
+                      marginBottom: "8px",
                     }}
-                  />
-                  <div style={{ width: "100%" }}>
+                  >
                     <div
+                      className="col-md-12"
                       style={{
                         display: "flex",
                         flexDirection: "row",
-                        float: "right",
+                        width: "100%",
+                        marginTop: "20px",
                         marginBottom: "10px",
                       }}
                     >
-                      <div style={{ marginRight: 0 }}>
-                        <Link href={`/reviews`}>
-                          <a>
-                            <h2
-                              className="font-weight-bolder"
-                              style={{
-                                lineHeight: "130%",
-                                textTransform: "capitalize",
-                                fontSize: "16px",
-                                fontWeight: "bold",
-                                color: "#383838",
-                                padding: "10px",
-                                paddingRight: 0,
-                                marginBottom: 0,
-                              }}
-                            >
-                              view all
-                            </h2>
-                          </a>
-                        </Link>
+                      <div style={{ marginRight: "5px" }}>
+                        <MdRateReview size="1rem" color="#818078" />
                       </div>
-                      <div style={{ paddingTop: "8px", marginLeft: 0 }}>
-                        <Link href={`/reviews`}>
-                          <a>
-                            <MdNavigateNext size="1.5rem" color="#000" />
-                          </a>
-                        </Link>
+                      <div style={{ width: "100%", paddingTop: 0 }}>
+                        <hr
+                          style={{ marginTop: "6px" }}
+                          className={styles.hrText}
+                          data-content="related reviews"
+                        />
+                      </div>
+                    </div>
+                    <div
+                      className="col-md-12"
+                      style={{
+                        paddingRight: "12px",
+                        paddingLeft: "12px",
+                      }}
+                    >
+                      {showSideBarReviews()}
+                      <div
+                        style={{
+                          height: "3px",
+                          width: "100%",
+                          margin: 0,
+                          backgroundColor: "rgba(202, 28, 28, 0.945)",
+                        }}
+                      />
+                      <div style={{ width: "100%" }}>
+                        <div
+                          style={{
+                            display: "flex",
+                            flexDirection: "row",
+                            float: "right",
+                            marginBottom: "10px",
+                            marginTop: "6px",
+                          }}
+                        >
+                          <div style={{ marginRight: 0 }}>
+                            <Link href={`/reviews`}>
+                              <a style={{ textDecoration: "none" }}>
+                                <div className={styles.view_all}>
+                                  <span>view all</span>
+                                </div>
+                              </a>
+                            </Link>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              </div>
-              <div
-                className={`row mr-0 ${styles.side__bar__single__brand}`}
-                style={{
-                  backgroundColor: "white",
-                  boxShadow: "0px 0px 1px rgba(0,0,0,0.5)",
-                }}
-              >
-                <div
-                  className="col-md-12"
-                  style={{
-                    display: "flex",
-                    flexDirection: "row",
-                    width: "100%",
-                    marginTop: "20px",
-                    marginBottom: "10px",
-                  }}
-                >
-                  <div style={{ marginRight: "5px" }}>
-                    <FaNewspaper size="1rem" color="#818078" />
-                  </div>
-                  <div style={{ width: "100%", paddingTop: 0 }}>
-                    <hr
-                      style={{ marginTop: "6px" }}
-                      className={styles.hrText}
-                      data-content="related news"
-                    />
-                  </div>
-                </div>
-                <div
-                  className="col-md-12"
-                  style={{
-                    paddingRight: "12px",
-                    paddingLeft: "12px",
-                  }}
-                >
-                  {showSideBarNews()}
+                ) : (
+                  ""
+                )}
+                {relatedNews.length !== 0 ? (
                   <div
+                    className={`row mr-0 ${styles.side__bar__single__brand}`}
                     style={{
-                      height: "3px",
-                      width: "100%",
-                      margin: 0,
-                      backgroundColor: "rgba(202, 28, 28, 0.945)",
+                      backgroundColor: "white",
+                      boxShadow: "0px 0px 1px rgba(0,0,0,0.5)",
                     }}
-                  />
-                  <div style={{ width: "100%" }}>
+                  >
                     <div
+                      className="col-md-12"
                       style={{
                         display: "flex",
                         flexDirection: "row",
-                        float: "right",
+                        width: "100%",
+                        marginTop: "20px",
                         marginBottom: "10px",
                       }}
                     >
-                      <div style={{ marginRight: 0 }}>
-                        <Link href={`/news`}>
-                          <a>
-                            <h2
-                              className="font-weight-bolder"
-                              style={{
-                                lineHeight: "130%",
-                                textTransform: "capitalize",
-                                fontSize: "16px",
-                                fontWeight: "bold",
-                                color: "#383838",
-                                padding: "10px",
-                                paddingRight: 0,
-                                marginBottom: 0,
-                              }}
-                            >
-                              view all
-                            </h2>
-                          </a>
-                        </Link>
+                      <div style={{ marginRight: "5px" }}>
+                        <FaNewspaper size="1rem" color="#818078" />
                       </div>
-                      <div style={{ paddingTop: "8px", marginLeft: 0 }}>
-                        <Link href={`/news`}>
-                          <a>
-                            <MdNavigateNext size="1.5rem" color="#000" />
-                          </a>
-                        </Link>
+                      <div style={{ width: "100%", paddingTop: 0 }}>
+                        <hr
+                          style={{ marginTop: "6px" }}
+                          className={styles.hrText}
+                          data-content="related news"
+                        />
+                      </div>
+                    </div>
+                    <div
+                      className="col-md-12"
+                      style={{
+                        paddingRight: "12px",
+                        paddingLeft: "12px",
+                      }}
+                    >
+                      {showSideBarNews()}
+                      <div
+                        style={{
+                          height: "3px",
+                          width: "100%",
+                          margin: 0,
+                          backgroundColor: "rgba(202, 28, 28, 0.945)",
+                        }}
+                      />
+                      <div style={{ width: "100%" }}>
+                        <div
+                          style={{
+                            display: "flex",
+                            flexDirection: "row",
+                            float: "right",
+                            marginBottom: "10px",
+                            marginTop: "6px",
+                          }}
+                        >
+                          <div style={{ marginRight: 0 }}>
+                            <Link href={`/news`}>
+                              <a style={{ textDecoration: "none" }}>
+                                <div className={styles.view_all}>
+                                  <span>view all</span>
+                                </div>
+                              </a>
+                            </Link>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
+                ) : (
+                  ""
+                )}
               </div>
             </div>
           </div>
-        </div>
-      </Layout>
+
+          {/* <StickyShareButtons
+            config={{
+              alignment: "left", // alignment of buttons (left, right)
+              color: "social", // set the color of buttons (social, white)
+              enabled: true, // show/hide buttons (true, false)
+              font_size: 16, // font size for the buttons
+              hide_desktop: false, // hide buttons on desktop (true, false)
+              labels: "counts", // button labels (cta, counts, null)
+              language: "en", // which language to use (see LANGUAGES)
+              min_count: 0, // hide react counts less than min_count (INTEGER)
+              networks: [
+                // which networks to include (see SHARING NETWORKS)
+                "linkedin",
+                "facebook",
+                "twitter",
+                "pinterest",
+                "email",
+              ],
+              padding: 12, // padding within buttons (INTEGER)
+              radius: 4, // the corner radius on each button (INTEGER)
+              show_total: true, // show/hide the total share count (true, false)
+              show_mobile: true, // show/hide the buttons on mobile (true, false)
+              show_toggle: true, // show/hide the toggle buttons (true, false)
+              size: 48, // the size of each button (INTEGER)
+              top: 160, // offset in pixels from the top of the page
+
+              // OPTIONAL PARAMETERS
+              url: "https://www.sharethis.com", // (defaults to current url)
+              image: "https://bit.ly/2CMhCMC", // (defaults to og:image or twitter:image)
+              description: "custom text", // (defaults to og:description or twitter:description)
+              title: "custom title", // (defaults to og:title or twitter:title)
+              message: "custom email text", // (only for email sharing)
+              subject: "custom email subject", // (only for email sharing)
+              username: "custom twitter handle", // (only for twitter sharing)
+            }}
+          /> */}
+          {/* <div className={styles.sticky_social}>
+            <ul className={styles.social}>
+              <li className={styles.fb}>
+                <a href="#">
+                  <i className={`${styles.fa} fa-facebook`} aria-hidden="true"></i>
+                </a>
+              </li>
+              <li className={styles.twitter}>
+                <a href="#">
+                  <i className={`${styles.fa} fa-twitter`} aria-hidden="true"></i>
+                </a>
+              </li>
+              <li className={styles.insta}>
+                <a href="#">
+                  <i className={`${styles.fa} fa-instagram`} aria-hidden="true"></i>
+                </a>
+              </li>
+              <li className="pin">
+                <a href="#">
+                  <i className={`${styles.fa} fa-pinterest-p`} aria-hidden="true"></i>
+                </a>
+              </li>
+              <li className={styles.vim}>
+                <a href="#">
+                  <i className={`${styles.fa} fa-vimeo`} aria-hidden="true"></i>
+                </a>
+              </li>
+            </ul>
+          </div> */}
+        </React.Fragment>
+      ) : (
+        <React.Fragment>
+          <div
+            style={{
+              textAlign: "center",
+              top: "50%",
+              bottom: "50%",
+              minHeight: "100vh",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              margin: "auto",
+              padding: "auto",
+            }}
+          >
+            <Loader
+              type="Bars"
+              color="rgba(202, 28, 28, 0.945)"
+              height={100}
+              width={100}
+              timeout={10000} //3 secs
+            />
+          </div>
+        </React.Fragment>
+      )}
     </React.Fragment>
   );
 };
 
 export async function getStaticPaths() {
+  //done
   const list = await mobileListPublic().then((data) => {
     if (data.error) {
       console.log(data.error);
@@ -1341,6 +1438,8 @@ export async function getStaticPaths() {
 
 // This also gets called at build time
 export async function getStaticProps({ params }) {
+  //done
+
   const blog = await singleMobile(params.slug).then((data) => {
     if (data.error) {
       console.log(data.error);
@@ -1349,6 +1448,7 @@ export async function getStaticProps({ params }) {
     }
   });
 
+  //done
   const related = await listRelated({ blog }).then((data) => {
     if (data.error) {
       console.log(data.error);
@@ -1357,6 +1457,7 @@ export async function getStaticProps({ params }) {
     }
   });
 
+  //done
   const relatedNews = await listRelatedNews({ blog }).then((data) => {
     if (data.error) {
       console.log(data.error);
@@ -1365,6 +1466,7 @@ export async function getStaticProps({ params }) {
     }
   });
 
+  //done
   const relatedReviews = await listRelatedReviews({ blog }).then((data) => {
     if (data.error) {
       console.log(data.error);

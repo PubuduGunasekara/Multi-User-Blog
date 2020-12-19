@@ -103,7 +103,7 @@ exports.create = (req, res) => {
   });
 };
 
-/**used to fetch all public news to the news page (news>Index) */
+/**used to fetch all public news to the news page (news>Index,news>slug) */
 exports.listPublic = (req, res) => {
   const flag = 1;
   News.find({ flag })
@@ -216,24 +216,29 @@ exports.listPublicSecondLatestNews = (req, res) => {
     });
 };
 
+/**completed this function is used to list all top staries (news>slug) */
 exports.listPublicTopStories = (req, res) => {
   const flag = 1;
   const limit = 50;
-  const { _id } = req.body.blog;
+  const { _id } = req.body.blog.data;
   //console.log("id", _id);
   News.find({ _id: { $ne: _id }, flag: flag })
     .limit(limit)
-    .populate("postedBy", "_id name username profile")
-    .populate("tags", "_id name")
-    .select("title tags slug excerpt postedBy createdAt updatedAt")
+    .populate("postedBy", "username")
+    .select("title slug excerpt postedBy updatedAt")
     .sort({ updatedAt: -1 })
     .exec((err, blogs) => {
       if (err) {
         return res.status(400).json({
-          error: "Blogs not found",
+          error: "Error code 400",
         });
       }
-      res.json(blogs);
+      if (!blogs) {
+        return res.status(404).json({
+          error: "no data found",
+        });
+      }
+      res.status(200).json(blogs);
     });
 };
 
@@ -335,41 +340,52 @@ exports.listRelated = (req, res) => {
     });
 };
 
+/**completed this function is used to list related reviews (news>slug) */
 exports.listRelatedReviews = (req, res) => {
   let limit = 5;
-  const { tags } = req.body.blog;
+  const { tags } = req.body.blog.data;
 
   Review.find({ tags: { $in: tags } })
     .limit(limit)
-    .populate("postedBy", "_id name username")
-    .select("title slug postedBy createdAt updatedAt")
+    .populate("postedBy", "username")
+    .select("title slug postedBy updatedAt")
     .sort({ updatedAt: -1 })
     .exec((err, blogs) => {
       if (err) {
         return res.status(400).json({
-          error: "Blogs not found",
+          error: "error code 400",
         });
       }
-      res.json(blogs);
+      if (!blogs) {
+        return res.status(404).json({
+          error: "no data found",
+        });
+      }
+      res.status(200).json(blogs);
     });
 };
 
+/**completed this function is used to list related reviews (news>slug) */
 exports.listRelatedMobiles = (req, res) => {
   let limit = 10;
-  const { tags } = req.body.blog;
+  const { tags } = req.body.blog.data;
 
   Mobile.find({ tags: { $in: tags } })
     .limit(limit)
-    .populate("postedBy", "_id name username")
-    .select("title slug postedBy createdAt updatedAt")
+    .select("title slug")
     .sort({ updatedAt: -1 })
     .exec((err, blogs) => {
       if (err) {
         return res.status(400).json({
-          error: "Blogs not found",
+          error: "Error code 400",
         });
       }
-      res.json(blogs);
+      if (!blogs) {
+        return res.status(404).json({
+          error: "no data found",
+        });
+      }
+      res.status(200).json(blogs);
     });
 };
 
@@ -396,23 +412,25 @@ exports.photo = (req, res) => {
     });
 };
 
+/**completed this function is used to read the news (news > slug) */
 exports.read = (req, res) => {
   const slug = req.params.slug.toLowerCase();
   News.findOne({ slug })
-    .populate("tags", "_id name slug")
-    .populate("postedBy", "_id name username profile")
-    .select(
-      "_id title body slug mtitle mdesc tags postedBy createdAt updatedAt flag"
-    )
+    .populate("tags", "name slug")
+    .populate("postedBy", "username")
+    .select("_id title body slug mtitle mdesc tags postedBy updatedAt flag")
     .exec((err, data) => {
       if (err) {
         return res.status(400).json({
           error: errorHandler(err),
         });
       }
+      if (!data) {
+        return res.status(404).json({ data: "" });
+      }
       //console.log(data);
 
-      res.status(200).json(data);
+      res.status(200).json({ data: data });
     });
 };
 

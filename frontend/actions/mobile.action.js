@@ -29,6 +29,7 @@ export const mobileListPrivate = () => {
     .catch((err) => console.log(err));
 };
 
+/**done (phones>brand>slug) */
 export const mobileListPublic = () => {
   return fetch(`${API}/mobile-public-root`, {
     method: "GET",
@@ -61,6 +62,7 @@ export const mobileListPublicNewsReviews = () => {
     .catch((err) => console.log(err));
 };
 
+/**done (phones>brand>slug) */
 export const singleMobile = (slug) => {
   return fetch(`${API}/mobile/${slug}`, {
     method: "GET",
@@ -71,6 +73,7 @@ export const singleMobile = (slug) => {
     .catch((err) => console.log(err));
 };
 
+/**done (phones>brand>slug) */
 export const listRelated = (blog) => {
   return fetch(`${API}/mobile/related`, {
     method: "POST",
@@ -86,6 +89,7 @@ export const listRelated = (blog) => {
     .catch((err) => console.log(err));
 };
 
+/**done (phones>brand>slug) */
 export const listRelatedNews = (blog) => {
   return fetch(`${API}/mobile/news-related`, {
     method: "POST",
@@ -101,6 +105,7 @@ export const listRelatedNews = (blog) => {
     .catch((err) => console.log(err));
 };
 
+/**done (phones>brand>slug) */
 export const listRelatedReviews = (blog) => {
   return fetch(`${API}/mobile/reviews-related`, {
     method: "POST",
@@ -115,6 +120,7 @@ export const listRelatedReviews = (blog) => {
     })
     .catch((err) => console.log(err));
 };
+
 
 export const removeMobile = (slug, token) => {
   return fetch(`${API}/mobile/${slug}`, {

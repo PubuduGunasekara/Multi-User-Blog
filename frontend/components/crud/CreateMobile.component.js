@@ -24,6 +24,7 @@ const CreateMobileComponent = ({ router }) => {
     formData: "",
     title: "",
     body: "",
+    source: "",
     fdDisplay: "",
     fdBattery: "",
     fdStorage: "",
@@ -82,6 +83,7 @@ const CreateMobileComponent = ({ router }) => {
     formData,
     title,
     body,
+    source,
     fdDisplay,
     fdBattery,
     fdStorage,
@@ -173,6 +175,7 @@ const CreateMobileComponent = ({ router }) => {
           formData: "",
           title: "",
           body: "",
+          source: "",
           fdDisplay: "",
           fdBattery: "",
           fdStorage: "",
@@ -333,6 +336,20 @@ const CreateMobileComponent = ({ router }) => {
               </option>
             ))}
           </select>
+        </div>
+
+        <div className="form-group">
+          <label>Source Link</label>
+          <hr />
+        </div>
+        <div className="form-group">
+          <input
+            placeholder="Source"
+            type="text"
+            className="form-control"
+            value={source}
+            onChange={handleChange("source")}
+          />
         </div>
 
         <div className="form-group">

@@ -1,203 +1,208 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 const { ObjectId } = mongoose.Schema;
 
-const mobileSchema = new mongoose.Schema({
+const mobileSchema = new mongoose.Schema(
+  {
     title: {
-        type: String,
-        trim: true,
-        min: 3,
-        max: 160,
-        required: true
+      type: String,
+      trim: true,
+      min: 3,
+      max: 160,
+      required: true,
     },
     brand: {
-        type: ObjectId,
-        ref: 'MobileSchema'
+      type: ObjectId,
+      ref: "MobileSchema",
+    },
+    source: {
+      type: String,
     },
     body: {
-        type: String,
-        required: true,
-        min: 80,
-        max: 200
+      type: String,
+      required: true,
+      min: 80,
+      max: 200,
     },
     slug: {
-        type: String,
-        unique: true,
-        index: true
+      type: String,
+      unique: true,
+      index: true,
     },
     fdDisplay: {
-        type: String
+      type: String,
     },
     fdBattery: {
-        type: String
+      type: String,
     },
     fdStorage: {
-        type: String
+      type: String,
     },
     fdCamera: {
-        type: String
+      type: String,
     },
     fdOs: {
-        type: String
+      type: String,
     },
     fdChipset: {
-        type: String
+      type: String,
     },
     displayType: {
-        type: String
+      type: String,
     },
     displaySize: {
-        type: String
+      type: String,
     },
     displayResolution: {
-        type: String
+      type: String,
     },
     displayProtection: {
-        type: String
+      type: String,
     },
     conWlan: {
-        type: String
+      type: String,
     },
     conBluetooth: {
-        type: String
+      type: String,
     },
     conGps: {
-        type: String
+      type: String,
     },
     conNfc: {
-        type: String
+      type: String,
     },
     conRadio: {
-        type: String
+      type: String,
     },
     conUsb: {
-        type: String
+      type: String,
     },
     conSensors: {
-        type: String
+      type: String,
     },
     networkTechnology: {
-        type: String
+      type: String,
     },
     network2gband: {
-        type: String
+      type: String,
     },
     network3gband: {
-        type: String
+      type: String,
     },
     network4gband: {
-        type: String
+      type: String,
     },
     network5gband: {
-        type: String
+      type: String,
     },
     networkSpeed: {
-        type: String
+      type: String,
     },
     networkSimType: {
-        type: String
+      type: String,
     },
     mainCameraDetails: {
-        type: String
+      type: String,
     },
     mainCameraFeatures: {
-        type: String
+      type: String,
     },
     mainCameraVideo: {
-        type: String
+      type: String,
     },
     selfyCameraDetails: {
-        type: String
+      type: String,
     },
     selfyCameraFeatures: {
-        type: String
+      type: String,
     },
     selfyCameraVideo: {
-        type: String
+      type: String,
     },
     hardwareChipset: {
-        type: String
+      type: String,
     },
     hardwareProcessor: {
-        type: String
+      type: String,
     },
     hardwareGpu: {
-        type: String
+      type: String,
     },
     hardwareRam: {
-        type: String
+      type: String,
     },
     hardwareStorage: {
-        type: String
+      type: String,
     },
     softwareOs: {
-        type: String
+      type: String,
     },
     launchAnnouced: {
-        type: String
+      type: String,
     },
     launchAvailability: {
-        type: String
+      type: String,
     },
     soundHeadphone: {
-        type: String
+      type: String,
     },
     soundFeatures: {
-        type: String
+      type: String,
     },
     batteryDetails: {
-        type: String
+      type: String,
     },
     batteryFeatures: {
-        type: String
+      type: String,
     },
     bodyWeight: {
-        type: String
+      type: String,
     },
     bodyDimension: {
-        type: String
+      type: String,
     },
     bodyBuild: {
-        type: String
+      type: String,
     },
     bodyButtons: {
-        type: String
+      type: String,
     },
     bodyResistence: {
-        type: String
+      type: String,
     },
     productColors: {
-        type: String
+      type: String,
     },
     productModels: {
-        type: String
+      type: String,
     },
     productPrice: {
-        type: String
+      type: String,
     },
     excerpt: {
-        type: String,
-        max: 1000
+      type: String,
+      max: 1000,
     },
     mtitle: {
-        type: String
+      type: String,
     },
     mdesc: {
-        type: String
+      type: String,
     },
     photo: {
-        data: Buffer,
-        contentType: String
+      data: Buffer,
+      contentType: String,
     },
-    tags: [{ type: ObjectId, ref: 'Tag', required: true }],
+    tags: [{ type: ObjectId, ref: "Tag", required: true }],
     postedBy: {
-        type: ObjectId,
-        ref: 'User'
+      type: ObjectId,
+      ref: "User",
     },
     flag: {
-        type: Number,
-        default: 0
-    }
+      type: Number,
+      default: 0,
+    },
+  },
+  { timestamps: true }
+);
 
-}, { timestamps: true });
-
-module.exports = mongoose.model('Mobile', mobileSchema, 'mobile');
+module.exports = mongoose.model("Mobile", mobileSchema, "mobile");

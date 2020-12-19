@@ -25,6 +25,7 @@ exports.create = (req, res) => {
     const {
       title,
       brand,
+      source,
       body,
       tags,
       fdDisplay,
@@ -93,6 +94,11 @@ exports.create = (req, res) => {
     if (!brand) {
       return res.status(400).json({
         error: "Brand cannot be empty",
+      });
+    }
+    if (!source) {
+      return res.status(400).json({
+        error: "Source link cannot be empty",
       });
     }
 
@@ -439,6 +445,7 @@ exports.create = (req, res) => {
     let mobile = new Mobile();
     mobile.title = title;
     mobile.brand = brand;
+    mobile.source = source;
     mobile.body = body;
     mobile.fdDisplay = fdDisplay;
     mobile.fdBattery = fdBattery;
@@ -556,14 +563,33 @@ exports.listPrivate = (req, res) => {
     });
 };
 
+/**not completed(remove title postedBy) this function is used to list all the relevent phones(phones>brand>slug) */
+// exports.listPublic = (req, res) => {
+//   const flag = 1;
+//   Mobile.find({ flag })
+//     .populate("postedBy", "name")
+//     .select("title slug postedBy flag")
+//     .sort({ updatedAt: -1 })
+//     .exec((err, data) => {
+//       if (err) {
+//         return res.status(400).json({
+//           error: errorHandler(err),
+//         });
+//       }
+//       if (!data) {
+//         return res.status(400).json({
+//           error: "no data found",
+//         });
+//       }
+//       res.status(200).json(data);
+//     });
+// };
+
+/** completed this function is used to list all phones(phones>brand>slug) */
 exports.listPublic = (req, res) => {
   const flag = 1;
   Mobile.find({ flag })
-    .populate("tags", "_id name slug")
-    .populate("postedBy", "_id name username")
-    .select(
-      "_id title body fdDisplay fdBattery fdStorage fdCamera fdOs fdChipset displayType displaySize displayResolution displayProtection conWlan conBluetooth conGps conNfc conRadio conUsb conSensors  networkTechnology network2gband network3gband network4gband network5gband networkSpeed networkSimType mainCameraDetails mainCameraFeatures mainCameraVideo selfyCameraDetails selfyCameraFeatures selfyCameraVideo hardwareChipset hardwareProcessor hardwareGpu hardwareRam hardwareStorage softwareOs launchAnnouced launchAvailability soundHeadphone soundFeatures batteryDetails batteryFeatures bodyWeight bodyDimension bodyBuild bodyButtons bodyResistence productModels productPrice productColors slug excerpt tags postedBy createdAt updatedAt flag"
-    )
+    .select("slug")
     .sort({ updatedAt: -1 })
     .exec((err, data) => {
       if (err) {
@@ -607,7 +633,7 @@ exports.listPublicReleventBrands = (req, res) => {
     });
 };
 
-/**this function is used to fetch latest phone to home page, news and review pages.(home,news>Index,Reviews>Index) */
+/**completed this function is used to fetch latest phone to home page, news and review pages.(home,news>Index,Reviews>Index) */
 exports.listForNewsReviews = (req, res) => {
   const flag = 1;
   const limit = 10;
@@ -619,6 +645,11 @@ exports.listForNewsReviews = (req, res) => {
       if (err) {
         return res.status(400).json({
           error: errorHandler(err),
+        });
+      }
+      if (!data) {
+        return res.status(404).json({
+          error: "no data found",
         });
       }
       res.status(200).json(data);
@@ -636,8 +667,8 @@ exports.photo = (req, res) => {
           error: errorHandler(err),
         });
       } else if (!mobilePhoto) {
-        return res.status(400).json({
-          error: "mobilePhoto not found",
+        return res.status(404).json({
+          error: "mobile Photo not found",
         });
       }
 
@@ -648,14 +679,14 @@ exports.photo = (req, res) => {
     });
 };
 
-/**completed this function is used to read relevent phone of a perticular brand */
+/**completed this function is used to read relevent phone of a perticular brand (phones>brand>slug) */
 exports.read = (req, res) => {
   const slug = req.params.slug.toLowerCase();
-  Mobile.findOne({ slug })
-    .populate("tags", "_id name slug")
-    .populate("postedBy", "_id username name")
+  Mobile.findOne({ slug: slug })
+    .populate("tags", "_id")
+    .populate("brand", "name")
     .select(
-      "_id postedBy title body mdesc mtitle slug excerpt fdDisplay fdBattery fdStorage fdCamera fdOs fdChipset displayType displaySize displayResolution displayProtection conWlan conBluetooth conGps conNfc conRadio conUsb conSensors  networkTechnology network2gband network3gband network4gband network5gband networkSpeed networkSimType mainCameraDetails mainCameraFeatures mainCameraVideo selfyCameraDetails selfyCameraFeatures selfyCameraVideo hardwareChipset hardwareProcessor hardwareGpu hardwareRam hardwareStorage softwareOs launchAnnouced launchAvailability soundHeadphone soundFeatures batteryDetails batteryFeatures bodyWeight bodyDimension bodyBuild bodyButtons bodyResistence productModels productPrice productColors flag tags createdAt updatedAt"
+      "_id title body brand source mdesc mtitle slug excerpt fdDisplay fdBattery fdStorage fdCamera fdOs fdChipset displayType displaySize displayResolution displayProtection conWlan conBluetooth conGps conNfc conRadio conUsb conSensors  networkTechnology network2gband network3gband network4gband network5gband networkSpeed networkSimType mainCameraDetails mainCameraFeatures mainCameraVideo selfyCameraDetails selfyCameraFeatures selfyCameraVideo hardwareChipset hardwareProcessor hardwareGpu hardwareRam hardwareStorage softwareOs launchAnnouced launchAvailability soundHeadphone soundFeatures batteryDetails batteryFeatures bodyWeight bodyDimension bodyBuild bodyButtons bodyResistence productModels productPrice productColors tags"
     )
     .exec((err, data) => {
       if (err) {
@@ -664,85 +695,86 @@ exports.read = (req, res) => {
         });
       }
       if (!data) {
-        return res.status(400).json({
-          error: "no data found",
-        });
+        return res.status(404).json({ data: "" });
       }
-      res.status(200).json(data);
+      // console.log(err);
+      //console.log(data);
+      res.status(200).json({ data: data });
     });
 };
 
-/**completed this function is used to list relevent mobiles of a perticular brand */
+/**completed this function is used to list relevent mobiles of a perticular brand (phones>brand>slug) */
 exports.listRelated = (req, res) => {
   let limit = 4;
   const flag = 1;
-  const { _id, tags } = req.body.blog;
+  const { _id, tags } = req.body.blog.data;
 
   Mobile.find({ _id: { $ne: _id }, tags: { $in: tags }, flag })
     .limit(limit)
-    .select("title slug createdAt updatedAt")
+    .select("title slug")
+    .sort({ updatedAt: -1 })
     .exec((err, blogs) => {
       if (err) {
         return res.status(400).json({
-          error: "Blogs not found",
+          error: "Error code 400",
         });
       }
       if (!blogs) {
-        return res.status(400).json({
+        return res.status(404).json({
           error: "no data found",
         });
       }
-      res.json(blogs);
+      res.status(200).json(blogs);
     });
 };
 
-/**completed this function is used to list relevent news of a perticular brand */
+/**completed this function is used to list relevent news of a perticular brand (phones>brand>slug) */
 exports.listRelatedNews = (req, res) => {
   let limit = 5;
   const flag = 1;
-  const { tags } = req.body.blog;
+  const { tags } = req.body.blog.data;
 
   News.find({ tags: { $in: tags }, flag })
     .limit(limit)
-    .populate("postedBy", "_id name username")
-    .select("title slug createdAt updatedAt postedBy")
+    .populate("postedBy", "username")
+    .select("title slug updatedAt postedBy")
     .exec((err, blogs) => {
       if (err) {
         return res.status(400).json({
-          error: "Blogs not found",
+          error: "Error code 400",
         });
       }
       if (!blogs) {
-        return res.status(400).json({
+        return res.status(404).json({
           error: "no data found",
         });
       }
-      res.json(blogs);
+      res.status(200).json(blogs);
     });
 };
 
-/**completed this function is used to list relevent reviews of a perticular brand */
+/**completed this function is used to list relevent reviews of a perticular brand (phones>brand>slug) */
 exports.listRelatedReviews = (req, res) => {
   let limit = 5;
   const flag = 1;
-  const { tags } = req.body.blog;
+  const { tags } = req.body.blog.data;
 
   Reviews.find({ tags: { $in: tags }, flag })
     .limit(limit)
-    .populate("postedBy", "_id name username")
-    .select("title slug createdAt updatedAt postedBy")
+    .populate("postedBy", "username")
+    .select("title slug updatedAt postedBy")
     .exec((err, blogs) => {
       if (err) {
         return res.status(400).json({
-          error: "Blogs not found",
+          error: "Error code 400",
         });
       }
       if (!blogs) {
-        return res.status(400).json({
+        return res.status(404).json({
           error: "no data found",
         });
       }
-      res.json(blogs);
+      res.status(200).json(blogs);
     });
 };
 
@@ -788,6 +820,7 @@ exports.update = (req, res) => {
       const {
         title,
         body,
+        source,
         tags,
         fdDisplay,
         fdBattery,
@@ -855,6 +888,12 @@ exports.update = (req, res) => {
       if (!body || !body.length) {
         return res.status(400).json({
           error: "Description content is required",
+        });
+      }
+
+      if (!source || !source.length) {
+        return res.status(400).json({
+          error: "Source link is required",
         });
       }
 
