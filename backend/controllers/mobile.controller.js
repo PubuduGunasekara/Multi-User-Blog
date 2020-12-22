@@ -585,7 +585,7 @@ exports.listPrivate = (req, res) => {
 //     });
 // };
 
-/** completed this function is used to list all phones(phones>brand>slug) */
+/**{done} completed this function is used to list all phones(phones>brand>slug) */
 exports.listPublic = (req, res) => {
   const flag = 1;
   Mobile.find({ flag })
@@ -598,7 +598,7 @@ exports.listPublic = (req, res) => {
         });
       }
       if (!data) {
-        return res.status(400).json({
+        return res.status(404).json({
           error: "no data found",
         });
       }
@@ -606,7 +606,7 @@ exports.listPublic = (req, res) => {
     });
 };
 
-/**completed this function is used to list all the relevent phones of a perticular brand(mobiles>brands>slug) */
+/**{done}completed this function is used to list all the relevent phones of a perticular brand(mobiles>brands>slug) */
 exports.listPublicReleventBrands = (req, res) => {
   if (req.params.id == null) {
     return res.status(404).json({
@@ -633,7 +633,7 @@ exports.listPublicReleventBrands = (req, res) => {
     });
 };
 
-/**completed this function is used to fetch latest phone to home page, news and review pages.(home,news>Index,Reviews>Index) */
+/**{done}completed this function is used to fetch latest phone to home page, news and review pages.(home,news>Index,Reviews>Index) */
 exports.listForNewsReviews = (req, res) => {
   const flag = 1;
   const limit = 10;
@@ -679,7 +679,7 @@ exports.photo = (req, res) => {
     });
 };
 
-/**completed this function is used to read relevent phone of a perticular brand (phones>brand>slug) */
+/**{done}completed this function is used to read relevent phone of a perticular brand (phones>brand>slug) */
 exports.read = (req, res) => {
   const slug = req.params.slug.toLowerCase();
   Mobile.findOne({ slug: slug })
@@ -703,7 +703,7 @@ exports.read = (req, res) => {
     });
 };
 
-/**completed this function is used to list relevent mobiles of a perticular brand (phones>brand>slug) */
+/**{done}completed this function is used to list relevent mobiles of a perticular brand (phones>brand>slug) */
 exports.listRelated = (req, res) => {
   let limit = 4;
   const flag = 1;
@@ -716,7 +716,7 @@ exports.listRelated = (req, res) => {
     .exec((err, blogs) => {
       if (err) {
         return res.status(400).json({
-          error: "Error code 400",
+          error: errorHandler(err),
         });
       }
       if (!blogs) {
@@ -728,7 +728,7 @@ exports.listRelated = (req, res) => {
     });
 };
 
-/**completed this function is used to list relevent news of a perticular brand (phones>brand>slug) */
+/**{done}completed this function is used to list relevent news of a perticular brand (phones>brand>slug) */
 exports.listRelatedNews = (req, res) => {
   let limit = 5;
   const flag = 1;
@@ -753,7 +753,7 @@ exports.listRelatedNews = (req, res) => {
     });
 };
 
-/**completed this function is used to list relevent reviews of a perticular brand (phones>brand>slug) */
+/**{done}completed this function is used to list relevent reviews of a perticular brand (phones>brand>slug) */
 exports.listRelatedReviews = (req, res) => {
   let limit = 5;
   const flag = 1;
@@ -1375,7 +1375,7 @@ exports.listSearchAdmin = (req, res) => {
   }
 };
 
-//done (SEARCH)
+//{done}done (SEARCH)
 exports.listSearchUser = (req, res) => {
   //console.log(req.query);
   const { search } = req.query;
@@ -1390,6 +1390,11 @@ exports.listSearchUser = (req, res) => {
         if (err) {
           return res.status(400).json({
             error: errorHandler(err),
+          });
+        }
+        if (!blogs) {
+          return res.status(404).json({
+            error: "No results found",
           });
         }
         //console.log("from news : ", blogs);

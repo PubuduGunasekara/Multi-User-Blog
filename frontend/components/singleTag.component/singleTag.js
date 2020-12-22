@@ -254,7 +254,7 @@ const singleTag = (props) => {
           <div className={styles.card__content__mobile}>
             <Link href={`/phones/brand/${m.slug}`}>
               <a>
-                <h1>{m.title}</h1>
+                <span>{m.title}</span>
               </a>
             </Link>
           </div>
@@ -281,7 +281,7 @@ const singleTag = (props) => {
             <Link href={`/reviews/${m.slug}`}>
               <a>
                 <div className={styles.review_title}>
-                  <h1>{m.title}</h1>
+                  <span>{m.title}</span>
                 </div>
                 <div className={styles.author}>
                   <span>
@@ -312,7 +312,7 @@ const singleTag = (props) => {
             <Link href={`/news/${m.slug}`}>
               <a>
                 <div className={styles.review_title}>
-                  <h1>{m.title}</h1>
+                  <span>{m.title}</span>
                 </div>
                 <div className={styles.author}>
                   <span>
@@ -392,12 +392,12 @@ const singleTag = (props) => {
                   {mobiles.length !== 0 ? (
                     <React.Fragment>
                       <div className={styles.subtitle}>
-                        <h1>
+                        <h2>
                           <span style={{ color: "rgba(202, 28, 28, 0.945)" }}>
                             #{tag.name}
                           </span>{" "}
                           related mobile phones
-                        </h1>
+                        </h2>
                       </div>
                       <hr
                         style={{
@@ -438,12 +438,12 @@ const singleTag = (props) => {
                         }}
                       ></hr>
                       <div className={styles.subtitle}>
-                        <h1>
+                        <h2>
                           <span style={{ color: "rgba(202, 28, 28, 0.945)" }}>
                             #{tag.name}
                           </span>{" "}
                           related reviews
-                        </h1>
+                        </h2>
                       </div>
                       <hr
                         style={{
@@ -482,12 +482,12 @@ const singleTag = (props) => {
                         }}
                       ></hr>
                       <div className={styles.subtitle}>
-                        <h1>
+                        <h2>
                           <span style={{ color: "rgba(202, 28, 28, 0.945)" }}>
                             #{tag.name}
                           </span>{" "}
                           related news
-                        </h1>
+                        </h2>
                       </div>
                       <hr
                         style={{

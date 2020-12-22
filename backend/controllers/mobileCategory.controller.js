@@ -79,7 +79,7 @@ exports.create = (req, res) => {
   });
 };
 
-/**completed! this function is used to read single mobile category data(phone>brands>slug)*/
+/**{done}completed! this function is used to read single mobile category data(phone>brands>slug)*/
 exports.read = (req, res) => {
   let slug = req.params.slug.toLowerCase();
   MobileCategory.findOne({ slug: slug })
@@ -101,7 +101,7 @@ exports.read = (req, res) => {
     });
 };
 
-/**completed! this function is used in admin panel > create mobile category page  and user side all mobile brands page (phones>INDEX,phone>brands>slug)*/
+/**{done}completed! this function is used in admin panel > create mobile category page  and user side all mobile brands page (phones>INDEX,phone>brands>slug)*/
 exports.list = (req, res) => {
   MobileCategory.find({})
     .select("name slug")

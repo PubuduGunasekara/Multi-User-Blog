@@ -18,7 +18,7 @@ import Loader from "react-loader-spinner";
 const Mobiles = ({ mobiles, news, reviews }) => {
   const [searchValues, setSearchValues] = useState({
     search: "",
-    showSearch: undefined,
+    showSearch: false,
     filteredContent: [],
   });
 
@@ -94,7 +94,7 @@ const Mobiles = ({ mobiles, news, reviews }) => {
             <div className={styles.content_div_news}>
               <Link href={`/news/${blog.slug}`}>
                 <a style={{ textDecoration: "none", width: "100%" }}>
-                  <h1>{blog.title}</h1>
+                  <span>{blog.title}</span>
                 </a>
               </Link>
             </div>
@@ -133,7 +133,7 @@ const Mobiles = ({ mobiles, news, reviews }) => {
             <div className={styles.content_div_news}>
               <Link href={`/reviews/${blog.slug}`}>
                 <a style={{ textDecoration: "none", width: "100%" }}>
-                  <h1>{blog.title}</h1>
+                  <span>{blog.title}</span>
                 </a>
               </Link>
             </div>
@@ -151,7 +151,7 @@ const Mobiles = ({ mobiles, news, reviews }) => {
 
   /**mobile pagination states */
   const [currentPage, setCurrentPage] = useState(1);
-  const [postPerPage] = useState(20);
+  const [postPerPage] = useState(30);
   //const [numOfPost, setNumberOfPost] = useState(0);
 
   //pagination
@@ -234,7 +234,7 @@ const Mobiles = ({ mobiles, news, reviews }) => {
           <Link href={`/phones/brands/${m.slug}`}>
             <a>
               <div className={styles.card__content}>
-                <h1>{m.name}</h1>
+                <h2>{m.name}</h2>
               </div>
             </a>
           </Link>
@@ -269,7 +269,7 @@ const Mobiles = ({ mobiles, news, reviews }) => {
 
   /**mobileSearch pagination states */
   const [currentPageSearched, setCurrentPageSearched] = useState(1);
-  const [postPerPageSearched] = useState(20);
+  const [postPerPageSearched] = useState(30);
 
   //pagination
   const indexofLastPostSearched = currentPageSearched * postPerPageSearched;
@@ -300,7 +300,7 @@ const Mobiles = ({ mobiles, news, reviews }) => {
           <Link href={`/phones/brands/${m.slug}`}>
             <a>
               <div className={styles.card__content}>
-                <h1>{m.name}</h1>
+                <h2>{m.name}</h2>
               </div>
             </a>
           </Link>
@@ -311,7 +311,7 @@ const Mobiles = ({ mobiles, news, reviews }) => {
 
   return (
     <React.Fragment>
-      {mobiles ? (
+      {mobiles && reviews && news ? (
         <React.Fragment>
           {head()}
           <div
@@ -420,7 +420,7 @@ const Mobiles = ({ mobiles, news, reviews }) => {
                       </Link>
                     </li>
                     <li className="breadcrumb-item active" aria-current="page">
-                      All Mobile Phone Brands
+                      Brands
                     </li>
                   </ol>
                 </nav>
@@ -567,143 +567,151 @@ const Mobiles = ({ mobiles, news, reviews }) => {
               <div
                 className={`col-lg-4 ${styles.side__bar__single__brand__main}`}
               >
-                <div
-                  className={`row mr-0 ${styles.side__bar__single__brand}`}
-                  style={{
-                    backgroundColor: "white",
-                    boxShadow: "0px 0px 1px rgba(0,0,0,0.5)",
-                    marginBottom: "8px",
-                  }}
-                >
+                {reviews.length !== 0 ? (
                   <div
-                    className="col-md-12"
+                    className={`row mr-0 ${styles.side__bar__single__brand}`}
                     style={{
-                      display: "flex",
-                      flexDirection: "row",
-                      width: "100%",
-                      marginTop: "20px",
-                      marginBottom: "10px",
+                      backgroundColor: "white",
+                      boxShadow: "0px 0px 1px rgba(0,0,0,0.5)",
+                      marginBottom: "8px",
                     }}
                   >
-                    <div style={{ marginRight: "5px" }}>
-                      <MdRateReview size="1rem" color="#505050" />
-                    </div>
-                    <div style={{ width: "100%", paddingTop: 0 }}>
-                      <hr
-                        style={{ marginTop: "6px" }}
-                        className={styles.hrText}
-                        data-content="latest reviews"
-                      />
-                    </div>
-                  </div>
-                  <div
-                    className="col-md-12"
-                    style={{
-                      paddingRight: "12px",
-                      paddingLeft: "12px",
-                    }}
-                  >
-                    {showSideBarReviews()}
-
                     <div
+                      className="col-md-12"
                       style={{
-                        height: "3px",
+                        display: "flex",
+                        flexDirection: "row",
                         width: "100%",
-                        margin: 0,
-                        backgroundColor: "rgba(202, 28, 28, 0.945)",
+                        marginTop: "20px",
+                        marginBottom: "10px",
                       }}
-                    />
-                    <div style={{ width: "100%" }}>
+                    >
+                      <div style={{ marginRight: "5px" }}>
+                        <MdRateReview size="1rem" color="#505050" />
+                      </div>
+                      <div style={{ width: "100%", paddingTop: 0 }}>
+                        <hr
+                          style={{ marginTop: "6px" }}
+                          className={styles.hrText}
+                          data-content="latest reviews"
+                        />
+                      </div>
+                    </div>
+                    <div
+                      className="col-md-12"
+                      style={{
+                        paddingRight: "12px",
+                        paddingLeft: "12px",
+                      }}
+                    >
+                      {showSideBarReviews()}
+
                       <div
                         style={{
-                          display: "flex",
-                          flexDirection: "row",
-                          float: "right",
-                          marginBottom: "10px",
-                          marginTop: "6px",
+                          height: "3px",
+                          width: "100%",
+                          margin: 0,
+                          backgroundColor: "rgba(202, 28, 28, 0.945)",
                         }}
-                      >
-                        <div style={{ marginRight: 0 }}>
-                          <Link href={`/reviews`}>
-                            <a style={{ textDecoration: "none" }}>
-                              <div className={styles.view_all}>
-                                <span>view all</span>
-                              </div>
-                            </a>
-                          </Link>
+                      />
+                      <div style={{ width: "100%" }}>
+                        <div
+                          style={{
+                            display: "flex",
+                            flexDirection: "row",
+                            float: "right",
+                            marginBottom: "10px",
+                            marginTop: "6px",
+                          }}
+                        >
+                          <div style={{ marginRight: 0 }}>
+                            <Link href={`/reviews`}>
+                              <a style={{ textDecoration: "none" }}>
+                                <div className={styles.view_all}>
+                                  <span>view all</span>
+                                </div>
+                              </a>
+                            </Link>
+                          </div>
                         </div>
                       </div>
                     </div>
                   </div>
-                </div>
-                <div
-                  className={`row mr-0 ${styles.side__bar__single__brand}`}
-                  style={{
-                    backgroundColor: "white",
-                    boxShadow: "0px 0px 1px rgba(0,0,0,0.5)",
-                  }}
-                >
+                ) : (
+                  ""
+                )}
+                {news.length !== 0 ? (
                   <div
-                    className="col-md-12"
+                    className={`row mr-0 ${styles.side__bar__single__brand}`}
                     style={{
-                      display: "flex",
-                      flexDirection: "row",
-                      width: "100%",
-                      marginTop: "20px",
-                      marginBottom: "10px",
+                      backgroundColor: "white",
+                      boxShadow: "0px 0px 1px rgba(0,0,0,0.5)",
                     }}
                   >
-                    <div style={{ marginRight: "5px" }}>
-                      <FaNewspaper size="1rem" color="#505050" />
-                    </div>
-                    <div style={{ width: "100%", paddingTop: 0 }}>
-                      <hr
-                        style={{ marginTop: "6px" }}
-                        className={styles.hrText}
-                        data-content="latest news"
-                      />
-                    </div>
-                  </div>
-                  <div
-                    className="col-md-12"
-                    style={{
-                      paddingRight: "12px",
-                      paddingLeft: "12px",
-                    }}
-                  >
-                    {showSideBarNews()}
-
                     <div
+                      className="col-md-12"
                       style={{
-                        height: "3px",
+                        display: "flex",
+                        flexDirection: "row",
                         width: "100%",
-                        margin: 0,
-                        backgroundColor: "rgba(202, 28, 28, 0.945)",
+                        marginTop: "20px",
+                        marginBottom: "10px",
                       }}
-                    />
-                    <div style={{ width: "100%" }}>
+                    >
+                      <div style={{ marginRight: "5px" }}>
+                        <FaNewspaper size="1rem" color="#505050" />
+                      </div>
+                      <div style={{ width: "100%", paddingTop: 0 }}>
+                        <hr
+                          style={{ marginTop: "6px" }}
+                          className={styles.hrText}
+                          data-content="latest news"
+                        />
+                      </div>
+                    </div>
+                    <div
+                      className="col-md-12"
+                      style={{
+                        paddingRight: "12px",
+                        paddingLeft: "12px",
+                      }}
+                    >
+                      {showSideBarNews()}
+
                       <div
                         style={{
-                          display: "flex",
-                          flexDirection: "row",
-                          float: "right",
-                          marginBottom: "10px",
-                          marginTop: "6px",
+                          height: "3px",
+                          width: "100%",
+                          margin: 0,
+                          backgroundColor: "rgba(202, 28, 28, 0.945)",
                         }}
-                      >
-                        <div style={{ marginRight: 0 }}>
-                          <Link href={`/news`}>
-                            <a style={{ textDecoration: "none" }}>
-                              <div className={styles.view_all}>
-                                <span>view all</span>
-                              </div>
-                            </a>
-                          </Link>
+                      />
+                      <div style={{ width: "100%" }}>
+                        <div
+                          style={{
+                            display: "flex",
+                            flexDirection: "row",
+                            float: "right",
+                            marginBottom: "10px",
+                            marginTop: "6px",
+                          }}
+                        >
+                          <div style={{ marginRight: 0 }}>
+                            <Link href={`/news`}>
+                              <a style={{ textDecoration: "none" }}>
+                                <div className={styles.view_all}>
+                                  <span>view all</span>
+                                </div>
+                              </a>
+                            </Link>
+                          </div>
                         </div>
                       </div>
                     </div>
                   </div>
-                </div>
+                ) : (
+                  ""
+                )}
               </div>
             </div>
           </div>

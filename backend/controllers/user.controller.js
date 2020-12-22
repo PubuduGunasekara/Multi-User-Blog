@@ -27,7 +27,7 @@ exports.read = (req, res) => {
         });
 };*/
 
-/**this function fetch the all user details and news,reviews (PROFILES>SLUG) */
+/**{done}this function fetch the all user details and news,reviews (PROFILES>SLUG) */
 exports.publicProfile = (req, res) => {
   let username = req.params.username.toLowerCase();
   User.findOne({ username })
@@ -59,7 +59,7 @@ exports.publicProfile = (req, res) => {
                     error: errorHandler(err),
                   });
                 }
-                res.json({
+                res.status(200).json({
                   data: {
                     news: newsData,
                     reviews: reviewData,
@@ -68,7 +68,7 @@ exports.publicProfile = (req, res) => {
                 });
               });
           } else {
-            res.json({
+            res.status(200).json({
               data: {
                 news: newsData,
                 reviews: reviewData,
@@ -217,7 +217,7 @@ exports.photo = (req, res) => {
     });
 };
 
-/**this function list all the profiles (PROFILES>SLUG) */
+/**{done}this function list all the profiles (PROFILES>SLUG) */
 exports.list = (req, res) => {
   User.find({})
     .select("name username _id role email updatedAt")
@@ -225,6 +225,11 @@ exports.list = (req, res) => {
       if (err) {
         return res.status(400).json({
           error: errorHandler(err),
+        });
+      }
+      if (err) {
+        return res.status(404).json({
+          error: "No profile found",
         });
       }
       res.status(200).json(data);

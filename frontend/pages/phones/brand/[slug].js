@@ -59,7 +59,7 @@ const SingleBlog = ({ blog, related, relatedNews, relatedReviews }) => {
           color="rgba(202, 28, 28, 0.945)"
           height={100}
           width={100}
-          timeout={10000} //3 secs
+          timeout={30000} //3 secs
         />
       </div>
     );
@@ -128,7 +128,7 @@ const SingleBlog = ({ blog, related, relatedNews, relatedReviews }) => {
               <div className={styles.card__content__phone}>
                 <Link href={`/phones/brand/${m.slug}`}>
                   <a>
-                    <h1>{m.title}</h1>
+                    <span>{m.title}</span>
                   </a>
                 </Link>
               </div>
@@ -162,7 +162,7 @@ const SingleBlog = ({ blog, related, relatedNews, relatedReviews }) => {
             <div className={styles.content_div_news}>
               <Link href={`/news/${blog.slug}`}>
                 <a style={{ textDecoration: "none", width: "100%" }}>
-                  <h1>{blog.title}</h1>
+                  <span>{blog.title}</span>
                 </a>
               </Link>
             </div>
@@ -201,7 +201,7 @@ const SingleBlog = ({ blog, related, relatedNews, relatedReviews }) => {
             <div className={styles.content_div_news}>
               <Link href={`/reviews/${blog.slug}`}>
                 <a style={{ textDecoration: "none", width: "100%" }}>
-                  <h1>{blog.title}</h1>
+                  <span>{blog.title}</span>
                 </a>
               </Link>
             </div>
@@ -783,7 +783,7 @@ const SingleBlog = ({ blog, related, relatedNews, relatedReviews }) => {
                       </Link>
                     </li>
                     <li className="breadcrumb-item active" aria-current="page">
-                      Here
+                      You are here
                     </li>
                   </ol>
                 </nav>
@@ -1320,72 +1320,6 @@ const SingleBlog = ({ blog, related, relatedNews, relatedReviews }) => {
               </div>
             </div>
           </div>
-
-          {/* <StickyShareButtons
-            config={{
-              alignment: "left", // alignment of buttons (left, right)
-              color: "social", // set the color of buttons (social, white)
-              enabled: true, // show/hide buttons (true, false)
-              font_size: 16, // font size for the buttons
-              hide_desktop: false, // hide buttons on desktop (true, false)
-              labels: "counts", // button labels (cta, counts, null)
-              language: "en", // which language to use (see LANGUAGES)
-              min_count: 0, // hide react counts less than min_count (INTEGER)
-              networks: [
-                // which networks to include (see SHARING NETWORKS)
-                "linkedin",
-                "facebook",
-                "twitter",
-                "pinterest",
-                "email",
-              ],
-              padding: 12, // padding within buttons (INTEGER)
-              radius: 4, // the corner radius on each button (INTEGER)
-              show_total: true, // show/hide the total share count (true, false)
-              show_mobile: true, // show/hide the buttons on mobile (true, false)
-              show_toggle: true, // show/hide the toggle buttons (true, false)
-              size: 48, // the size of each button (INTEGER)
-              top: 160, // offset in pixels from the top of the page
-
-              // OPTIONAL PARAMETERS
-              url: "https://www.sharethis.com", // (defaults to current url)
-              image: "https://bit.ly/2CMhCMC", // (defaults to og:image or twitter:image)
-              description: "custom text", // (defaults to og:description or twitter:description)
-              title: "custom title", // (defaults to og:title or twitter:title)
-              message: "custom email text", // (only for email sharing)
-              subject: "custom email subject", // (only for email sharing)
-              username: "custom twitter handle", // (only for twitter sharing)
-            }}
-          /> */}
-          {/* <div className={styles.sticky_social}>
-            <ul className={styles.social}>
-              <li className={styles.fb}>
-                <a href="#">
-                  <i className={`${styles.fa} fa-facebook`} aria-hidden="true"></i>
-                </a>
-              </li>
-              <li className={styles.twitter}>
-                <a href="#">
-                  <i className={`${styles.fa} fa-twitter`} aria-hidden="true"></i>
-                </a>
-              </li>
-              <li className={styles.insta}>
-                <a href="#">
-                  <i className={`${styles.fa} fa-instagram`} aria-hidden="true"></i>
-                </a>
-              </li>
-              <li className="pin">
-                <a href="#">
-                  <i className={`${styles.fa} fa-pinterest-p`} aria-hidden="true"></i>
-                </a>
-              </li>
-              <li className={styles.vim}>
-                <a href="#">
-                  <i className={`${styles.fa} fa-vimeo`} aria-hidden="true"></i>
-                </a>
-              </li>
-            </ul>
-          </div> */}
         </React.Fragment>
       ) : (
         <React.Fragment>
@@ -1407,7 +1341,7 @@ const SingleBlog = ({ blog, related, relatedNews, relatedReviews }) => {
               color="rgba(202, 28, 28, 0.945)"
               height={100}
               width={100}
-              timeout={10000} //3 secs
+              timeout={30000} //3 secs
             />
           </div>
         </React.Fragment>

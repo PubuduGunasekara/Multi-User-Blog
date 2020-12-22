@@ -2,10 +2,6 @@
   "/_app": "pages/_app.js",
   "/_document": "pages/_document.js",
   "/_error": "pages/_error.js",
-  "/phones/brand/[slug]": "pages/phones/brand/[slug].js",
   "/phones": "pages/phones.js",
-  "/next/dist/pages/_error": "pages/next/dist/pages/_error.js",
-  "/phones/brands/[slug]": "pages/phones/brands/[slug].js",
-  "/news": "pages/news.js",
-  "/news/[slug]": "pages/news/[slug].js"
+  "/": "pages/index.js"
 }

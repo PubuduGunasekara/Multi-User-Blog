@@ -103,24 +103,29 @@ exports.create = (req, res) => {
   });
 };
 
-/**used to fetch all public news to the news page (news>Index,news>slug) */
+/**{done}used to fetch all public news to the news page (news>Index,news>slug) */
 exports.listPublic = (req, res) => {
   const flag = 1;
-  News.find({ flag })
+  News.find({ flag: flag })
     .populate("postedBy", "username")
     .select("title slug excerpt postedBy updatedAt flag")
     .sort({ updatedAt: -1 })
     .exec((err, data) => {
       if (err) {
-        res.status(400).json({
+        return res.status(400).json({
           error: errorHandler(err),
+        });
+      }
+      if (!data) {
+        return res.status(404).json({
+          error: "no data found",
         });
       }
       res.status(200).json(data);
     });
 };
 
-/**used to fetch first 10 latest news for home page from 2nd one onward (Index page)*/
+/**{done}used to fetch first 10 latest news for home page from 2nd one onward (Index page)*/
 exports.listPublicLimitFirstSection = (req, res) => {
   const flag = 1;
   News.find({ flag })
@@ -135,11 +140,16 @@ exports.listPublicLimitFirstSection = (req, res) => {
           error: errorHandler(err),
         });
       }
+      if (!data) {
+        return res.status(404).json({
+          error: "no data found",
+        });
+      }
       res.status(200).json(data);
     });
 };
 
-/**used to fetch second 10 latest news for home page from 13 th one onward (Index page)*/
+/**{done}used to fetch second 10 latest news for home page from 13 th one onward (Index page)*/
 exports.listPublicLimitSecondSection = (req, res) => {
   const flag = 1;
   News.find({ flag })
@@ -154,11 +164,16 @@ exports.listPublicLimitSecondSection = (req, res) => {
           error: errorHandler(err),
         });
       }
+      if (!data) {
+        return res.status(404).json({
+          error: "no data found",
+        });
+      }
       res.status(200).json(data);
     });
 };
 
-/**used to fetch final 10 latest news for home page from 23 th one onward also used for load more functionality (Index page)*/
+/**{done}used to fetch final 10 latest news for home page from 23 th one onward also used for load more functionality (Index page)*/
 exports.listPublicLimitFinalSection = (req, res) => {
   let limit = parseInt(req.body.limit);
   let skip = parseInt(req.body.skip);
@@ -175,11 +190,16 @@ exports.listPublicLimitFinalSection = (req, res) => {
           error: errorHandler(err),
         });
       }
+      if (!data) {
+        return res.status(404).json({
+          error: "no data found",
+        });
+      }
       res.status(200).json(data);
     });
 };
 
-/**used to fetch latest news (Index page)*/
+/**{done}used to fetch latest news (Index page)*/
 exports.listPublicLatestNews = (req, res) => {
   const flag = 1;
   News.findOne({ flag })
@@ -193,11 +213,16 @@ exports.listPublicLatestNews = (req, res) => {
           error: errorHandler(err),
         });
       }
+      if (!data) {
+        return res.status(404).json({
+          error: "no data found",
+        });
+      }
       res.status(200).json(data);
     });
 };
 
-/**used to fetch second latest news(Index page) */
+/**{done}used to fetch second latest news(Index page) */
 exports.listPublicSecondLatestNews = (req, res) => {
   const flag = 1;
   News.findOne({ flag })
@@ -212,14 +237,19 @@ exports.listPublicSecondLatestNews = (req, res) => {
           error: errorHandler(err),
         });
       }
+      if (!data) {
+        return res.status(400).json({
+          error: "no data found",
+        });
+      }
       res.status(200).json(data);
     });
 };
 
-/**completed this function is used to list all top staries (news>slug) */
+/**{done}completed this function is used to list all top staries (news>slug) */
 exports.listPublicTopStories = (req, res) => {
   const flag = 1;
-  const limit = 50;
+  const limit = 30;
   const { _id } = req.body.blog.data;
   //console.log("id", _id);
   News.find({ _id: { $ne: _id }, flag: flag })
@@ -230,7 +260,7 @@ exports.listPublicTopStories = (req, res) => {
     .exec((err, blogs) => {
       if (err) {
         return res.status(400).json({
-          error: "Error code 400",
+          error: errorHandler(err),
         });
       }
       if (!blogs) {
@@ -259,7 +289,7 @@ exports.listPrivate = (req, res) => {
     });
 };
 
-/**completed this function is used to list popular news for mobile and review pages (reviews>index,phones>Index) */
+/**{done}completed this function is used to list popular news for mobile and review pages (reviews>index,phones>Index) */
 exports.listForMobileReviews = (req, res) => {
   const flag = 1;
   const limit = 5;
@@ -272,6 +302,11 @@ exports.listForMobileReviews = (req, res) => {
       if (err) {
         return res.status(400).json({
           error: errorHandler(err),
+        });
+      }
+      if (!data) {
+        return res.status(400).json({
+          error: "no data found",
         });
       }
 
@@ -340,12 +375,13 @@ exports.listRelated = (req, res) => {
     });
 };
 
-/**completed this function is used to list related reviews (news>slug) */
+/**{done}completed this function is used to list related reviews (news>slug) */
 exports.listRelatedReviews = (req, res) => {
   let limit = 5;
   const { tags } = req.body.blog.data;
+  const flag = 1;
 
-  Review.find({ tags: { $in: tags } })
+  Review.find({ tags: { $in: tags }, flag: flag })
     .limit(limit)
     .populate("postedBy", "username")
     .select("title slug postedBy updatedAt")
@@ -353,7 +389,7 @@ exports.listRelatedReviews = (req, res) => {
     .exec((err, blogs) => {
       if (err) {
         return res.status(400).json({
-          error: "error code 400",
+          error: errorHandler(err),
         });
       }
       if (!blogs) {
@@ -365,19 +401,20 @@ exports.listRelatedReviews = (req, res) => {
     });
 };
 
-/**completed this function is used to list related reviews (news>slug) */
+/**{done}completed this function is used to list related reviews (news>slug) */
 exports.listRelatedMobiles = (req, res) => {
   let limit = 10;
   const { tags } = req.body.blog.data;
+  const flag = 1;
 
-  Mobile.find({ tags: { $in: tags } })
+  Mobile.find({ tags: { $in: tags }, flag: flag })
     .limit(limit)
     .select("title slug")
     .sort({ updatedAt: -1 })
     .exec((err, blogs) => {
       if (err) {
         return res.status(400).json({
-          error: "Error code 400",
+          error: errorHandler(err),
         });
       }
       if (!blogs) {
@@ -412,11 +449,12 @@ exports.photo = (req, res) => {
     });
 };
 
-/**completed this function is used to read the news (news > slug) */
+/**{done}completed this function is used to read the news (news > slug) */
 exports.read = (req, res) => {
   const slug = req.params.slug.toLowerCase();
-  News.findOne({ slug })
-    .populate("tags", "name slug")
+  const flag = 1;
+  News.findOne({ slug, flag: flag })
+    .populate("tags", "_id name slug")
     .populate("postedBy", "username")
     .select("_id title body slug mtitle mdesc tags postedBy updatedAt flag")
     .exec((err, data) => {
@@ -617,7 +655,7 @@ exports.listSearchAdmin = (req, res) => {
   }
 };
 
-//done (SEARCH)
+//{done}done (SEARCH)
 exports.listSearchUser = (req, res) => {
   //console.log(req.query);
   const { search } = req.query;
@@ -633,6 +671,11 @@ exports.listSearchUser = (req, res) => {
         if (err) {
           return res.status(400).json({
             error: errorHandler(err),
+          });
+        }
+        if (!blogs) {
+          return res.status(404).json({
+            error: "No results  found",
           });
         }
         //console.log("from news : ", blogs);

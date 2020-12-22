@@ -49,7 +49,7 @@ const SingleNewsBlog = ({ blog, reviews, mobiles, newsStories }) => {
           color="rgba(202, 28, 28, 0.945)"
           height={100}
           width={100}
-          timeout={10000} //3 secs
+          timeout={30000} //3 secs
         />
       </div>
     );
@@ -113,7 +113,7 @@ const SingleNewsBlog = ({ blog, reviews, mobiles, newsStories }) => {
             <div className={styles.content_div_review}>
               <Link href={`/reviews/${blog.slug}`}>
                 <a style={{ textDecoration: "none", width: "100%" }}>
-                  <h1>{blog.title}</h1>
+                  <span>{blog.title}</span>
                 </a>
               </Link>
             </div>
@@ -143,7 +143,7 @@ const SingleNewsBlog = ({ blog, reviews, mobiles, newsStories }) => {
           <div className={styles.card__content__phone}>
             <Link href={`/phones/brand/${m.slug}`}>
               <a>
-                <h1>{m.title}</h1>
+                <span>{m.title}</span>
               </a>
             </Link>
           </div>
@@ -251,17 +251,17 @@ const SingleNewsBlog = ({ blog, reviews, mobiles, newsStories }) => {
             <div className={styles.content__div}>
               <Link href={`/news/${blog.slug}`}>
                 <a style={{ textDecoration: "none", width: "100%" }}>
-                  <h1>{blog.title}</h1>
+                  <span>{blog.title}</span>
                 </a>
               </Link>
             </div>
-            <div className={styles.excerpt_div}>
+            {/* <div className={styles.excerpt_div}>
               <Link href={`/news/${blog.slug}`}>
                 <a style={{ textDecoration: "none", width: "100%" }}>
                   {renderHTML(blog.excerpt)}
                 </a>
               </Link>
-            </div>
+            </div> */}
             <div className={styles.author__div}>
               <span>
                 {moment(blog.updatedAt).fromNow()} | by {blog.postedBy.username}
@@ -322,7 +322,7 @@ const SingleNewsBlog = ({ blog, reviews, mobiles, newsStories }) => {
                       </Link>
                     </li>
                     <li className="breadcrumb-item active" aria-current="page">
-                      Here
+                      You are here
                     </li>
                   </ol>
                 </nav>
@@ -376,8 +376,8 @@ const SingleNewsBlog = ({ blog, reviews, mobiles, newsStories }) => {
                                 "facebook",
                                 "twitter",
                                 "pinterest",
-                                "linkedin",
                                 "whatsapp",
+                                "linkedin",
                               ],
                               padding: 10, // padding within buttons (INTEGER)
 
@@ -688,7 +688,7 @@ const SingleNewsBlog = ({ blog, reviews, mobiles, newsStories }) => {
               <div
                 className={`col-lg-4 ${styles.side__bar__single__brand__main} ${styles.side__bar__riverse__display__none}`}
               >
-                {mobiles.length >= 4 ? (
+                {mobiles.length >= 5 ? (
                   <div
                     className={`row mr-0 ${styles.side__bar__single__brand}`}
                     style={{

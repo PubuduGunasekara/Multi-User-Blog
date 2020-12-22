@@ -34,7 +34,7 @@ const {
 
 router.post("/news", requireSignIn, authMiddleware, create);
 router.get("/news-private-root", listPrivate);
-router.get("/news-public-root", listPublic); //done (NEWS>INDEX)
+router.get("/news-public-root", listPublic); //done (NEWS>INDEX,news>slug)
 router.get("/news/photo/:slug", photo);
 router.get("/news/:slug", read); //done (NEWS>slug)
 router.delete("/news/:slug", requireSignIn, adminMiddleware, remove);

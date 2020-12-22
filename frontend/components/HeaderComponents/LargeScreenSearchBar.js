@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import styles from "../../styles/Header.module.css";
 
 /**
@@ -68,7 +68,6 @@ const SearchButton = (props) => {
             boxShadow: "1px 0px 7px rgba(0,0,0,0.5)",
             backgroundColor: "#242424",
             color: "#d8d8d8",
-            title: "search teckbot.com",
           }}
         >
           Search

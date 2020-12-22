@@ -24,21 +24,26 @@ exports.create = (req, res) => {
 /**
  * COMPLETED!
  */
-/**this method fetch all the tags (Tag) */
+/**{done}this method fetch all the tags (Tag) */
 exports.list = (req, res) => {
   Tag.find()
-    .select("slug ")
+    .select("slug")
     .exec((err, data) => {
       if (err) {
         return res.status(400).json({
           error: errorHandler(err),
         });
       }
+      if (!data) {
+        return res.status(404).json({
+          error: "no tags",
+        });
+      }
 
       res.status(200).json(data);
     });
 };
-/**this function displays the single tag details with news mobiles and reviews */
+/**{done}this function displays the single tag details with news mobiles and reviews */
 exports.read = (req, res) => {
   const slug = req.params.slug.toLowerCase();
   Tag.findOne({ slug })
@@ -46,7 +51,7 @@ exports.read = (req, res) => {
     .exec((err, tag) => {
       if (err) {
         return res.status(400).json({
-          error: "Tag not found",
+          error: errorHandler(err),
         });
       }
       News.find({ tags: tag })

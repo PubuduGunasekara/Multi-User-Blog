@@ -6,6 +6,7 @@ const Index = (tag) => {
 };
 
 export async function getStaticPaths() {
+  //done
   const tags = await getTags().then((data) => {
     if (data.error) {
       console.log(data.error);
@@ -26,6 +27,7 @@ export async function getStaticPaths() {
 
 // This also gets called at build time
 export async function getStaticProps({ params }) {
+  //done
   const tag = await singleTags(params.slug).then((data) => {
     if (data.error) {
       return console.log(data.error);

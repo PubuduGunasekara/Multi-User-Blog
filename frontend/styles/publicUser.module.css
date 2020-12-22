@@ -12,7 +12,7 @@
   width: 100%;
   text-align: left;
 }
-.public_profile_secondary_wrapper h1 {
+.public_profile_secondary_wrapper h2 {
   font-weight: bolder;
   margin-bottom: 0;
   width: 100%;
@@ -43,7 +43,7 @@
   font-size: 40px;
   font-family: Proxima Nova, sans-serif;
 }
-.public_profile_occupation h1 {
+.public_profile_occupation span {
   font-weight: bolder;
   width: 100%;
   color: rgba(202, 28, 28, 0.945);
@@ -59,7 +59,7 @@
     font-size: 28px !important;
     line-height: 110% !important;
   }
-  .public_profile_secondary_wrapper h1 {
+  .public_profile_secondary_wrapper h2 {
     font-size: 20px;
   }
 }
@@ -68,7 +68,7 @@
     font-size: 32px;
     line-height: 110% !important;
   }
-  .public_profile_secondary_wrapper h1 {
+  .public_profile_secondary_wrapper h2 {
     font-size: 20px;
   }
 }
@@ -267,7 +267,7 @@
   color: rgba(0, 0, 0, 0.781);
   text-decoration: none;
 }
-.review_title h1 {
+.review_title span {
   top: 0;
   font-size: 18px;
   width: 100%;
@@ -281,37 +281,37 @@
   margin-bottom: 4px;
 }
 @media screen and (max-width: 991px) {
-  .review_title h1 {
+  .review_title span {
     font-size: 18px;
   }
 }
 @media screen and (max-width: 767px) {
-  .review_title h1 {
+  .review_title span {
     font-size: 16px;
     line-height: 100%;
   }
 }
 
 @media screen and (max-width: 575px) {
-  .review_title h1 {
+  .review_title span {
     font-size: 16px;
   }
 }
 
 @media screen and (max-width: 550px) {
-  .review_title h1 {
+  .review_title span {
     font-size: 16px;
     word-wrap: break-word !important;
   }
 }
 @media screen and (max-width: 450px) {
-  .review_title h1 {
+  .review_title span {
     font-size: 16px;
   }
 }
 
 @media screen and (max-width: 300px) {
-  .review_title h1 {
+  .review_title span {
     font-size: 16px;
     height: auto;
   }

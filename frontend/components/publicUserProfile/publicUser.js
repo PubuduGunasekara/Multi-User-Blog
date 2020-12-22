@@ -35,7 +35,7 @@ const publicUserProfile = (props) => {
           color="rgba(202, 28, 28, 0.945)"
           height={100}
           width={100}
-          timeout={10000} //3 secs
+          timeout={30000} //3 secs
         />
       </div>
     );
@@ -226,7 +226,7 @@ const publicUserProfile = (props) => {
             <Link href={`/reviews/${m.slug}`}>
               <a>
                 <div className={styles.review_title}>
-                  <h1>{m.title}</h1>
+                  <span>{m.title}</span>
                 </div>
                 <div className={styles.author}>
                   <span>
@@ -257,7 +257,7 @@ const publicUserProfile = (props) => {
             <Link href={`/news/${m.slug}`}>
               <a>
                 <div className={styles.review_title}>
-                  <h1>{m.title}</h1>
+                  <span>{m.title}</span>
                 </div>
                 <div className={styles.author}>
                   <span>
@@ -302,28 +302,34 @@ const publicUserProfile = (props) => {
               <h1>{profile.name}</h1>
             </div>
             <div className={styles.public_profile_occupation}>
-              <h1>
+              <span>
                 Email:{" "}
-                <span style={{ color: "rgba(0, 0, 0, 0.781)" }}>
+                <em
+                  style={{ color: "rgba(0, 0, 0, 0.781)", fontStyle: "normal" }}
+                >
                   {profile.publishedEmail}
-                </span>{" "}
-              </h1>
+                </em>{" "}
+              </span>
             </div>
             <div className={styles.public_profile_occupation}>
-              <h1>
+              <span>
                 Occupation:{" "}
-                <span style={{ color: "rgba(0, 0, 0, 0.781)" }}>
+                <em
+                  style={{ color: "rgba(0, 0, 0, 0.781)", fontStyle: "normal" }}
+                >
                   {profile.occupation}
-                </span>{" "}
-              </h1>
+                </em>{" "}
+              </span>
             </div>
             <div className={styles.public_profile_occupation}>
-              <h1>
+              <span>
                 Since:{" "}
-                <span style={{ color: "rgba(0, 0, 0, 0.781)" }}>
+                <em
+                  style={{ color: "rgba(0, 0, 0, 0.781)", fontStyle: "normal" }}
+                >
                   {moment(profile.createdAt).format("LL")}
-                </span>{" "}
-              </h1>
+                </em>{" "}
+              </span>
             </div>
           </div>
         </div>
@@ -336,7 +342,7 @@ const publicUserProfile = (props) => {
           }}
         ></hr>
         <div className={styles.public_profile_secondary_wrapper}>
-          <h1>A little about me</h1>
+          <h2>A little about me</h2>
           <div>
             <p>{profile.about}</p>
           </div>
@@ -364,7 +370,7 @@ const publicUserProfile = (props) => {
                       </Link>
                     </li>
                     <li className="breadcrumb-item active" aria-current="page">
-                      Team
+                      Profiles
                     </li>
                     <li className="breadcrumb-item active" aria-current="page">
                       {profile.username}
@@ -376,80 +382,104 @@ const publicUserProfile = (props) => {
               <div className="col-lg-12">
                 {showProfile()}
 
-                <div
-                  className="row mt-2"
-                  style={{
-                    backgroundColor: "white",
-                    boxShadow: "0px 0px 1px rgba(0,0,0,0.5)",
-                  }}
-                >
+                {news.length !== 0 && reviews.length !== 0 ? (
                   <div
+                    className="row mt-2"
                     style={{
-                      height: "10px",
-                      width: "100%",
-                      margin: 0,
-                      backgroundColor: "rgba(202, 28, 28, 0.945)",
+                      backgroundColor: "white",
+                      boxShadow: "0px 0px 1px rgba(0,0,0,0.5)",
                     }}
-                  />
-                  <div className={styles.public_profile_secondary_wrapper}>
-                    <h1>Recent Reviews by {profile.name}</h1>
-                  </div>
-                  <hr
-                    style={{
-                      width: "97%",
-                      height: "2px",
-                      marginTop: "5px",
-                      marginBottom: "5px",
-                    }}
-                  ></hr>
-                  <div className={`${styles.box__sizing} ${styles.cards}`}>
-                    {showReviews()}
-                  </div>
-                  <div style={{ width: "100%" }}>
-                    {Pagination(
-                      postPerPageReview,
-                      reviews.length,
-                      paginateReview,
-                      nextPageReview,
-                      previousPageReview,
-                      currentPageReview,
-                      lastPageReview
+                  >
+                    <div
+                      style={{
+                        height: "10px",
+                        width: "100%",
+                        margin: 0,
+                        backgroundColor: "rgba(202, 28, 28, 0.945)",
+                      }}
+                    />
+                    {reviews.length !== 0 ? (
+                      <React.Fragment>
+                        <div
+                          className={styles.public_profile_secondary_wrapper}
+                        >
+                          <h1>Recent Reviews by {profile.name}</h1>
+                        </div>
+                        <hr
+                          style={{
+                            width: "97%",
+                            height: "2px",
+                            marginTop: "5px",
+                            marginBottom: "5px",
+                          }}
+                        ></hr>
+                        <div
+                          className={`${styles.box__sizing} ${styles.cards}`}
+                        >
+                          {showReviews()}
+                        </div>
+                        <div style={{ width: "100%" }}>
+                          {Pagination(
+                            postPerPageReview,
+                            reviews.length,
+                            paginateReview,
+                            nextPageReview,
+                            previousPageReview,
+                            currentPageReview,
+                            lastPageReview
+                          )}
+                        </div>
+                      </React.Fragment>
+                    ) : (
+                      ""
+                    )}
+                    {news.length !== 0 ? (
+                      <React.Fragment>
+                        <hr
+                          style={{
+                            width: "97%",
+                            height: "2px",
+                            marginTop: "5px",
+                            marginBottom: "5px",
+                          }}
+                        ></hr>
+                        <div
+                          className={styles.public_profile_secondary_wrapper}
+                        >
+                          <h1>Recent News by {profile.name}</h1>
+                        </div>
+                        <hr
+                          style={{
+                            width: "97%",
+                            height: "2px",
+                            marginTop: "5px",
+                            marginBottom: "5px",
+                          }}
+                        ></hr>
+                        <div
+                          className={`${styles.box__sizing} ${styles.cards}`}
+                        >
+                          {showNews()}
+                        </div>
+                        <div style={{ width: "100%" }}>
+                          {Pagination(
+                            postPerPageNews,
+                            news.length,
+                            paginateNews,
+                            nextPageNews,
+                            previousPageNews,
+                            currentPageNews,
+                            lastPageNews
+                          )}
+                        </div>
+                      </React.Fragment>
+                    ) : (
+                      ""
                     )}
                   </div>
-                  <hr
-                    style={{
-                      width: "97%",
-                      height: "2px",
-                      marginTop: "5px",
-                      marginBottom: "5px",
-                    }}
-                  ></hr>
-                  <div className={styles.public_profile_secondary_wrapper}>
-                    <h1>Recent News by {profile.name}</h1>
-                  </div>
-                  <hr
-                    style={{
-                      width: "97%",
-                      height: "2px",
-                      marginTop: "5px",
-                      marginBottom: "5px",
-                    }}
-                  ></hr>
-                  <div className={`${styles.box__sizing} ${styles.cards}`}>
-                    {showNews()}
-                  </div>
-                  <div style={{ width: "100%" }}>
-                    {Pagination(
-                      postPerPageNews,
-                      news.length,
-                      paginateNews,
-                      nextPageNews,
-                      previousPageNews,
-                      currentPageNews,
-                      lastPageNews
-                    )}
-                  </div>
-                </div>
+                ) : (
+                  ""
+                )}
               </div>
             </div>
           </div>

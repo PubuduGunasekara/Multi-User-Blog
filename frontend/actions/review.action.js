@@ -29,7 +29,7 @@ export const reviewListPrivate = () => {
     .catch((err) => console.log(err));
 };
 
-/**done (Reviews>Index) */
+/**done (Reviews>Index,reviews>slug) */
 export const reviewListPublic = () => {
   return fetch(`${API}/reviews-public-root`, {
     method: "GET",
@@ -106,6 +106,7 @@ export const reviewListPublicLimitedSectionTwo = () => {
     .catch((err) => console.log(err));
 };
 
+/**done (reviews>slug) */
 export const newsListPublicTopStories = () => {
   return fetch(`${API}/newsTopStories`, {
     method: "GET",
@@ -151,6 +152,7 @@ export const reviewListModeratorPublic = (id) => {
     .catch((err) => console.log(err));
 };
 
+//done (reviews>slug)
 export const singleReview = (slug) => {
   return fetch(`${API}/review/${slug}`, {
     method: "GET",
@@ -227,6 +229,7 @@ export const unPublishReview = (slug, token) => {
     .catch((err) => console.log(err));
 };
 
+//done (reviews>slug)
 export const listRelated = (blog) => {
   return fetch(`${API}/review/related`, {
     method: "POST",
@@ -257,6 +260,7 @@ export const listRelatedNews = (blog) => {
     .catch((err) => console.log(err));
 };
 
+//done(reviews>slug)
 export const listRelatedMobiles = (blog) => {
   return fetch(`${API}/review/mobiles-related`, {
     method: "POST",

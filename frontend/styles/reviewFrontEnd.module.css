@@ -173,7 +173,7 @@
   color: rgba(0, 0, 0, 0.781);
   text-decoration: none;
 }
-.review_title h1 {
+.review_title h2 {
   top: 0;
   font-size: 18px;
   width: 100%;
@@ -187,37 +187,37 @@
   margin-bottom: 4px;
 }
 @media screen and (max-width: 991px) {
-  .review_title h1 {
+  .review_title h2 {
     font-size: 18px;
   }
 }
 @media screen and (max-width: 767px) {
-  .review_title h1 {
+  .review_title h2 {
     font-size: 16px;
     line-height: 100%;
   }
 }
 
 @media screen and (max-width: 575px) {
-  .review_title h1 {
+  .review_title h2 {
     font-size: 16px;
   }
 }
 
 @media screen and (max-width: 550px) {
-  .review_title h1 {
+  .review_title h2 {
     font-size: 16px;
     word-wrap: break-word !important;
   }
 }
 @media screen and (max-width: 450px) {
-  .review_title h1 {
+  .review_title h2 {
     font-size: 16px;
   }
 }
 
 @media screen and (max-width: 300px) {
-  .review_title h1 {
+  .review_title h2 {
     font-size: 16px;
     height: auto;
   }
@@ -231,7 +231,7 @@
   margin: 0;
   line-height: 110%;
 }
-.single__card:hover .card__content h1 {
+.single__card:hover .card__content h2 {
   color: rgba(202, 28, 28, 0.945);
 }
 
@@ -428,7 +428,7 @@
   border-radius: 4px;
   background-repeat: no-repeat;
 }
-.sidebar_news_container:hover .content_div_news h1 {
+.sidebar_news_container:hover .content_div_news span {
   color: rgba(202, 28, 28, 0.945) !important;
 }
 
@@ -439,7 +439,7 @@
   overflow-y: auto;
   word-wrap: break-word;
 }
-.content_div_news h1 {
+.content_div_news span {
   top: 0;
   font-size: 14px;
   width: 100%;
@@ -451,7 +451,7 @@
   font-weight: 750;
   margin: 0;
 }
-.author_div_news span {
+.author_div_news time {
   font-size: 10px;
   text-align: left;
   font-weight: 500;
@@ -459,26 +459,24 @@
   color: #505050;
   margin: 0;
 }
-.author_div_news {
+/* .author_div_news {
   position: relative;
-  font-size: 10px;
   text-align: left;
-  font-weight: 700;
   color: rgba(0, 0, 0, 0.397);
-}
+} */
 
 @media screen and (max-width: 1200px) {
-  .content_news h1 {
+  .content_news span {
     font-size: 14px;
   }
 }
 @media screen and (max-width: 850px) {
-  .content_news h1 {
+  .content_news span {
     font-size: 14px;
   }
 }
 @media screen and (max-width: 400px) {
-  .content_news h1 {
+  .content_news span {
     font-size: 13px;
     line-height: 105%;
   }
@@ -499,7 +497,7 @@
     height: 90px;
     width: 120px;
   }
-  .content_news h1 {
+  .content_news span {
     font-size: 13px;
     line-height: 105%;
   }
@@ -527,7 +525,7 @@
     height: 120px;
     width: 100%;
   }
-  .content_news h1 {
+  .content_news span {
     font-size: 14px;
     line-height: 105%;
   }
@@ -680,8 +678,6 @@
   cursor: pointer;
   border-radius: 0%;
   width: 120px;
-  border: 1px solid rgba(255, 255, 255, 0.945);
-  transition: transform 0.3s;
 }
 
 @media screen and (min-width: 1200px) {
@@ -762,10 +758,10 @@
   color: rgba(0, 0, 0, 0.781);
   text-decoration: none;
 }
-.card__content__phone p {
+.card__content__phone span {
   font-size: 10px;
   font-weight: lighter;
-  color: black;
+  color: rgba(0, 0, 0, 0.781);
   padding: 0;
   margin: 5px;
 }
@@ -781,17 +777,15 @@
   word-wrap: break-word;
   padding: 5px;
 }
-.card__content__phone h1 {
+.card__content__phone span {
   font-size: 14px;
   font-weight: 700;
   text-align: center;
   text-transform: uppercase;
 }
 
-.single__card__phone:hover {
-  border: 1px solid rgba(255, 255, 255, 0.945);
-  transform: scale(1.01);
-  opacity: 0.9;
+.single__card__phone:hover .card__content__phone span {
+  color: rgba(202, 28, 28, 0.945);
 }
 
 .card__image__container__phone img {

@@ -27,6 +27,7 @@ import renderHTML from "react-render-html";
 import styles from "../styles/homePage.module.css";
 import Loader from "react-loader-spinner";
 
+/**completed{!head} */
 const Index = ({
   latestNews,
   secondLatestNews,
@@ -973,27 +974,37 @@ const Index = ({
       mobileListLatest ? (
         <React.Fragment>
           <div>{head()}</div>
-          <div className={styles.large_screen_featuring}>
-            {latestNews &&
-            latestReview &&
-            secondLatestReview &&
-            secondLatestNews
-              ? showHighlight()
-              : ""}
-          </div>
-          <div className={styles.medium_screen_featuring}>
-            {latestNews && latestReview && secondLatestNews
-              ? showHighlightMediumScreen()
-              : ""}
-          </div>
-          <div className={styles.small_screen_featuring}>
-            {latestNews &&
-            latestReview &&
-            secondLatestReview &&
-            secondLatestNews
-              ? smallScreenHighlight()
-              : ""}
-          </div>
+          {latestNews.length !== 0 ||
+          latestReview.length !== 0 ||
+          secondLatestReview !== 0 ||
+          secondLatestNews !== 0 ? (
+            <div className={styles.large_screen_featuring}>
+              {showHighlight()}
+            </div>
+          ) : (
+            ""
+          )}
+
+          {latestNews.length !== 0 ||
+          latestReview.length !== 0 ||
+          secondLatestNews.length !== 0 ? (
+            <div className={styles.medium_screen_featuring}>
+              {showHighlightMediumScreen()}
+            </div>
+          ) : (
+            ""
+          )}
+
+          {latestNews.length !== 0 &&
+          latestReview.length !== 0 &&
+          secondLatestReview.length !== 0 &&
+          secondLatestNews.length !== 0 ? (
+            <div className={styles.small_screen_featuring}>
+              {smallScreenHighlight()}
+            </div>
+          ) : (
+            ""
+          )}
 
           <div className="container mt-4 mb-5 pl-0 pr-0">
             <div className="row ml-0 mr-0">
@@ -1017,9 +1028,9 @@ const Index = ({
                       />
                       <div style={{ padding: "10px" }}>
                         {showNewsFirstSection()}
-                        {eightLatestReview &&
-                        limitedReviewsSectionOne &&
-                        limitedReviewsSectionTwo ? (
+                        {(eightLatestReview.length !== 0 &&
+                          limitedReviewsSectionOne.length !== 0) ||
+                        limitedReviewsSectionTwo.length !== 0 ? (
                           <React.Fragment>
                             <div
                               className="col-md-12"
@@ -1121,7 +1132,7 @@ const Index = ({
               <div
                 className={`col-lg-4 ${styles.side__bar__single__brand__main}`}
               >
-                {mobileListLatest ? (
+                {mobileListLatest.length !== 0 ? (
                   <React.Fragment>
                     <div
                       className={`row mr-0 ${styles.side__bar__single__brand}`}
@@ -1199,7 +1210,7 @@ const Index = ({
                   ""
                 )}
 
-                {reviewListLatest ? (
+                {reviewListLatest.length !== 0 ? (
                   <div>
                     <div
                       className={`row mr-0 mt-2 ${styles.side__bar__single__brand} ${styles.display_none_side_bar_review}`}
@@ -1275,7 +1286,7 @@ const Index = ({
               </div>
             </div>
 
-            {newsLimitFinalSection ? (
+            {newsLimitFinalSection.length !== 0 ? (
               <div>
                 <div
                   className={`row ml-0 mr-0 mt-2 ${styles.display_none_more_news_small_screen}`}

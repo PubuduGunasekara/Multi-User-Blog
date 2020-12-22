@@ -70,7 +70,7 @@
   }
 }
 
-.single__card__mobile:hover .card__content__mobile h1 {
+.single__card__mobile:hover .card__content__mobile span {
   color: rgba(202, 28, 28, 0.945);
 }
 
@@ -98,7 +98,7 @@
   overflow-wrap: break-word;
   word-wrap: break-word;
 }
-.card__content__mobile h1 {
+.card__content__mobile span {
   font-size: 16px;
   font-weight: 700;
   text-align: center;
@@ -282,7 +282,7 @@
   color: rgba(0, 0, 0, 0.781);
   text-decoration: none;
 }
-.review_title h1 {
+.review_title span {
   top: 0;
   font-size: 18px;
   width: 100%;
@@ -296,37 +296,37 @@
   margin-bottom: 4px;
 }
 @media screen and (max-width: 991px) {
-  .review_title h1 {
+  .review_title span {
     font-size: 18px;
   }
 }
 @media screen and (max-width: 767px) {
-  .review_title h1 {
+  .review_title span {
     font-size: 16px;
     line-height: 100%;
   }
 }
 
 @media screen and (max-width: 575px) {
-  .review_title h1 {
+  .review_title span {
     font-size: 16px;
   }
 }
 
 @media screen and (max-width: 550px) {
-  .review_title h1 {
+  .review_title span {
     font-size: 16px;
     word-wrap: break-word !important;
   }
 }
 @media screen and (max-width: 450px) {
-  .review_title h1 {
+  .review_title span {
     font-size: 16px;
   }
 }
 
 @media screen and (max-width: 300px) {
-  .review_title h1 {
+  .review_title span {
     font-size: 16px;
     height: auto;
   }
@@ -340,7 +340,7 @@
   margin: 0;
   line-height: 110%;
 }
-.single__card:hover .card__content h1 {
+.single__card:hover .card__content span {
   color: rgba(202, 28, 28, 0.945);
 }
 
@@ -367,7 +367,7 @@
     font-size: 28px !important;
     line-height: 110% !important;
   }
-  .subtitle h1 {
+  .subtitle h2 {
     font-size: 20px !important;
   }
 }
@@ -376,12 +376,12 @@
     font-size: 32px;
     line-height: 110% !important;
   }
-  .subtitle h1 {
+  .subtitle h2 {
     font-size: 22px !important;
   }
 }
 
-.subtitle h1 {
+.subtitle h2 {
   font-weight: bolder;
   margin-bottom: 0;
   width: 100%;
@@ -398,7 +398,7 @@
   .subtitle {
     width: 100%;
   }
-  .subtitle h1 {
+  .subtitle h2 {
     text-align: center;
     margin-left: 0;
   }

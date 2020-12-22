@@ -34,10 +34,10 @@ const {
 } = require("../controllers/review.controllers");
 
 router.post("/review", requireSignIn, authMiddleware, create);
-router.get("/reviews-public-root", listPublic); //done (REVIEWS>INDEX)
+router.get("/reviews-public-root", listPublic); //done (REVIEWS>INDEX,reviews>slug)
 router.get("/reviews-private-root", listPrivate);
 router.get("/reviews/photo/:slug", photo);
-router.get("/review/:slug", read);
+router.get("/review/:slug", read); //done (reviews>slug)
 router.delete("/review/:slug", requireSignIn, adminMiddleware, remove);
 router.put("/review/:slug", requireSignIn, adminMiddleware, update);
 router.get(
@@ -56,12 +56,12 @@ router.get("/review-search/search", listSearchAdmin);
 router.get("/review-search-moderator/search", listSearchModerator);
 
 //end user routes
-router.get("/newsTopStories", listPublicTopStories);
+router.get("/newsTopStories", listPublicTopStories); //done (reviews>slug)
 router.get("/reviews-news-mobile", listForNewsMobile); //done (NEWS>INDEX,phones>index>phones>brands>slug)
 router.get("/reviews-home", listForHomePage); //done (INDEX)
-router.post("/review/related", listRelated);
+router.post("/review/related", listRelated); //done (reviews>slug)
 router.post("/review/news-related", listRelatedNews);
-router.post("/review/mobiles-related", listRelatedMobiles);
+router.post("/review/mobiles-related", listRelatedMobiles); //done (reviews>slug)
 router.get("/review-search-user/search", listSearchUser); //done (SEARCH)
 router.get("/review-public-latest", listPublicLatestReview); //done (INDEX)
 router.get("/review-public-second-latest", listPublicSecondLatestReview); //done (INDEX)
