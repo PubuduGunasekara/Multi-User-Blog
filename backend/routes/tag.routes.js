@@ -8,6 +8,7 @@ const {
 const {
   create,
   list,
+  listForCreators,
   remove,
   read,
 } = require("../controllers/tag.controllers");
@@ -25,6 +26,7 @@ router.post(
   create
 );
 router.get("/tags", list); //done (TAG)
+router.get("/tags-for-creators", listForCreators); //done (TAG)
 router.get("/tag/:slug", read); //done (TAG)
 router.delete("/tag/:slug", requireSignIn, authMiddleware, remove);
 

@@ -11,6 +11,7 @@ const { errorHandler } = require("../helpers/dbErrorHandler");
 const fs = require("fs");
 const { smartTrim } = require("../helpers/blog");
 
+//done used to create new news for admin panel users
 exports.create = (req, res) => {
   let form = new formidable.IncomingForm();
   form.keepExtensions = true;
@@ -157,7 +158,7 @@ exports.listPublicLimitSecondSection = (req, res) => {
     .select("title slug excerpt postedBy updatedAt")
     .sort({ updatedAt: -1 })
     .skip(12)
-    .limit(10)
+    .limit(5)
     .exec((err, data) => {
       if (err) {
         return res.status(400).json({
@@ -472,6 +473,29 @@ exports.read = (req, res) => {
     });
 };
 
+/**{done}completed this function is used to read the news admin */
+exports.readCreators = (req, res) => {
+  const slug = req.params.slug.toLowerCase();
+
+  News.findOne({ slug })
+    .populate("tags", "_id name slug")
+    .populate("postedBy", "username")
+    .select("_id title body slug mtitle mdesc tags postedBy updatedAt flag")
+    .exec((err, data) => {
+      if (err) {
+        return res.status(400).json({
+          error: errorHandler(err),
+        });
+      }
+      if (!data) {
+        return res.status(404).json({ error: "no data found" });
+      }
+      //console.log(data);
+
+      res.status(200).json(data);
+    });
+};
+
 exports.remove = (req, res) => {
   const slug = req.params.slug.toLowerCase();
   News.findOneAndRemove({ slug }).exec((err, data) => {
@@ -567,7 +591,7 @@ exports.update = (req, res) => {
           });
         }
         //result.photo = undefined
-        res.json(result);
+        res.status(200).json(result);
       });
     });
   });
@@ -708,7 +732,7 @@ exports.listSearchUser = (req, res) => {
 // };
 
 exports.listSearchModerator = (req, res) => {
-  console.log("query ", req.query);
+  //console.log("query ", req.query);
   const { search } = req.query;
 
   if (search) {
@@ -722,7 +746,7 @@ exports.listSearchModerator = (req, res) => {
             error: errorHandler(err),
           });
         }
-        console.log(blogs);
+        //console.log(blogs);
         res.json(blogs);
       }
     ).select("-photo -body");

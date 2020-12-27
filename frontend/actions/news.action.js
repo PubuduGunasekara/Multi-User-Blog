@@ -165,6 +165,16 @@ export const singleNews = (slug) => {
     })
     .catch((err) => console.log(err));
 };
+//done(news>slug)
+export const singleNewsCreators = (slug) => {
+  return fetch(`${API}/newsCreator/${slug}`, {
+    method: "GET",
+  })
+    .then((response) => {
+      return response.json();
+    })
+    .catch((err) => console.log(err));
+};
 
 export const listRelated = (blog) => {
   return fetch(`${API}/news/related`, {

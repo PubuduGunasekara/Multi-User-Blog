@@ -11,6 +11,7 @@ const { errorHandler } = require("../helpers/dbErrorHandler");
 const fs = require("fs");
 const { smartTrim } = require("../helpers/blog");
 
+//done
 exports.create = (req, res) => {
   let form = new formidable.IncomingForm();
   form.keepExtensions = true;
@@ -350,12 +351,12 @@ exports.listForModeratorPrivate = (req, res) => {
     .sort({ updatedAt: -1 })
     .exec((err, data) => {
       if (err) {
-        return res.json({
+        return res.status(400).json({
           error: errorHandler(err),
         });
       }
 
-      res.json(data);
+      res.status(200).json(data);
     });
 };
 
@@ -494,6 +495,28 @@ exports.read = (req, res) => {
     });
 };
 
+/**{done}this function is used to display single review admin) */
+exports.readCreators = (req, res) => {
+  const slug = req.params.slug.toLowerCase();
+  Review.findOne({ slug })
+    .populate("tags", "_id name slug")
+    .populate("postedBy", "username")
+    .select("_id title body slug mtitle mdesc tags postedBy updatedAt flag")
+    .exec((err, data) => {
+      if (err) {
+        return res.status(400).json({
+          error: errorHandler(err),
+        });
+      }
+      if (!data) {
+        return res.status(404).json({ error: "no data found" });
+      }
+      //console.log(data);
+
+      res.status(200).json(data);
+    });
+};
+
 exports.remove = (req, res) => {
   const slug = req.params.slug.toLowerCase();
   Review.findOneAndRemove({ slug }).exec((err, data) => {
@@ -620,7 +643,7 @@ exports.approvePost = (req, res) => {
           error: errorHandler(err),
         });
       }
-      res.json(response);
+      res.status(200).json(response);
     });
   });
 };
@@ -729,7 +752,7 @@ exports.listSearchUser = (req, res) => {
 // };
 
 exports.listSearchModerator = (req, res) => {
-  console.log(req.query);
+  // console.log(req.query);
   const { search } = req.query;
 
   if (search) {

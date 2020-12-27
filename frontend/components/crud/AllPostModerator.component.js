@@ -39,7 +39,7 @@ const AllPost = () => {
   /**pagination elements for news private */
   //statusn for pagination
   const [currentPageNewsPrivate, setCurrentPageNewsPrivate] = useState(1);
-  const [postPerPageNewsPrivate] = useState(1);
+  const [postPerPageNewsPrivate] = useState(20);
   //const [numOfPost, setNumberOfPost] = useState(0);
 
   //pagination
@@ -67,7 +67,7 @@ const AllPost = () => {
   /**pagination elements for news public */
   //statusn for pagination
   const [currentPageNewsPublic, setCurrentPageNewsPublic] = useState(1);
-  const [postPerPageNewsPublic] = useState(1);
+  const [postPerPageNewsPublic] = useState(20);
   //const [numOfPost, setNumberOfPost] = useState(0);
 
   //pagination
@@ -95,7 +95,7 @@ const AllPost = () => {
   /**pagination elements for review private */
   //statusn for pagination
   const [currentPageReviewPrivate, setCurrentPageReviewPrivate] = useState(1);
-  const [postPerPageReviewPrivate] = useState(1);
+  const [postPerPageReviewPrivate] = useState(20);
   //const [numOfPost, setNumberOfPost] = useState(0);
 
   //pagination
@@ -124,7 +124,7 @@ const AllPost = () => {
   /**pagination elements for review public */
   //statusn for pagination
   const [currentPageReviewPublic, setCurrentPageReviewPublic] = useState(1);
-  const [postPerPageReviewPublic] = useState(1);
+  const [postPerPageReviewPublic] = useState(20);
   //const [numOfPost, setNumberOfPost] = useState(0);
 
   //pagination

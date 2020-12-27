@@ -163,6 +163,17 @@ export const singleReview = (slug) => {
     .catch((err) => console.log(err));
 };
 
+//done admin
+export const singleReviewCreators = (slug) => {
+  return fetch(`${API}/review-creators/${slug}`, {
+    method: "GET",
+  })
+    .then((response) => {
+      return response.json();
+    })
+    .catch((err) => console.log(err));
+};
+
 export const removeReview = (slug, token) => {
   return fetch(`${API}/review/${slug}`, {
     method: "DELETE",

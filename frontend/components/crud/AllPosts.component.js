@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { useState, useEffect } from "react";
-import { isAuth } from "../../actions/auth.action";
 import {
   reviewListPrivate,
   reviewListPublic,
@@ -8,7 +7,7 @@ import {
 import { newsListPrivate, newsListPublic } from "../../actions/news.action";
 import {
   mobileListPrivate,
-  mobileListPublic,
+  mobileListPublicCreators,
 } from "../../actions/mobile.action";
 import moment from "moment";
 import { API } from "../../config";
@@ -18,10 +17,6 @@ import {
   Nav,
   NavItem,
   NavLink,
-  Card,
-  Button,
-  CardTitle,
-  CardText,
   Row,
   Col,
 } from "reactstrap";
@@ -325,7 +320,7 @@ const AllPost = () => {
   };
 
   const loadMobilesPublic = () => {
-    mobileListPublic().then((data) => {
+    mobileListPublicCreators().then((data) => {
       if (data.error) {
         console.log(data.error);
       } else {
@@ -546,7 +541,7 @@ const AllPost = () => {
                     </p>
 
                     <p className="card-text">
-                      Written by {r.postedBy.name} | Published on{" "}
+                      Written by {r.postedBy.username} | Published on{" "}
                       {moment(r.updatedAt).fromNow()}
                     </p>
                     {showViewButtonReview(r)}
@@ -589,7 +584,7 @@ const AllPost = () => {
                     </p>
 
                     <p className="card-text">
-                      Written by {r.postedBy.name} | Published on{" "}
+                      Written by {r.postedBy.username} | Published on{" "}
                       {moment(r.updatedAt).fromNow()}
                     </p>
                     {showViewButtonReview(r)}
@@ -632,7 +627,7 @@ const AllPost = () => {
                     </p>
 
                     <p className="card-text">
-                      Written by {n.postedBy.name} | Published on{" "}
+                      Written by {n.postedBy.username} | Published on{" "}
                       {moment(n.updatedAt).fromNow()}
                     </p>
                     {showViewButtonNews(n)}
@@ -674,7 +669,7 @@ const AllPost = () => {
                     </p>
 
                     <p className="card-text">
-                      Written by {n.postedBy.name} | Published on{" "}
+                      Written by {n.postedBy.username} | Published on{" "}
                       {moment(n.updatedAt).fromNow()}
                     </p>
                     {showViewButtonNews(n)}
@@ -717,7 +712,7 @@ const AllPost = () => {
                     </p>
 
                     <p className="card-text">
-                      Written by {m.postedBy.name} | Published on{" "}
+                      Written by {m.postedBy.username} | Published on{" "}
                       {moment(m.updatedAt).fromNow()}
                     </p>
                     {showViewButtonMobile(m)}
@@ -759,7 +754,7 @@ const AllPost = () => {
                     </p>
 
                     <p className="card-text">
-                      Written by {m.postedBy.name} | Published on{" "}
+                      Written by {m.postedBy.username} | Published on{" "}
                       {moment(m.updatedAt).fromNow()}
                     </p>
                     {showViewButtonMobile(m)}

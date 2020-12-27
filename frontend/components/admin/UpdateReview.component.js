@@ -1,8 +1,11 @@
 import { useState, useEffect } from "react";
 import { withRouter } from "next/router";
 import { getCookie } from "../../actions/auth.action";
-import { getTags } from "../../actions/tag.action";
-import { singleReview, updateReview } from "../../actions/review.action";
+import { getTagsForCreators } from "../../actions/tag.action";
+import {
+  singleReviewCreators,
+  updateReview,
+} from "../../actions/review.action";
 import { API, DOMAIN } from "../../config";
 import { Editor } from "@tinymce/tinymce-react";
 import { TINYMC_APP_ID } from "../../config";
@@ -36,7 +39,7 @@ const ReviewUpdate = ({ router }) => {
 
   const initReview = () => {
     if (router.query.slug) {
-      singleReview(router.query.slug).then((data) => {
+      singleReviewCreators(router.query.slug).then((data) => {
         if (data.error) {
           console.log(data.error);
         } else {
@@ -57,7 +60,7 @@ const ReviewUpdate = ({ router }) => {
   };
 
   const initTags = () => {
-    getTags().then((data) => {
+    getTagsForCreators().then((data) => {
       if (data.error) {
         setValues({ ...values, error: data.error });
       } else {

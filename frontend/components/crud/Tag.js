@@ -1,6 +1,10 @@
 import { useState, useEffect } from "react";
 import { getCookie } from "../../actions/auth.action";
-import { create, getTags, removeTag } from "../../actions/tag.action";
+import {
+  create,
+  getTagsForCreators,
+  removeTag,
+} from "../../actions/tag.action";
 import { Button } from "reactstrap";
 
 const Tag = () => {
@@ -21,7 +25,7 @@ const Tag = () => {
   }, [reload]);
 
   const loadTags = () => {
-    getTags().then((data) => {
+    getTagsForCreators().then((data) => {
       if (data.error) {
         setValues({ ...values, error: data.error });
       } else {

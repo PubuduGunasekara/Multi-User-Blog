@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { withRouter } from "next/router";
 import { getCookie, isAuth } from "../../actions/auth.action";
-import { getTags } from "../../actions/tag.action";
+import { getTagsForCreators } from "../../actions/tag.action";
 import { createNews } from "../../actions/news.action";
 import { Editor } from "@tinymce/tinymce-react";
 import { TINYMC_APP_ID } from "../../config";
@@ -49,8 +49,9 @@ const CreateNewsComponent = ({ router }) => {
     initTags();
   }, [router]);
 
+  //done
   const initTags = () => {
-    getTags().then((data) => {
+    getTagsForCreators().then((data) => {
       if (data.error) {
         setValues({ ...values, error: data.error });
       } else {
@@ -94,6 +95,7 @@ const CreateNewsComponent = ({ router }) => {
     setValues({ ...values, [name]: value, formData, error: "" });
   };
 
+  //done
   const handleBody = (e) => {
     setBody(e);
     formData.set("body", e);

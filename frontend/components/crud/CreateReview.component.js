@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { withRouter } from "next/router";
 import { getCookie, isAuth } from "../../actions/auth.action";
-import { getTags } from "../../actions/tag.action";
+import { getTagsForCreators } from "../../actions/tag.action";
 import { createReview } from "../../actions/review.action";
 import { Editor } from "@tinymce/tinymce-react";
 import { TINYMC_APP_ID } from "../../config";
@@ -50,7 +50,7 @@ const CreateReviewComponent = ({ router }) => {
   }, [router]);
 
   const initTags = () => {
-    getTags().then((data) => {
+    getTagsForCreators().then((data) => {
       if (data.error) {
         setValues({ ...values, error: data.error });
       } else {

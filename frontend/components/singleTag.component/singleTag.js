@@ -284,9 +284,9 @@ const singleTag = (props) => {
                   <span>{m.title}</span>
                 </div>
                 <div className={styles.author}>
-                  <span>
+                  <em style={{ fontStyle: "normal", fontSize: "10px" }}>
                     By {m.postedBy.username} | {moment(m.updatedAt).fromNow()}
-                  </span>
+                  </em>
                 </div>
               </a>
             </Link>
@@ -315,9 +315,9 @@ const singleTag = (props) => {
                   <span>{m.title}</span>
                 </div>
                 <div className={styles.author}>
-                  <span>
+                  <em style={{ fontStyle: "normal", fontSize: "10px" }}>
                     By {m.postedBy.username} | {moment(m.updatedAt).fromNow()}
-                  </span>
+                  </em>
                 </div>
               </a>
             </Link>

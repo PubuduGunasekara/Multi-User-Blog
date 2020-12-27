@@ -1,9 +1,7 @@
 import Admin from "../../../../components/auth.components/Admin";
-import Link from "next/link";
 import { withRouter } from "next/router";
-import Layout from "../../../../components/Layout";
 import { useState } from "react";
-import { singleReview } from "../../../../actions/review.action";
+import { singleReviewCreators } from "../../../../actions/review.action";
 import { API, DOMAIN } from "../../../../config";
 import renderHTML from "react-render-html";
 import moment from "moment";
@@ -88,7 +86,7 @@ const SingleBlog = ({ review, query }) => {
     });
 
     if (ask) {
-      approveReview(query.slug, token).then((data) => {
+      approveReview(review.slug, token).then((data) => {
         if (data.error) {
           setReviewPublicValues({
             ...reviewPublicValues,
@@ -118,7 +116,7 @@ const SingleBlog = ({ review, query }) => {
     });
 
     if (ask) {
-      unPublishReview(query.slug, token).then((data) => {
+      unPublishReview(review.slug, token).then((data) => {
         if (data.error) {
           setReviewPublicValues({
             ...reviewPublicValues,
@@ -154,87 +152,83 @@ const SingleBlog = ({ review, query }) => {
   };
 
   return (
-    <Layout>
-      <Admin>
-        <div className="container">
-          <div className="row ml-0 mr-0">
-            <div className="col-md-12">
-              <h2 className="text-center pt-5 pb-3">Review Post Manage</h2>
-              {showPublishedError()}
+    <Admin>
+      <div className="container mb-5">
+        <div className="row ml-0 mr-0">
+          <div className="col-md-12">
+            <h2 className="text-center pt-5 pb-3">Review Post Manage</h2>
+            {showPublishedError()}
+            <button
+              className="container btn btn-sm btn-danger btn-block mt-5"
+              onClick={() => deleteConfirm(review.slug)}
+            >
+              Delete
+            </button>
+
+            {showUpdatedButton(review.slug)}
+
+            {review.flag === 0 ? (
               <button
-                className="container btn btn-sm btn-danger btn-block mt-5"
-                onClick={() => deleteConfirm(query.slug)}
+                onClick={approveButton}
+                className="container btn btn-sm btn-primary btn-block"
               >
-                Delete
+                Publish this post
               </button>
-
-              {showUpdatedButton(query.slug)}
-
-              {review.flag === 0 ? (
-                <button
-                  onClick={approveButton}
-                  className="container btn btn-sm btn-primary btn-block"
-                >
-                  Publish this post
-                </button>
-              ) : (
-                <button
-                  onClick={unPublishButton}
-                  className="container btn btn-sm btn-success btn-block"
-                >
-                  Un-publish this post
-                </button>
-              )}
-            </div>
+            ) : (
+              <button
+                onClick={unPublishButton}
+                className="container btn btn-sm btn-success btn-block"
+              >
+                Un-publish this post
+              </button>
+            )}
           </div>
-          <main>
-            <article className="mt-5 mb-5">
-              <div className="container mt-5 mb-5">
-                <section>
-                  <div className="row" style={{ marginTop: "-30px" }}>
-                    <img
-                      src={`${API}/reviews/photo/${query.slug}`}
-                      alt={review.title}
-                      className="img img-fluid featured-image"
-                    />
-                  </div>
-                </section>
-                <section>
-                  <div className="container">
-                    <h1 className="display-2 pb-3 font-weight-bold">
-                      {review.title}
-                    </h1>
-                    <p className="lead mt-3 mark">
-                      Written by {review.postedBy.username} | published{" "}
-                      {moment(review.updatedAt).fromNow()}
-                    </p>
-                  </div>
-                </section>
-              </div>
-              <div className="container">
-                <section>
-                  <div className="col-md-12 lead">
-                    {renderHTML(review.body)}
-                  </div>
-                </section>
-              </div>
-            </article>
-          </main>
         </div>
-      </Admin>
-    </Layout>
+        <main>
+          <article className="mt-5 mb-5">
+            <div className="container mt-5 mb-5">
+              <section>
+                <div className="row" style={{ marginTop: "-30px" }}>
+                  <img
+                    src={`${API}/reviews/photo/${review.slug}`}
+                    alt={review.title}
+                    className="img img-fluid featured-image"
+                  />
+                </div>
+              </section>
+              <section>
+                <div className="container">
+                  <h1 className="display-2 pb-3 font-weight-bold">
+                    {review.title}
+                  </h1>
+                  <p className="lead mt-3 mark">
+                    Written by {review.postedBy.username} | published{" "}
+                    {moment(review.updatedAt).fromNow()}
+                  </p>
+                </div>
+              </section>
+            </div>
+            <div className="container">
+              <section>
+                <div className="col-md-12 lead">{renderHTML(review.body)}</div>
+              </section>
+            </div>
+          </article>
+        </main>
+      </div>
+    </Admin>
   );
 };
 
 //this method exectes at the server side. query is same as the router . in server side slugcan be access thruogh query, in client side it can be access through router use JSON.stringify()
 SingleBlog.getInitialProps = ({ query }) => {
-  return singleReview(query.slug).then((data) => {
+  return singleReviewCreators(query.slug).then((data) => {
     if (data.error) {
       console.log(data.error);
     } else {
       //console.log('get init : ', data);
 
-      return { review: data, query };
+      return { review: data };
     }
   });
 };

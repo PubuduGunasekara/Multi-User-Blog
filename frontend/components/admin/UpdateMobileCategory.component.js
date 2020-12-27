@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { withRouter } from "next/router";
 import { getCookie } from "../../actions/auth.action";
 import {
-  singleMCategory,
+  singleMCategoryForCreators,
   updateMCategory,
 } from "../../actions/mobileCategory.action";
 import { API, DOMAIN } from "../../config";
@@ -32,7 +32,7 @@ const MCatgoryUpdate = ({ router }) => {
 
   const initMCategory = () => {
     if (router.query.slug) {
-      singleMCategory(router.query.slug).then((data) => {
+      singleMCategoryForCreators(router.query.slug).then((data) => {
         if (data.error) {
           console.log(data.error);
         } else {

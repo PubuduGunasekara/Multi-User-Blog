@@ -113,6 +113,7 @@ const Index = ({
                   className={`${styles.container_common} ${styles.container_left}`}
                 >
                   <div className={styles.overlay}></div>
+
                   <img
                     className={styles.img_wrapper}
                     src={`${API}/news/photo/${latestNews.slug}`}
@@ -553,7 +554,7 @@ const Index = ({
 
   /**load more functions */
   const newsLimit = 10;
-  const newsSkip = 32;
+  const newsSkip = 27;
   const [limit, setLimit] = useState(newsLimit);
   const [skip, setSkip] = useState(newsSkip);
   const [newsSize, setNewsSize] = useState(newsLimitFinalSection.length);
@@ -1419,7 +1420,7 @@ export async function getStaticProps() {
   );
 
   /**done */
-  let skip = 22;
+  let skip = 17;
   let limit = 10;
 
   const newsLimitFinalSection = await newsListPublicLimitFinalSection(

@@ -43,6 +43,26 @@ exports.list = (req, res) => {
       res.status(200).json(data);
     });
 };
+
+/**{done}this method fetch all the tags  for admin panel(Tag) */
+exports.listForCreators = (req, res) => {
+  Tag.find()
+    .select("slug name")
+    .exec((err, data) => {
+      if (err) {
+        return res.status(400).json({
+          error: errorHandler(err),
+        });
+      }
+      if (!data) {
+        return res.status(404).json({
+          error: "no tags",
+        });
+      }
+
+      res.status(200).json(data);
+    });
+};
 /**{done}this function displays the single tag details with news mobiles and reviews */
 exports.read = (req, res) => {
   const slug = req.params.slug.toLowerCase();

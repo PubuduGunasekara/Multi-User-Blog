@@ -170,7 +170,7 @@ const CreateMcategoryComponent = ({ router }) => {
         <div key={i} style={{ border: "red" }}>
           <a
             onClick={() => {
-              Router.replace(
+              Router.push(
                 `${DOMAIN}/admin-panel/root-admin/crud/mobile-category/update/${t.slug}`
               );
             }}

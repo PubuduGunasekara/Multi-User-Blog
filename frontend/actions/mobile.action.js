@@ -40,6 +40,17 @@ export const mobileListPublic = () => {
     .catch((err) => console.log(err));
 };
 
+/**done creators */
+export const mobileListPublicCreators = () => {
+  return fetch(`${API}/mobile-public-root-creators`, {
+    method: "GET",
+  })
+    .then((response) => {
+      return response.json();
+    })
+    .catch((err) => console.log(err));
+};
+
 /**done (reviews>index,INDEX) */
 export const mobileListPublicReleventBrands = (id) => {
   return fetch(`${API}/mobile-brands-list/${id}`, {
@@ -65,6 +76,17 @@ export const mobileListPublicNewsReviews = () => {
 /**done (phones>brand>slug) */
 export const singleMobile = (slug) => {
   return fetch(`${API}/mobile/${slug}`, {
+    method: "GET",
+  })
+    .then((response) => {
+      return response.json();
+    })
+    .catch((err) => console.log(err));
+};
+
+/**done admin */
+export const singleMobileCreators = (slug) => {
+  return fetch(`${API}/mobile-creators/${slug}`, {
     method: "GET",
   })
     .then((response) => {
@@ -120,7 +142,6 @@ export const listRelatedReviews = (blog) => {
     })
     .catch((err) => console.log(err));
 };
-
 
 export const removeMobile = (slug, token) => {
   return fetch(`${API}/mobile/${slug}`, {

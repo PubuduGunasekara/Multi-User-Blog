@@ -1,8 +1,11 @@
 import { useState, useEffect } from "react";
 import { withRouter } from "next/router";
 import { getCookie } from "../../actions/auth.action";
-import { getTags } from "../../actions/tag.action";
-import { singleMobile, updateMobile } from "../../actions/mobile.action";
+import { getTagsForCreators } from "../../actions/tag.action";
+import {
+  singleMobileCreators,
+  updateMobile,
+} from "../../actions/mobile.action";
 import { API, DOMAIN } from "../../config";
 import { Button } from "reactstrap";
 import { mCategoryList } from "../../actions/mobileCategory.action";
@@ -22,6 +25,7 @@ const MobileUpdate = ({ router }) => {
     success: "",
     formData: "",
     title: "",
+    source: "",
     brand: "",
     body: "",
     fdDisplay: "",
@@ -81,6 +85,7 @@ const MobileUpdate = ({ router }) => {
     success,
     formData,
     title,
+    source,
     body,
     brand,
     fdDisplay,
@@ -156,13 +161,14 @@ const MobileUpdate = ({ router }) => {
 
   const initMobile = () => {
     if (router.query.slug) {
-      singleMobile(router.query.slug).then((data) => {
+      singleMobileCreators(router.query.slug).then((data) => {
         if (data.error) {
           console.log(data.error);
         } else {
           setValues({
             ...values,
             title: data.title,
+            source: data.source,
             body: data.body,
             brand: data.brand,
             fdDisplay: data.fdDisplay,
@@ -231,7 +237,7 @@ const MobileUpdate = ({ router }) => {
   };
 
   const initTags = () => {
-    getTags().then((data) => {
+    getTagsForCreators().then((data) => {
       if (data.error) {
         setValues({ ...values, error: data.error });
       } else {
@@ -355,7 +361,7 @@ const MobileUpdate = ({ router }) => {
         </div>
         <div className="form-group">
           <select onChange={handleChange("brand")} className="form-control">
-            <option value="">Select a mobile phone brand</option>
+            <option value="">select an option</option>
             {brands.map((b, i) => (
               <option key={b._id} value={b._id}>
                 {b.name}
@@ -890,6 +896,15 @@ const MobileUpdate = ({ router }) => {
             className="form-control"
             value={productPrice}
             onChange={handleChange("productPrice")}
+          />
+        </div>
+        <div className="form-group">
+          <label>Source Link</label>
+          <textarea
+            placeholder="Source Link"
+            className="form-control"
+            value={source}
+            onChange={handleChange("source")}
           />
         </div>
 

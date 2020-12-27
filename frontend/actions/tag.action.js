@@ -33,7 +33,17 @@ export const getTags = () => {
     })
     .catch((err) => console.log(err));
 };
-
+/**this method fetch all the tags for admin panel (Tag) */
+export const getTagsForCreators = () => {
+  return fetch(`${API}/tags-for-creators`, {
+    method: "GET",
+  })
+    .then((response) => {
+      handleResponse(response);
+      return response.json();
+    })
+    .catch((err) => console.log(err));
+};
 /**this function displays the single tag details */
 export const singleTags = (slug) => {
   return fetch(`${API}/tag/${slug}`, {

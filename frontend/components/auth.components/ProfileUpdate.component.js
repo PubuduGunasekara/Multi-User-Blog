@@ -3,7 +3,6 @@ import { getCookie, updateUser } from "../../actions/auth.action";
 import { getProfile, update } from "../../actions/userProfile.action";
 import { API } from "../../config";
 import { Button } from "reactstrap";
-import { FaWindows } from "react-icons/fa";
 import React from "react";
 /**
  * completed!

@@ -8,9 +8,9 @@ import React from "react";
 const Admin = ({ children }) => {
   useEffect(() => {
     if (!isAuth()) {
-      Router.push(`/admin-panel/user-signin`);
+      Router.replace(`/admin-panel/user-signin`);
     } else if (isAuth() && isAuth().role !== 1) {
-      Router.push(`/admin-panel/moderator`);
+      Router.replace(`/admin-panel/moderator`);
     }
   }, []);
 

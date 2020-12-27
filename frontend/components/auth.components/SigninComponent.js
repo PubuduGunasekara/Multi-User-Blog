@@ -1,4 +1,4 @@
-import { Input, Button } from "reactstrap";
+import { Input } from "reactstrap";
 import { useState, useEffect } from "react";
 import { signin, authenticate, isAuth } from "../../actions/auth.action";
 import Router from "next/router";
@@ -20,8 +20,8 @@ const SigninComponent = () => {
   }, []);
 
   const [values, setValues] = useState({
-    email: "pubudupraneeth21@gmail.com",
-    password: "654321",
+    email: "",
+    password: "",
     error: "",
     loading: false,
     message: "",

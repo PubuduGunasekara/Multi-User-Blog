@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import { withRouter } from "next/router";
 import { getCookie } from "../../actions/auth.action";
-import { getTags } from "../../actions/tag.action";
-import { singleNews, updateNews } from "../../actions/news.action";
+import { getTagsForCreators } from "../../actions/tag.action";
+import { singleNewsCreators, updateNews } from "../../actions/news.action";
 import { API, DOMAIN } from "../../config";
 import { Editor } from "@tinymce/tinymce-react";
 import { TINYMC_APP_ID } from "../../config";
@@ -33,7 +33,7 @@ const NewsUpdate = ({ router }) => {
 
   const initNews = () => {
     if (router.query.slug) {
-      singleNews(router.query.slug).then((data) => {
+      singleNewsCreators(router.query.slug).then((data) => {
         if (data.error) {
           console.log(data.error);
         } else {
@@ -46,7 +46,7 @@ const NewsUpdate = ({ router }) => {
   };
 
   const initTags = () => {
-    getTags().then((data) => {
+    getTagsForCreators().then((data) => {
       if (data.error) {
         setValues({ ...values, error: data.error });
       } else {

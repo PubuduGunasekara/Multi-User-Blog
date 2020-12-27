@@ -11,6 +11,7 @@ const { errorHandler } = require("../helpers/dbErrorHandler");
 const fs = require("fs");
 const { smartTrim } = require("../helpers/blog");
 
+//done
 exports.create = (req, res) => {
   let form = new formidable.IncomingForm();
   form.keepExtensions = true;
@@ -606,6 +607,31 @@ exports.listPublic = (req, res) => {
     });
 };
 
+/**{done} completed this function is used to list all phones admin */
+exports.listPublicForCreators = (req, res) => {
+  const flag = 1;
+  Mobile.find({ flag })
+    .populate("tags", "_id name slug")
+    .populate("postedBy", "_id name username")
+    .select(
+      "_id title body fdDisplay fdBattery fdStorage fdCamera fdOs fdChipset displayType displaySize displayResolution displayProtection conWlan conBluetooth conGps conNfc conRadio conUsb conSensors  networkTechnology network2gband network3gband network4gband network5gband networkSpeed networkSimType mainCameraDetails mainCameraFeatures mainCameraVideo selfyCameraDetails selfyCameraFeatures selfyCameraVideo hardwareChipset hardwareProcessor hardwareGpu hardwareRam hardwareStorage softwareOs launchAnnouced launchAvailability soundHeadphone soundFeatures batteryDetails batteryFeatures bodyWeight bodyDimension bodyBuild bodyButtons bodyResistence productModels productPrice productColors slug excerpt tags postedBy createdAt updatedAt flag"
+    )
+    .sort({ updatedAt: -1 })
+    .exec((err, data) => {
+      if (err) {
+        return res.status(400).json({
+          error: errorHandler(err),
+        });
+      }
+      if (!data) {
+        return res.status(404).json({
+          error: "no data found",
+        });
+      }
+      res.status(200).json(data);
+    });
+};
+
 /**{done}completed this function is used to list all the relevent phones of a perticular brand(mobiles>brands>slug) */
 exports.listPublicReleventBrands = (req, res) => {
   if (req.params.id == null) {
@@ -700,6 +726,31 @@ exports.read = (req, res) => {
       // console.log(err);
       //console.log(data);
       res.status(200).json({ data: data });
+    });
+};
+
+/**{done}completed this function is used to read relevent phone of a perticular brand admin */
+exports.readCreators = (req, res) => {
+  const slug = req.params.slug.toLowerCase();
+  Mobile.findOne({ slug: slug })
+    .populate("tags", "_id")
+    .populate("postedBy", "username")
+    .populate("brand", "name")
+    .select(
+      "_id flag postedBy title body brand source mdesc mtitle slug excerpt fdDisplay fdBattery fdStorage fdCamera fdOs fdChipset displayType displaySize displayResolution displayProtection conWlan conBluetooth conGps conNfc conRadio conUsb conSensors  networkTechnology network2gband network3gband network4gband network5gband networkSpeed networkSimType mainCameraDetails mainCameraFeatures mainCameraVideo selfyCameraDetails selfyCameraFeatures selfyCameraVideo hardwareChipset hardwareProcessor hardwareGpu hardwareRam hardwareStorage softwareOs launchAnnouced launchAvailability soundHeadphone soundFeatures batteryDetails batteryFeatures bodyWeight bodyDimension bodyBuild bodyButtons bodyResistence productModels productPrice productColors tags"
+    )
+    .exec((err, data) => {
+      if (err) {
+        return res.status(400).json({
+          error: errorHandler(err),
+        });
+      }
+      if (!data) {
+        return res.status(404).json({ error: "no data found" });
+      }
+      // console.log(err);
+      //console.log(data);
+      res.status(200).json(data);
     });
 };
 
@@ -820,6 +871,7 @@ exports.update = (req, res) => {
       const {
         title,
         body,
+        brand,
         source,
         tags,
         fdDisplay,
@@ -884,7 +936,11 @@ exports.update = (req, res) => {
           error: "Title is too long",
         });
       }
-
+      if (!brand) {
+        return res.status(400).json({
+          error: "Brand cannot be empty",
+        });
+      }
       if (!body || !body.length) {
         return res.status(400).json({
           error: "Description content is required",

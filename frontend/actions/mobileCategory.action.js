@@ -50,6 +50,17 @@ export const singleMCategory = (slug) => {
     .catch((err) => console.log(err));
 };
 
+/**this method fetch single mobile categoryfor admin panel */
+export const singleMCategoryForCreators = (slug) => {
+  return fetch(`${API}/single-mobile-category-for-creators/${slug}`, {
+    method: "GET",
+  })
+    .then((response) => {
+      return response.json();
+    })
+    .catch((err) => console.log(err));
+};
+
 export const removeMCategory = (slug, token) => {
   return fetch(`${API}/mobile-category/${slug}`, {
     method: "DELETE",

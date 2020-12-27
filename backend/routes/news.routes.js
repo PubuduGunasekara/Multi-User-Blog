@@ -30,6 +30,7 @@ const {
   listPublicLimitFirstSection,
   listPublicLimitSecondSection,
   listPublicLimitFinalSection,
+  readCreators,
 } = require("../controllers/news.controller");
 
 router.post("/news", requireSignIn, authMiddleware, create);
@@ -37,6 +38,7 @@ router.get("/news-private-root", listPrivate);
 router.get("/news-public-root", listPublic); //done (NEWS>INDEX,news>slug)
 router.get("/news/photo/:slug", photo);
 router.get("/news/:slug", read); //done (NEWS>slug)
+router.get("/newsCreator/:slug", readCreators); //done (NEWS>slug)
 router.delete("/news/:slug", requireSignIn, adminMiddleware, remove);
 router.put("/news/:slug", requireSignIn, adminMiddleware, update);
 router.get("/news/approve/:slug", requireSignIn, adminMiddleware, approvePost);

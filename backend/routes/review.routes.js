@@ -11,6 +11,7 @@ const {
   listPrivate,
   photo,
   read,
+  readCreators,
   remove,
   update,
   approvePost,
@@ -35,9 +36,10 @@ const {
 
 router.post("/review", requireSignIn, authMiddleware, create);
 router.get("/reviews-public-root", listPublic); //done (REVIEWS>INDEX,reviews>slug)
-router.get("/reviews-private-root", listPrivate);
+router.get("/reviews-private-root", listPrivate); //done admin panel
 router.get("/reviews/photo/:slug", photo);
 router.get("/review/:slug", read); //done (reviews>slug)
+router.get("/review-creators/:slug", readCreators); //done admin
 router.delete("/review/:slug", requireSignIn, adminMiddleware, remove);
 router.put("/review/:slug", requireSignIn, adminMiddleware, update);
 router.get(

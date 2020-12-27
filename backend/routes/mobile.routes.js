@@ -9,6 +9,7 @@ const {
   create,
   listPrivate,
   listPublic,
+  listPublicForCreators,
   listPublicReleventBrands,
   photo,
   read,
@@ -22,13 +23,16 @@ const {
   listRelatedNews,
   listRelatedReviews,
   listSearchUser,
+  readCreators,
 } = require("../controllers/mobile.controller");
 
 router.post("/mobile", requireSignIn, adminMiddleware, create);
 router.get("/mobile-private-root", listPrivate);
 router.get("/mobile-public-root", listPublic); //done(phone>brand>slug)
+router.get("/mobile-public-root-creators", listPublicForCreators); //done admin)
 router.get("/mobile/photo/:slug", photo);
 router.get("/mobile/:slug", read); //done(phone>brand>slug)
+router.get("/mobile-creators/:slug", readCreators); //done(phone>brand>slug)
 router.delete("/mobile/:slug", requireSignIn, adminMiddleware, remove);
 router.put("/mobile/:slug", requireSignIn, adminMiddleware, update);
 router.get(
