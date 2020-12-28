@@ -7,7 +7,14 @@ import { reviewListPublicMobileNews } from "../../actions/review.action";
 import { MdRateReview } from "react-icons/md";
 import { FaNewspaper } from "react-icons/fa";
 import moment from "moment";
-import { API, DOMAIN, APP_NAME, FB_APP_ID } from "../../config";
+import {
+  API,
+  DOMAIN,
+  APP_NAME,
+  FB_APP_ID,
+  TWITTER_AUTHOR_HANDLE,
+  TWITTER_PUBLISHER_HANDLE,
+} from "../../config";
 import styles from "../../styles/allBrands.module.css";
 import React from "react";
 import Loader from "react-loader-spinner";
@@ -26,47 +33,49 @@ const Mobiles = ({ mobiles, news, reviews }) => {
 
   const head = () => (
     <Head>
-      <title>{APP_NAME} - All mobile phone brands</title>
+      <title>All mobile phone brands - {APP_NAME}</title>
       <meta
         name="description"
-        content={`${APP_NAME} - List of all mobile phones,smartphones,tablets,wearables and accessory brands.`}
+        content={`List of all mobile phones,smartphones,tablets,wearables and accessory brands - ${APP_NAME}`}
       />
       <link rel="canonical" href={`${DOMAIN}/phones`} />
-
-      <meta name="twitter:card" content="summary_large_image" />
-      <meta name="twitter:site" content="@TechbotL" />
+      {/* Twitter Card data  */}
+      <meta name="twitter:card" content="summary" />
+      <meta name="twitter:site" content={`@${TWITTER_PUBLISHER_HANDLE}`} />
       <meta
         name="twitter:title"
-        content={`${APP_NAME} - All mobile phone brands`}
+        content={`All mobile phone brands - ${APP_NAME}`}
       />
       <meta
         name="twitter:description"
-        content={`${APP_NAME} - List of all mobile phones,smartphones,tablets,wearables and accessory brands.`}
+        content={`List of all mobile phones,smartphones,tablets,wearables and accessory brands - ${APP_NAME} `}
       />
+      <meta name="twitter:creator" content={`@${TWITTER_AUTHOR_HANDLE}`} />
+      {/* Twitter Summary card images must be at least 120x120px */}
       <meta
-        alt="Photo by Sam Loyd on Unsplash"
         name="twitter:image"
-        content={`${DOMAIN}/static/images/singleBrand_cover.jpg`}
+        content={`${DOMAIN}/static/images/resize-resize-allBrandCover.jpg`}
       />
+      <meta name="twitter:image:alt" content={`${DOMAIN}`} />
 
+      {/* Open Graph data  */}
       <meta
         property="og:title"
-        content={`${APP_NAME} - All mobile phone brands`}
-      />
-      <meta
-        property="og:description"
-        content={`${APP_NAME} - List of all mobile phones,smartphones,tablets,wearables and accessory brands..`}
+        content={`All mobile phone brands - ${APP_NAME}`}
       />
       <meta property="og:type" content="website" />
       <meta property="og:url" content={`${DOMAIN}/phones`} />
-      <meta property="og:site_name" content={`${APP_NAME}`} />
       <meta
-        alt="Photo by Sam Loyd on Unsplash"
+        alt={`${DOMAIN}`}
         property="og:image"
-        content={`${DOMAIN}/static/images/singleBrand_cover.jpg`}
+        content={`${DOMAIN}/static/images/resize-og-allBrandCover.jpg`}
       />
+      <meta
+        property="og:description"
+        content={`List of all mobile phones,smartphones,tablets,wearables and accessory brands - ${APP_NAME} `}
+      />
+      <meta property="og:site_name" content={APP_NAME} />
       <meta property="og:image:type" content="image/jpg" />
-
       <meta property="fb:app_id" content={`${FB_APP_ID}`} />
     </Head>
   );

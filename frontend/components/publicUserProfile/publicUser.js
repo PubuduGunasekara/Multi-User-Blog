@@ -1,7 +1,14 @@
 import React, { useState, useEffect } from "react";
 import Head from "next/head";
 import Link from "next/link";
-import { API, APP_NAME, FB_APP_ID, DOMAIN } from "../../config";
+import {
+  API,
+  APP_NAME,
+  FB_APP_ID,
+  DOMAIN,
+  TWITTER_AUTHOR_HANDLE,
+  TWITTER_PUBLISHER_HANDLE,
+} from "../../config";
 import styles from "../../styles/publicUser.module.css";
 import moment from "moment";
 import DefaultErrorPage from "next/error";
@@ -67,41 +74,47 @@ const publicUserProfile = (props) => {
 
   const head = () => (
     <Head>
-      <title>{APP_NAME} - Team</title>
+      <title>Profiles - {APP_NAME}</title>
       <meta
         name="description"
-        content={`${APP_NAME} - List all news, reviews, mobile phones related to #.`}
+        content={`Profile details of ${profile.name} - ${APP_NAME}`}
       />
-      <link rel="canonical" href={`${DOMAIN}/tag/`} />
+      <link rel="canonical" href={`${DOMAIN}/profiles/${profile.username}`} />
 
+      {/* Twitter Card data  */}
       <meta name="twitter:card" content="summary_large_image" />
-      <meta name="twitter:site" content="@TechbotL" />
-      <meta name="twitter:title" content={`${APP_NAME} -`} />
+      <meta name="twitter:site" content={`@${TWITTER_PUBLISHER_HANDLE}`} />
+      <meta name="twitter:title" content={`Profiles - ${APP_NAME}`} />
       <meta
         name="twitter:description"
-        content={`${APP_NAME} - List all news, reviews, mobile phones related to .`}
+        content={`Profile details of ${profile.name} - ${APP_NAME}`}
+      />
+      <meta name="twitter:creator" content={`@${TWITTER_AUTHOR_HANDLE}`} />
+      {/* Twitter Summary card images must be at least 120x120px */}
+      <meta
+        name="twitter:image:src"
+        content={`${API}/user/photo/${profile.username}`}
+      />
+      <meta name="twitter:image:alt" content={`${DOMAIN}`} />
+
+      {/* Open Graph data  */}
+      <meta property="og:title" content={`Profiles - ${APP_NAME}`} />
+      <meta property="og:type" content="website" />
+      <meta
+        property="og:url"
+        content={`${DOMAIN}/profiles/${profile.username}`}
       />
       <meta
-        alt="Photo by Sam Loyd on Unsplash"
-        name="twitter:image"
-        content={`${DOMAIN}/static/images/singleBrand_cover.jpg`}
+        alt={`${DOMAIN}`}
+        property="og:image"
+        content={`${API}/user/photo/${profile.username}`}
       />
-
-      <meta property="og:title" content={`${APP_NAME} - `} />
       <meta
         property="og:description"
-        content={`${APP_NAME} - List all news, reviews, mobile phones related to .`}
+        content={`Profile details of ${profile.name} - ${APP_NAME}`}
       />
-      <meta property="og:type" content="website" />
-      <meta property="og:url" content={`${DOMAIN}/tag/`} />
-      <meta property="og:site_name" content={`${APP_NAME}`} />
-      <meta
-        alt="Photo by Sam Loyd on Unsplash"
-        property="og:image"
-        content={`${DOMAIN}/static/images/singleBrand_cover.jpg`}
-      />
+      <meta property="og:site_name" content={APP_NAME} />
       <meta property="og:image:type" content="image/jpg" />
-
       <meta property="fb:app_id" content={`${FB_APP_ID}`} />
     </Head>
   );

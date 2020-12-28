@@ -5,7 +5,14 @@ import { newsListPublicMobileReviews } from "../../actions/news.action";
 import { mobileListPublicNewsReviews } from "../../actions/mobile.action";
 import { reviewListPublic } from "../../actions/review.action";
 import moment from "moment";
-import { API, DOMAIN, APP_NAME, FB_APP_ID } from "../../config";
+import {
+  API,
+  DOMAIN,
+  APP_NAME,
+  FB_APP_ID,
+  TWITTER_PUBLISHER_HANDLE,
+  TWITTER_AUTHOR_HANDLE,
+} from "../../config";
 import { FaNewspaper } from "react-icons/fa";
 import { FiSmartphone } from "react-icons/fi";
 import React from "react";
@@ -25,38 +32,40 @@ const AllReviews = ({ reviews, news, mobiles }) => {
 
   const head = () => (
     <Head>
-      <title>{APP_NAME} - Reviews</title>
-      <meta name="description" content={`${APP_NAME} - Review articles.`} />
+      <title>Reviews - {APP_NAME}</title>
+      <meta name="description" content={`Review articles - ${APP_NAME}`} />
       <link rel="canonical" href={`${DOMAIN}/reviews`} />
-
-      <meta name="twitter:card" content="summary_large_image" />
-      <meta name="twitter:site" content="@TechbotL" />
-      <meta name="twitter:title" content={`${APP_NAME} - Reviews`} />
+      {/* Twitter Card data  */}
+      <meta name="twitter:card" content="summary" />
+      <meta name="twitter:site" content={`@${TWITTER_PUBLISHER_HANDLE}`} />
+      <meta name="twitter:title" content={`Reviews - ${APP_NAME}`} />
       <meta
         name="twitter:description"
-        content={`${APP_NAME} - Review articles.`}
+        content={`Review articles - ${APP_NAME} `}
       />
+      <meta name="twitter:creator" content={`@${TWITTER_AUTHOR_HANDLE}`} />
+      {/* Twitter Summary card images must be at least 120x120px */}
       <meta
-        alt="Photo by Glenn Carstens-Peters on Unsplash"
         name="twitter:image"
-        content={`${DOMAIN}/static/images/review_cover.jpg`}
+        content={`${DOMAIN}/static/images/resize-reviewcover.jpg`}
       />
+      <meta name="twitter:image:alt" content={`${DOMAIN}`} />
 
-      <meta property="og:title" content={`${APP_NAME} - Reviews`} />
-      <meta
-        property="og:description"
-        content={`${APP_NAME} - Review articles.`}
-      />
+      {/* Open Graph data  */}
+      <meta property="og:title" content={`Review - ${APP_NAME}`} />
       <meta property="og:type" content="website" />
       <meta property="og:url" content={`${DOMAIN}/reviews`} />
-      <meta property="og:site_name" content={`${APP_NAME}`} />
       <meta
-        alt="Photo by Glenn Carstens-Peters on Unsplash"
+        alt={`${DOMAIN}`}
         property="og:image"
-        content={`${DOMAIN}/static/images/review_cover.jpg`}
+        content={`${DOMAIN}/static/images/resize-og-reviewcover.jpg`}
       />
+      <meta
+        property="og:description"
+        content={`Review articles - ${APP_NAME} `}
+      />
+      <meta property="og:site_name" content={APP_NAME} />
       <meta property="og:image:type" content="image/jpg" />
-
       <meta property="fb:app_id" content={`${FB_APP_ID}`} />
     </Head>
   );

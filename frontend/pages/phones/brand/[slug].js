@@ -9,7 +9,14 @@ import {
   listRelatedNews,
   listRelated,
 } from "../../../actions/mobile.action";
-import { API, DOMAIN, APP_NAME, FB_APP_ID } from "../../../config";
+import {
+  API,
+  DOMAIN,
+  APP_NAME,
+  FB_APP_ID,
+  TWITTER_AUTHOR_HANDLE,
+  TWITTER_PUBLISHER_HANDLE,
+} from "../../../config";
 import moment from "moment";
 import { BsArrowsFullscreen, BsBattery } from "react-icons/bs";
 import { GoSettings } from "react-icons/go";
@@ -79,19 +86,34 @@ const SingleBlog = ({ blog, related, relatedNews, relatedReviews }) => {
   const head = () => (
     <Head>
       <title>
-        {blog.data.title} - Full Phone Specs | {`${APP_NAME}`}
+        {blog.data.title} Full Phone Specs - {`${APP_NAME}`}
       </title>
       <meta name="description" content={`${blog.data.mdesc}`} />
       <link rel="canonical" href={`${DOMAIN}/phones/${blog.data.slug}`} />
+
+      <meta name="twitter:card" content="summary_large_image" />
+      <meta name="twitter:site" content={`@${TWITTER_PUBLISHER_HANDLE}`} />
+      <meta
+        name="twitter:title"
+        content={`${blog.data.title} Full Phone Specs - ${APP_NAME}`}
+      />
+      <meta name="twitter:description" content={`${blog.data.mdesc}`} />
+      <meta name="twitter:creator" content={`@${TWITTER_AUTHOR_HANDLE}`} />
+      {/* <!-- Twitter summary card with large image must be at least 280x150px --> */}
+      <meta
+        name="twitter:image:src"
+        content={`${API}/mobile/photo/${blog.data.slug}`}
+      />
+      <meta name="twitter:image:alt" content={`${DOMAIN}`} />
+
       <meta
         property="og:title"
-        content={`${blog.data.title} - Full Phone Specs | ${APP_NAME}`}
+        content={`${blog.data.title} Full Phone Specs - ${APP_NAME}`}
       />
       <meta property="og:description" content={`${blog.data.mdesc}`} />
       <meta property="og:type" content="website" />
       <meta property="og:url" content={`${DOMAIN}/phones/${blog.data.slug}`} />
       <meta property="og:site_name" content={`${APP_NAME}`} />
-
       <meta
         property="og:image"
         content={`${API}/mobile/photo/${blog.data.slug}`}

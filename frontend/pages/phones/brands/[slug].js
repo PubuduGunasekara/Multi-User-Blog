@@ -11,7 +11,14 @@ import {
   singleMCategory,
 } from "../../../actions/mobileCategory.action";
 import moment from "moment";
-import { API, DOMAIN, APP_NAME, FB_APP_ID } from "../../../config";
+import {
+  API,
+  DOMAIN,
+  APP_NAME,
+  FB_APP_ID,
+  TWITTER_PUBLISHER_HANDLE,
+  TWITTER_AUTHOR_HANDLE,
+} from "../../../config";
 import { MdRateReview } from "react-icons/md";
 import { FaNewspaper } from "react-icons/fa";
 import styles from "../../../styles/singleMobileBrand.module.css";
@@ -73,30 +80,53 @@ const Mobiles = ({ mobiles, singleCategory, reviews, news }) => {
       <title>
         All {singleCategory.data.name} Phone List - {APP_NAME}
       </title>
-      <meta name="description" content={`${singleCategory.data.mdesc}`} />
-      <link rel="canonical" href={`${DOMAIN}/phones`} />
+      <meta
+        name="description"
+        content={`${singleCategory.data.mdesc} - ${APP_NAME}`}
+      />
+      <link
+        rel="canonical"
+        href={`${DOMAIN}/phones/brands/${singleCategory.data.slug}`}
+      />
+      {/* Twitter Card data  */}
+      <meta name="twitter:card" content="summary_large_image" />
+      <meta name="twitter:site" content={`@${TWITTER_PUBLISHER_HANDLE}`} />
+      <meta
+        name="twitter:title"
+        content={`All ${singleCategory.data.name} Phone List - ${APP_NAME}`}
+      />
+      <meta
+        name="twitter:description"
+        content={`${singleCategory.data.mdesc} - ${APP_NAME}`}
+      />
+      <meta name="twitter:creator" content={`@${TWITTER_AUTHOR_HANDLE}`} />
+      {/* Twitter Summary card images must be at least 120x120px */}
+      <meta
+        name="twitter:image:src"
+        content={`${API}/mobile-category/photo/${singleCategory.data.slug}`}
+      />
+      <meta name="twitter:image:alt" content={`${DOMAIN}`} />
+
+      {/* Open Graph data  */}
       <meta
         property="og:title"
         content={`All ${singleCategory.data.name} Phone List - ${APP_NAME}`}
       />
+      <meta property="og:type" content="website" />
+      <meta
+        property="og:url"
+        content={`${DOMAIN}/phones/brands/${singleCategory.data.slug}`}
+      />
+      <meta
+        alt={`${DOMAIN}`}
+        property="og:image"
+        content={`${API}/mobile-category/photo/${singleCategory.data.slug}`}
+      />
       <meta
         property="og:description"
-        content={`${singleCategory.data.mdesc}`}
+        content={`${singleCategory.data.mdesc} - ${APP_NAME}`}
       />
-      <meta property="og:type" content="website" />
-      <meta property="og:url" content={`${DOMAIN}/phones}`} />
-      <meta property="og:site_name" content={`${APP_NAME}`} />
-
-      <meta
-        alt="Photo by sam loyd on Unsplash"
-        property="og:image"
-        content={`/static/images/sam-loyd-single-brand-cover-page.jpg`}
-      />
-      <meta
-        alt="Photo by sam loyd on Unsplash"
-        property="og:image:secure_url"
-        content={`/static/images/sam-loyd-single-brand-cover-page.jpg`}
-      />
+      <meta property="og:site_name" content={APP_NAME} />
       <meta property="og:image:type" content="image/jpg" />
       <meta property="fb:app_id" content={`${FB_APP_ID}`} />
     </Head>

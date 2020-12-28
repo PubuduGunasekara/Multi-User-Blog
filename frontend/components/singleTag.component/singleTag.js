@@ -1,6 +1,13 @@
 import { useState, useEffect } from "react";
 import Head from "next/head";
-import { API, APP_NAME, DOMAIN, FB_APP_ID } from "../../config";
+import {
+  API,
+  APP_NAME,
+  DOMAIN,
+  FB_APP_ID,
+  TWITTER_AUTHOR_HANDLE,
+  TWITTER_PUBLISHER_HANDLE,
+} from "../../config";
 import React from "react";
 import styles from "../../styles/tagPageStyles.module.css";
 import moment from "moment";
@@ -70,41 +77,50 @@ const singleTag = (props) => {
 
   const head = () => (
     <Head>
-      <title>{tag.name ? `${APP_NAME} - ${tag.name}` : `${APP_NAME}`}</title>
+      <title>{tag.name ? `${tag.name} - ${APP_NAME}` : `${APP_NAME}`}</title>
       <meta
         name="description"
-        content={`${APP_NAME} - List all news, reviews, mobile phones related to #${tag.name}.`}
+        content={`List all news, reviews, mobile phones related to #${tag.name} - ${APP_NAME}`}
       />
       <link rel="canonical" href={`${DOMAIN}/tag/${tag.slug}`} />
 
+      {/* Twitter Card data  */}
       <meta name="twitter:card" content="summary_large_image" />
-      <meta name="twitter:site" content="@TechbotL" />
-      <meta name="twitter:title" content={`${APP_NAME} - ${tag.name}`} />
+      <meta name="twitter:site" content={`@${TWITTER_PUBLISHER_HANDLE}`} />
+      <meta
+        name="twitter:title"
+        content={tag.name ? `${tag.name} - ${APP_NAME}` : `${APP_NAME}`}
+      />
       <meta
         name="twitter:description"
-        content={`${APP_NAME} - List all news, reviews, mobile phones related to #${tag.name}.`}
+        content={`List all news, reviews, mobile phones related to #${tag.name} - ${APP_NAME}`}
       />
+      <meta name="twitter:creator" content={`@${TWITTER_AUTHOR_HANDLE}`} />
+      {/* Twitter Summary card images must be at least 120x120px */}
       <meta
-        alt="Photo by Sam Loyd on Unsplash"
-        name="twitter:image"
-        content={`${DOMAIN}/static/images/singleBrand_cover.jpg`}
+        name="twitter:image:src"
+        content={`${DOMAIN}/static/images/resize-logo.png`}
       />
+      <meta name="twitter:image:alt" content={`${DOMAIN}`} />
 
-      <meta property="og:title" content={`${APP_NAME} - ${tag.name}`} />
+      {/* Open Graph data  */}
       <meta
-        property="og:description"
-        content={`${APP_NAME} - List all news, reviews, mobile phones related to #${tag.name}.`}
+        property="og:title"
+        content={tag.name ? `${tag.name} - ${APP_NAME}` : `${APP_NAME}`}
       />
       <meta property="og:type" content="website" />
       <meta property="og:url" content={`${DOMAIN}/tag/${tag.slug}`} />
-      <meta property="og:site_name" content={`${APP_NAME}`} />
       <meta
-        alt="Photo by Sam Loyd on Unsplash"
+        alt={`${DOMAIN}`}
         property="og:image"
-        content={`${DOMAIN}/static/images/singleBrand_cover.jpg`}
+        content={`${DOMAIN}/static/images/resize-og-logo.png`}
       />
-      <meta property="og:image:type" content="image/jpg" />
-
+      <meta
+        property="og:description"
+        content={`List all news, reviews, mobile phones related to #${tag.name} - ${APP_NAME}`}
+      />
+      <meta property="og:site_name" content={APP_NAME} />
+      <meta property="og:image:type" content="image/png" />
       <meta property="fb:app_id" content={`${FB_APP_ID}`} />
     </Head>
   );

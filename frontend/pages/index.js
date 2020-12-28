@@ -19,8 +19,15 @@ import {
   reviewListPublicLimitedSectionTwo,
 } from "../actions/review.action";
 import { mobileListPublicNewsReviews } from "../actions/mobile.action";
-import { API, DOMAIN, APP_NAME, FB_APP_ID } from "../config";
-import { MdRateReview, MdNavigateNext } from "react-icons/md";
+import {
+  API,
+  DOMAIN,
+  APP_NAME,
+  FB_APP_ID,
+  TWITTER_AUTHOR_HANDLE,
+  TWITTER_PUBLISHER_HANDLE,
+} from "../config";
+import { MdRateReview } from "react-icons/md";
 import { FaNewspaper } from "react-icons/fa";
 import { FiSmartphone } from "react-icons/fi";
 import renderHTML from "react-render-html";
@@ -44,47 +51,49 @@ const Index = ({
 }) => {
   const head = () => (
     <Head>
-      <title>{APP_NAME} - Phone specs, News and Reviews hub</title>
+      <title>Phone specs, News and Reviews hub - {APP_NAME}</title>
       <meta
         name="description"
-        content={`${APP_NAME} - brings you the latest tech news, best mobile reviews and mobile specs to make your choices much easier. `}
+        content={`brings you the latest tech news, best mobile reviews and mobile specs to make your choices much easier - ${APP_NAME} `}
       />
       <link rel="canonical" href={`${DOMAIN}/`} />
-
-      <meta name="twitter:card" content="summary_large_image" />
-      <meta name="twitter:site" content="@TechbotL" />
+      {/* Twitter Card data  */}
+      <meta name="twitter:card" content="summary" />
+      <meta name="twitter:site" content={`@${TWITTER_PUBLISHER_HANDLE}`} />
       <meta
         name="twitter:title"
-        content={`${APP_NAME} - Phone specs, News and Reviews hub`}
+        content={`Phone specs, News and Reviews hub - ${APP_NAME}`}
       />
       <meta
         name="twitter:description"
-        content={`${APP_NAME} - brings you the latest tech news, best mobile reviews and mobile specs to make your choices much easier. `}
+        content={`brings you the latest tech news, best mobile reviews and mobile specs to make your choices much easier - ${APP_NAME} `}
       />
+      <meta name="twitter:creator" content={`@${TWITTER_AUTHOR_HANDLE}`} />
+      {/* Twitter Summary card images must be at least 120x120px */}
       <meta
-        alt="Photo by sam loyd on Unsplash"
         name="twitter:image"
-        content={`${DOMAIN}/static/images/sam-loyd-single-brand-cover-page.jpg`}
+        content={`${DOMAIN}/static/images/logo_for_twitter.png`}
       />
+      <meta name="twitter:image:alt" content={`${DOMAIN}`} />
 
+      {/* Open Graph data  */}
       <meta
         property="og:title"
-        content={`${APP_NAME} - Phone specs, News and Reviews hub`}
-      />
-      <meta
-        property="og:description"
-        content={`${APP_NAME} - brings you the latest tech news, best mobile reviews and mobile specs to make your choices much easier. `}
+        content={`Phone specs, News and Reviews hub - ${APP_NAME}`}
       />
       <meta property="og:type" content="website" />
       <meta property="og:url" content={`${DOMAIN}/`} />
-      <meta property="og:site_name" content={`${APP_NAME}`} />
       <meta
-        alt="Photo by sam loyd on Unsplash"
+        alt={`${DOMAIN}`}
         property="og:image"
-        content={`${DOMAIN}/static/images/sam-loyd-single-brand-cover-page.jpg`}
+        content={`${DOMAIN}/static/images/resize-og-logo.png`}
       />
-      <meta property="og:image:type" content="image/jpg" />
-
+      <meta
+        property="og:description"
+        content={`brings you the latest tech news, best mobile reviews and mobile specs to make your choices much easier - ${APP_NAME} `}
+      />
+      <meta property="og:site_name" content={APP_NAME} />
+      <meta property="og:image:type" content="image/png" />
       <meta property="fb:app_id" content={`${FB_APP_ID}`} />
     </Head>
   );

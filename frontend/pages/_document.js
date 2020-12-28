@@ -8,7 +8,7 @@ class MyDocument extends Document {
         <Html lang="en">
           <Head>
             <link rel="shortcut icon" href="/static/images/favicon.ico" />
-            <meta charSet="UTF-8" />
+            <meta httpEquiv="Content-Type" content="text/html; charset=utf-8" />
             <link
               rel="stylesheet"
               href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css"

@@ -5,7 +5,14 @@ import { reviewListPublicMobileNews } from "../../actions/review.action";
 import { mobileListPublicNewsReviews } from "../../actions/mobile.action";
 import { newsListPublic } from "../../actions/news.action";
 import moment from "moment";
-import { API, DOMAIN, APP_NAME, FB_APP_ID } from "../../config";
+import {
+  API,
+  DOMAIN,
+  APP_NAME,
+  FB_APP_ID,
+  TWITTER_AUTHOR_HANDLE,
+  TWITTER_PUBLISHER_HANDLE,
+} from "../../config";
 import { MdRateReview } from "react-icons/md";
 import { FiSmartphone } from "react-icons/fi";
 import renderHTML from "react-render-html";
@@ -19,38 +26,40 @@ import Loader from "react-loader-spinner";
 const AllNews = ({ news, reviews, mobiles }) => {
   const head = () => (
     <Head>
-      <title>{APP_NAME} - News</title>
-      <meta name="description" content={`${APP_NAME} - News articles.`} />
+      <title>News - {APP_NAME}</title>
+      <meta name="description" content={`News articles - ${APP_NAME} `} />
       <link rel="canonical" href={`${DOMAIN}/news`} />
-
-      <meta name="twitter:card" content="summary_large_image" />
-      <meta name="twitter:site" content="@TechbotL" />
-      <meta name="twitter:title" content={`${APP_NAME} - News`} />
+      {/* Twitter Card data  */}
+      <meta name="twitter:card" content="summary" />
+      <meta name="twitter:site" content={`@${TWITTER_PUBLISHER_HANDLE}`} />
+      <meta name="twitter:title" content={`News - ${APP_NAME}`} />
       <meta
         name="twitter:description"
-        content={`${APP_NAME} - News articles.`}
+        content={`News articles - ${APP_NAME} `}
       />
+      <meta name="twitter:creator" content={`@${TWITTER_AUTHOR_HANDLE}`} />
+      {/* Twitter Summary card images must be at least 120x120px */}
       <meta
-        alt="Photo by The Climate Reality Project on Unsplash"
         name="twitter:image"
-        content={`${DOMAIN}/static/images/news_cover.jpg`}
+        content={`${DOMAIN}/static/images/resize-newscover.jpg`}
       />
+      <meta name="twitter:image:alt" content={`${DOMAIN}`} />
 
-      <meta property="og:title" content={`${APP_NAME} - News`} />
-      <meta
-        property="og:description"
-        content={`${APP_NAME} - News articles.`}
-      />
+      {/* Open Graph data  */}
+      <meta property="og:title" content={`News - ${APP_NAME}`} />
       <meta property="og:type" content="website" />
       <meta property="og:url" content={`${DOMAIN}/news`} />
-      <meta property="og:site_name" content={`${APP_NAME}`} />
       <meta
-        alt="Photo by The Climate Reality Project on Unsplash"
+        alt={`${DOMAIN}`}
         property="og:image"
-        content={`${DOMAIN}/static/images/news_cover.jpg`}
+        content={`${DOMAIN}/static/images/resize-og-newscover.jpg`}
       />
+      <meta
+        property="og:description"
+        content={`News articles - ${APP_NAME} `}
+      />
+      <meta property="og:site_name" content={APP_NAME} />
       <meta property="og:image:type" content="image/jpg" />
-
       <meta property="fb:app_id" content={`${FB_APP_ID}`} />
     </Head>
   );
@@ -120,7 +129,7 @@ const AllNews = ({ news, reviews, mobiles }) => {
 
   /**news pagination states */
   const [currentPage, setCurrentPage] = useState(1);
-  const [postPerPage] = useState(30);
+  const [postPerPage] = useState(20);
   //const [numOfPost, setNumberOfPost] = useState(0);
 
   //pagination

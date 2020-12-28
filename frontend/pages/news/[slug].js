@@ -11,7 +11,14 @@ import {
   newsListPublic,
 } from "../../actions/news.action";
 import moment from "moment";
-import { API, DOMAIN, APP_NAME, FB_APP_ID } from "../../config";
+import {
+  API,
+  DOMAIN,
+  APP_NAME,
+  FB_APP_ID,
+  TWITTER_AUTHOR_HANDLE,
+  TWITTER_PUBLISHER_HANDLE,
+} from "../../config";
 import { MdRateReview } from "react-icons/md";
 import { FaNewspaper } from "react-icons/fa";
 import { FiSmartphone } from "react-icons/fi";
@@ -70,21 +77,31 @@ const SingleNewsBlog = ({ blog, reviews, mobiles, newsStories }) => {
       <title>{`${blog.data.title} - ${APP_NAME}`}</title>
       <meta name="description" content={`${blog.data.mdesc}`} />
       <link rel="canonical" href={`${DOMAIN}/news/${blog.data.slug}`} />
+
+      <meta name="twitter:card" content="summary_large_image" />
+      <meta name="twitter:site" content={`@${TWITTER_PUBLISHER_HANDLE}`} />
+      <meta name="twitter:title" content={`${blog.data.title} - ${APP_NAME}`} />
+      <meta name="twitter:description" content={`${blog.data.mdesc}`} />
+      <meta name="twitter:creator" content={`@${TWITTER_AUTHOR_HANDLE}`} />
+      {/* <!-- Twitter summary card with large image must be at least 280x150px --> */}
+      <meta
+        name="twitter:image:src"
+        content={`${API}/news/photo/${blog.data.slug}`}
+      />
+      <meta name="twitter:image:alt" content={`${DOMAIN}`} />
+
       <meta property="og:title" content={`${blog.data.title} - ${APP_NAME}`} />
       <meta property="og:description" content={`${blog.data.mdesc}`} />
       <meta property="og:type" content="website" />
       <meta property="og:url" content={`${DOMAIN}/news/${blog.data.slug}`} />
       <meta property="og:site_name" content={`${APP_NAME}`} />
-
       <meta
-        alt="Photo by sam loyd on Unsplash"
         property="og:image"
-        content={`/static/images/sam-loyd-single-brand-cover-page.jpg`}
+        content={`${API}/news/photo/${blog.data.slug}`}
       />
       <meta
-        alt="Photo by sam loyd on Unsplash"
         property="og:image:secure_url"
-        content={`/static/images/sam-loyd-single-brand-cover-page.jpg`}
+        content={`${API}/news/photo/${blog.data.slug}`}
       />
       <meta property="og:image:type" content="image/jpg" />
       <meta property="fb:app_id" content={`${FB_APP_ID}`} />
