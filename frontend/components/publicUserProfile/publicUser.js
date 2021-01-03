@@ -284,6 +284,13 @@ const publicUserProfile = (props) => {
       </React.Fragment>
     ));
   };
+  const Mailto = ({ email, subject = "", body = "", children }) => {
+    let params = subject || body ? "?" : "";
+    if (subject) params += `subject=${encodeURIComponent(subject)}`;
+    if (body) params += `${subject ? "&" : ""}body=${encodeURIComponent(body)}`;
+
+    return <a href={`mailto:${email}${params}`}>{children}</a>;
+  };
 
   const showProfile = () => (
     <React.Fragment>
@@ -317,11 +324,20 @@ const publicUserProfile = (props) => {
             <div className={styles.public_profile_occupation}>
               <span>
                 Email:{" "}
-                <em
-                  style={{ color: "rgba(0, 0, 0, 0.781)", fontStyle: "normal" }}
+                <Mailto
+                  email={profile.publishedEmail}
+                  subject="Mail from techbotlk.com"
+                  body=""
                 >
-                  {profile.publishedEmail}
-                </em>{" "}
+                  <em
+                    style={{
+                      fontStyle: "normal",
+                      textTransform: "lowercase",
+                    }}
+                  >
+                    {profile.publishedEmail}
+                  </em>
+                </Mailto>
               </span>
             </div>
             <div className={styles.public_profile_occupation}>

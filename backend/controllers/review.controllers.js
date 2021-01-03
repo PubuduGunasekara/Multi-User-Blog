@@ -119,7 +119,7 @@ exports.listPublic = (req, res) => {
       }
       if (!data) {
         return res.status(404).json({
-          error: "no data found",
+          error: "no list reviews data found",
         });
       }
       res.status(200).json(data);
@@ -142,7 +142,7 @@ exports.listPublicLatestReview = (req, res) => {
       }
       if (!data) {
         return res.status(404).json({
-          error: "no data found",
+          error: "no latest reviews data found",
         });
       }
       res.status(200).json(data);
@@ -166,7 +166,7 @@ exports.listPublicSecondLatestReview = (req, res) => {
       }
       if (!data) {
         return res.status(404).json({
-          error: "no data found",
+          error: "no second latest reviews data found",
         });
       }
       res.status(200).json(data);
@@ -190,7 +190,7 @@ exports.listPublicEighthLatestReview = (req, res) => {
       }
       if (!data) {
         return res.status(400).json({
-          error: "no data found",
+          error: "no section eight reviews data found",
         });
       }
       res.status(200).json(data);
@@ -216,7 +216,7 @@ exports.listLimitedReviewsSectionOne = (req, res) => {
       }
       if (!data) {
         return res.status(404).json({
-          error: "no data found",
+          error: "no section one reviews data found",
         });
       }
       res.status(200).json(data);
@@ -242,7 +242,7 @@ exports.listLimitedReviewsSectionTwo = (req, res) => {
       }
       if (!data) {
         return res.status(404).json({
-          error: "no data found",
+          error: "no second senction reviews data found",
         });
       }
       res.status(200).json(data);
@@ -267,7 +267,7 @@ exports.listForHomePage = (req, res) => {
       }
       if (!data) {
         return res.status(404).json({
-          error: "no data found",
+          error: "no reviews for home page data found",
         });
       }
       res.status(200).json(data);
@@ -291,7 +291,7 @@ exports.listForNewsMobile = (req, res) => {
       }
       if (!data) {
         return res.status(404).json({
-          error: "no data found",
+          error: "no reviews data found",
         });
       }
       res.status(200).json(data);
@@ -316,7 +316,7 @@ exports.listPublicTopStories = (req, res) => {
       }
       if (!blogs) {
         return res.status(404).json({
-          error: "no data found",
+          error: "no top stories data found",
         });
       }
       res.status(200).json(blogs);
@@ -398,7 +398,7 @@ exports.listRelated = (req, res) => {
       }
       if (!blogs) {
         return res.status(404).json({
-          error: "Blogs not found",
+          error: " related reviews Blogs not found",
         });
       }
       res.status(200).json(blogs);
@@ -417,7 +417,7 @@ exports.listRelatedNews = (req, res) => {
     .exec((err, blogs) => {
       if (err) {
         return res.status(400).json({
-          error: "Blogs not found",
+          error: " related reviews Blogs not found",
         });
       }
       res.json(blogs);
@@ -442,7 +442,7 @@ exports.listRelatedMobiles = (req, res) => {
       }
       if (!blogs) {
         return res.status(404).json({
-          error: "no data found",
+          error: "no related mobile data found",
         });
       }
       res.status(200).json(blogs);
@@ -509,7 +509,7 @@ exports.readCreators = (req, res) => {
         });
       }
       if (!data) {
-        return res.status(404).json({ error: "no data found" });
+        return res.status(404).json({ error: "no reviews data found" });
       }
       //console.log(data);
 

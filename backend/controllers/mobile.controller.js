@@ -600,7 +600,7 @@ exports.listPublic = (req, res) => {
       }
       if (!data) {
         return res.status(404).json({
-          error: "no data found",
+          error: "mobile phones data not found from list public",
         });
       }
       res.status(200).json(data);
@@ -625,7 +625,7 @@ exports.listPublicForCreators = (req, res) => {
       }
       if (!data) {
         return res.status(404).json({
-          error: "no data found",
+          error: "no mobile phone data found",
         });
       }
       res.status(200).json(data);
@@ -636,7 +636,7 @@ exports.listPublicForCreators = (req, res) => {
 exports.listPublicReleventBrands = (req, res) => {
   if (req.params.id == null) {
     return res.status(404).json({
-      error: "no data found",
+      error: "no mobile phone brand data found",
     });
   }
   const flag = 1;
@@ -652,7 +652,7 @@ exports.listPublicReleventBrands = (req, res) => {
       }
       if (!data) {
         return res.status(404).json({
-          error: "no data found",
+          error: "no mobile phone brand data found",
         });
       }
       res.status(200).json(data);
@@ -675,7 +675,7 @@ exports.listForNewsReviews = (req, res) => {
       }
       if (!data) {
         return res.status(404).json({
-          error: "no data found",
+          error: "no mobile phone data found",
         });
       }
       res.status(200).json(data);
@@ -746,7 +746,7 @@ exports.readCreators = (req, res) => {
         });
       }
       if (!data) {
-        return res.status(404).json({ error: "no data found" });
+        return res.status(404).json({ error: "no mobile data found" });
       }
       // console.log(err);
       //console.log(data);
@@ -772,7 +772,7 @@ exports.listRelated = (req, res) => {
       }
       if (!blogs) {
         return res.status(404).json({
-          error: "no data found",
+          error: "no mobile related data found",
         });
       }
       res.status(200).json(blogs);
@@ -797,7 +797,7 @@ exports.listRelatedNews = (req, res) => {
       }
       if (!blogs) {
         return res.status(404).json({
-          error: "no data found",
+          error: "no mobile data found",
         });
       }
       res.status(200).json(blogs);
@@ -822,7 +822,7 @@ exports.listRelatedReviews = (req, res) => {
       }
       if (!blogs) {
         return res.status(404).json({
-          error: "no data found",
+          error: "no mobile data found",
         });
       }
       res.status(200).json(blogs);

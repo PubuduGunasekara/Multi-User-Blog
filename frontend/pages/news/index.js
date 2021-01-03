@@ -485,14 +485,6 @@ const AllNews = ({ news, reviews, mobiles }) => {
                             }}
                           >
                             <div
-                              style={{
-                                height: "10px",
-                                width: "100%",
-                                margin: 0,
-                                backgroundColor: "rgba(202, 28, 28, 0.945)",
-                              }}
-                            />
-                            <div
                               className="col-md-12"
                               style={{
                                 display: "flex",
@@ -572,14 +564,6 @@ const AllNews = ({ news, reviews, mobiles }) => {
                           boxShadow: "0px 0px 1px rgba(0,0,0,0.5)",
                         }}
                       >
-                        <div
-                          style={{
-                            height: "10px",
-                            width: "100%",
-                            margin: 0,
-                            backgroundColor: "rgba(202, 28, 28, 0.945)",
-                          }}
-                        />
                         <div style={{ padding: "10px" }}>{showNews()}</div>
 
                         <div style={{ width: "100%" }}>
@@ -648,7 +632,7 @@ const AllNews = ({ news, reviews, mobiles }) => {
                           height: "3px",
                           width: "100%",
                           margin: 0,
-                          backgroundColor: "rgba(202, 28, 28, 0.945)",
+                          backgroundColor: "#505050",
                         }}
                       />
                       <div style={{ width: "100%" }}>
@@ -719,7 +703,7 @@ const AllNews = ({ news, reviews, mobiles }) => {
                           height: "3px",
                           width: "100%",
                           margin: 0,
-                          backgroundColor: "rgba(202, 28, 28, 0.945)",
+                          backgroundColor: "#505050",
                         }}
                       />
                       <div style={{ width: "100%" }}>

@@ -10,11 +10,11 @@ import styles from "../styles/footer.module.css";
 const FooterComponent = () => {
   return (
     <div>
-      <div>
+      {/* <div>
         <Head>
           <script src="https://kit.fontawesome.com/a076d05399.js"></script>
         </Head>
-      </div>
+      </div> */}
       <footer style={{ background: "#2c2c2c" }} className="footer">
         <div
           style={{
@@ -41,10 +41,10 @@ const FooterComponent = () => {
             <div className="col-md-3" style={{ textAlign: "center" }}>
               <Link href="/">
                 <img
-                  alt="techbot.com"
+                  alt="techbotlk.com"
                   style={{ cursor: "pointer" }}
                   className="img img-fluid"
-                  src={`/static/images/logo.png`}
+                  src={`/static/images/logo_techbotlk.png`}
                 />
               </Link>
             </div>
@@ -54,28 +54,28 @@ const FooterComponent = () => {
               style={{ display: "flex", flexDirection: "column" }}
             >
               <h1 className={styles.footer_headers}>mobiles</h1>
-              <Link href="/">
+              <Link href="/phones/brands/samsung">
                 <a>samsung</a>
               </Link>
-              <Link href="/">
+              <Link href="/phones/brands/apple">
                 <a>apple</a>
               </Link>
-              <Link href="/">
+              <Link href="/phones/brands/huawei">
                 <a>huawei</a>
               </Link>
-              <Link href="/">
+              <Link href="/phones/brands/xiaomi">
                 <a>xiaomi</a>
               </Link>
-              <Link href="/">
+              <Link href="/phones/brands/one-plus">
                 <a>one plus</a>
               </Link>
-              <Link href="/">
+              <Link href="/phones/brands/sony">
                 <a>sony</a>
               </Link>
-              <Link href="/">
+              <Link href="/phones/brands/nokia">
                 <a>nokia</a>
               </Link>
-              <Link href="/">
+              <Link href="/phones/brands/">
                 <a>view all</a>
               </Link>
             </div>
@@ -158,50 +158,50 @@ const FooterComponent = () => {
         >
           <div style={{ float: "left" }}>
             <p style={{ color: "#4e4e4e" }}>
-              @ 2020&nbsp;{" "}
+              @2020&nbsp;{" "}
               <Link href="/">
                 <a style={{ color: "#4e4e4e", textDecoration: "underline" }}>
-                  techbot.com
+                  techbotlk.com
                 </a>
               </Link>
             </p>
           </div>
           <div className={styles.copyright_section} style={{ float: "right" }}>
-            <p style={{ marginLeft: "20px", marginRight: "20px" }}>
+            <p style={{ paddingLeft: "20px", wordBreak: "break-word" }}>
               <Link href="/">
-                <a>home</a>
+                <a>Home</a>
               </Link>
               &nbsp;&nbsp;
               <Link href="/news">
-                <a>news</a>
+                <a>News</a>
               </Link>
               &nbsp;&nbsp;
               <Link href="/reviews">
-                <a>reviews</a>
+                <a>Reviews</a>
               </Link>
               &nbsp;&nbsp;
               <Link href="/phones">
-                <a>mobile phones</a>
+                <a>Mobile phones</a>
               </Link>
               &nbsp;&nbsp;
               <Link href="/site-map">
-                <a>site map</a>
+                <a>Site map</a>
               </Link>
               &nbsp;&nbsp;
               <Link href="/about-us">
-                <a>about us</a>
+                <a>About us</a>
               </Link>
               &nbsp;&nbsp;
               <Link href="/contact-us">
-                <a>contact us</a>
+                <a>Contact us</a>
               </Link>
               &nbsp;&nbsp;
-              <Link href="/terms -of-use">
-                <a>terms of use</a>
+              <Link href="/terms-and-conditions">
+                <a>Terms and conditions</a>
               </Link>
               &nbsp;&nbsp;
               <Link href="/privacy-policy">
-                <a>privacy policy</a>
+                <a>Privacy</a>
               </Link>
             </p>
           </div>

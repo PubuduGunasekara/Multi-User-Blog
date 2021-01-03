@@ -1060,7 +1060,7 @@ const SingleBlog = ({ blog, related, relatedNews, relatedReviews }) => {
                       <h2
                         style={{
                           lineHeight: "130%",
-                          backgroundColor: "rgba(202, 28, 28, 0.945)",
+                          backgroundColor: "#2c2c2c",
                           textTransform: "capitalize",
                           fontSize: "24px",
                           fontWeight: "bold",
@@ -1117,7 +1117,7 @@ const SingleBlog = ({ blog, related, relatedNews, relatedReviews }) => {
                             display: "flex",
                             flexDirection: "row",
                             width: "100%",
-                            backgroundColor: "rgba(202, 28, 28, 0.945)",
+                            backgroundColor: "#2c2c2c",
                             marginBottom: "15px",
                           }}
                         >
@@ -1159,7 +1159,7 @@ const SingleBlog = ({ blog, related, relatedNews, relatedReviews }) => {
                             height: "3px",
                             width: "100%",
                             margin: 0,
-                            backgroundColor: "rgba(202, 28, 28, 0.945)",
+                            backgroundColor: "#2c2c2c",
                             marginRight: "12px",
                             marginLeft: "12px",
                           }}
@@ -1239,7 +1239,7 @@ const SingleBlog = ({ blog, related, relatedNews, relatedReviews }) => {
                           height: "3px",
                           width: "100%",
                           margin: 0,
-                          backgroundColor: "rgba(202, 28, 28, 0.945)",
+                          backgroundColor: "#2c2c2c",
                         }}
                       />
                       <div style={{ width: "100%" }}>
@@ -1310,7 +1310,7 @@ const SingleBlog = ({ blog, related, relatedNews, relatedReviews }) => {
                           height: "3px",
                           width: "100%",
                           margin: 0,
-                          backgroundColor: "rgba(202, 28, 28, 0.945)",
+                          backgroundColor: "#2c2c2c",
                         }}
                       />
                       <div style={{ width: "100%" }}>

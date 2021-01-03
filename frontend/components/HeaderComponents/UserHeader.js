@@ -18,7 +18,7 @@ const userNavbar = (props) => {
                 alt="techbot.com"
                 style={{ cursor: "pointer" }}
                 className="img img-fluid"
-                src={`/static/images/logo6-edited.png`}
+                src={`/static/images/logo_techbotlk.png`}
               />
             </Link>
           </div>

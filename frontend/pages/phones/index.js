@@ -448,14 +448,6 @@ const Mobiles = ({ mobiles, news, reviews }) => {
                             }}
                           >
                             <div
-                              style={{
-                                height: "10px",
-                                width: "100%",
-                                margin: 0,
-                                backgroundColor: "rgba(202, 28, 28, 0.945)",
-                              }}
-                            />
-                            <div
                               className="col-md-12"
                               style={{
                                 display: "flex",
@@ -545,14 +537,6 @@ const Mobiles = ({ mobiles, news, reviews }) => {
                         }}
                       >
                         <div
-                          style={{
-                            height: "10px",
-                            width: "100%",
-                            margin: 0,
-                            backgroundColor: "rgba(202, 28, 28, 0.945)",
-                          }}
-                        />
-                        <div
                           className={`${styles.cards} ${styles.box__sizing}`}
                         >
                           {showMobiles()}
@@ -620,7 +604,7 @@ const Mobiles = ({ mobiles, news, reviews }) => {
                           height: "3px",
                           width: "100%",
                           margin: 0,
-                          backgroundColor: "rgba(202, 28, 28, 0.945)",
+                          backgroundColor: "#505050",
                         }}
                       />
                       <div style={{ width: "100%" }}>
@@ -692,7 +676,7 @@ const Mobiles = ({ mobiles, news, reviews }) => {
                           height: "3px",
                           width: "100%",
                           margin: 0,
-                          backgroundColor: "rgba(202, 28, 28, 0.945)",
+                          backgroundColor: "#505050",
                         }}
                       />
                       <div style={{ width: "100%" }}>

@@ -17,7 +17,7 @@ const sideDrawer = (props) => {
   return (
     <div>
       <div className={drawerClasses}>
-        <div style={{ padding: 0, margin: 0, textAlign: "left" }}>
+        <div style={{ padding: 0, margin: 0, textAlign: "center" }}>
           <Link href="/">
             <img
               alt="techbot.com"
@@ -28,7 +28,7 @@ const sideDrawer = (props) => {
                 textAlign: "center",
               }}
               className="img img-fluid"
-              src={`/static/images/logo.png`}
+              src={`/static/images/logo_techbotlk.png`}
             />
           </Link>
         </div>
@@ -58,12 +58,12 @@ const sideDrawer = (props) => {
               </Link>
             </li>
             <li>
-              <Link href="/about">
+              <Link href="/about-us">
                 <a>About Us</a>
               </Link>
             </li>
             <li>
-              <Link href="/contact">
+              <Link href="/contact-us">
                 <a>Contact Us</a>
               </Link>
             </li>
@@ -111,18 +111,18 @@ const sideDrawer = (props) => {
             <ul>
               <li>
                 <Link href="/privacy-policy">
-                  <a>Privacy Policy</a>
+                  <a>Privacy</a>
                 </Link>
               </li>
               <li>
-                <Link href="/terms-of-use">
-                  <a>Terms of Use</a>
+                <Link href="/terms-and-conditions">
+                  <a>Terms and conditions</a>
                 </Link>
               </li>
             </ul>
           </nav>
           <p>
-            Copyrigh @2020&nbsp;<a href="/">Techbot.com</a>
+            Copyrigh @2020&nbsp;<a href="/">techbotlk.com</a>
           </p>
         </div>
       </div>

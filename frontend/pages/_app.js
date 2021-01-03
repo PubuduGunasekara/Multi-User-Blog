@@ -11,7 +11,26 @@ function MyApp({ Component, pageProps }) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
       <HeaderComponent />
-      <Component {...pageProps} />
+      {pageProps && Component ? (
+        <Component {...pageProps} />
+      ) : (
+        <div
+          style={{
+            textAlign: "center",
+            top: "50%",
+            bottom: "50%",
+            minHeight: "100vh",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            margin: "auto",
+            padding: "auto",
+          }}
+        >
+          "Something went wrong. please try again later"
+        </div>
+      )}
+
       <FooterComponent />
     </React.Fragment>
   );

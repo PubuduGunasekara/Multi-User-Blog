@@ -55,8 +55,8 @@ body {
 /*nav link ackgroun color*/
 .nav-tabs .nav-link.active {
   color: white !important;
-  background-color: rgba(202, 28, 28, 0.945);
-  border-color: rgba(202, 28, 28, 0.945);
+  background-color: #2c2c2c;
+  border-color: #2c2c2c;
 }
 
 .header-active NavLink:active {

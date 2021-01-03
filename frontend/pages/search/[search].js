@@ -206,8 +206,7 @@ const SearchComponent = ({ router }) => {
   const toggle = (tab) => {
     if (activeTab !== tab) setActiveTab(tab);
   };
-/**end */
-
+  /**end */
 
   const showNewsResults = () => {
     return currentPostNews.map((blog, i) => (
@@ -450,7 +449,7 @@ const SearchComponent = ({ router }) => {
                         <Row
                           style={{
                             height: "10px",
-                            backgroundColor: "rgba(202, 28, 28, 0.945)",
+                            backgroundColor: "#2c2c2c",
                             margin: 0,
                           }}
                         />
@@ -535,7 +534,7 @@ const SearchComponent = ({ router }) => {
                         <Row
                           style={{
                             height: "10px",
-                            backgroundColor: "rgba(202, 28, 28, 0.945)",
+                            backgroundColor: "#2c2c2c",
                             margin: 0,
                           }}
                         />
@@ -620,7 +619,7 @@ const SearchComponent = ({ router }) => {
                         <Row
                           style={{
                             height: "10px",
-                            backgroundColor: "rgba(202, 28, 28, 0.945)",
+                            backgroundColor: "#2c2c2c",
                             margin: 0,
                           }}
                         />

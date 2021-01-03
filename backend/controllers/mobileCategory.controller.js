@@ -115,7 +115,7 @@ exports.readForCreators = (req, res) => {
       }
       if (!data) {
         return res.status(404).json({
-          error: "no data found",
+          error: "no mobile category data found",
         });
       }
       // console.log(err);
@@ -137,7 +137,7 @@ exports.list = (req, res) => {
       }
       if (!data) {
         return res.status(404).json({
-          error: "no data found",
+          error: "no mobile category list data found",
         });
       }
       res.status(200).json(data);

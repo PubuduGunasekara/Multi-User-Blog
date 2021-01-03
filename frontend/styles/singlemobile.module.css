@@ -169,8 +169,8 @@
   font-weight: 700;
 }
 .featured__display:hover {
-  border: 1px solid rgba(202, 28, 28, 0.945);
-  background-color: rgba(212, 27, 27, 0.089);
+  border: 1px solid #505050;
+  background-color: #50505023;
 }
 /*
 .change__flex {
@@ -418,10 +418,10 @@
 
 /*main div topic*/
 .main__div__main__topic {
-  background-color: rgba(202, 28, 28, 0.945);
+  background-color: #2c2c2c;
   font-weight: bolder;
   width: 100%;
-  color: rgb(255, 255, 255);
+  color: rgba(255, 255, 255, 0.897);
   padding: 10px;
   margin-bottom: 0;
   text-transform: uppercase;

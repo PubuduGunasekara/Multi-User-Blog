@@ -384,7 +384,7 @@ const SearchComponent = ({ router }) => {
                   height: "3px",
                   width: "100%",
                   margin: 0,
-                  backgroundColor: "rgba(202, 28, 28, 0.945)",
+                  backgroundColor: "#505050",
                   marginLeft: "12px",
                   marginRight: "12px",
                 }}
@@ -566,7 +566,7 @@ const SearchComponent = ({ router }) => {
                   height: "3px",
                   width: "100%",
                   margin: 0,
-                  backgroundColor: "rgba(202, 28, 28, 0.945)",
+                  backgroundColor: "#505050",
                   marginLeft: "12px",
                   marginRight: "12px",
                 }}
@@ -743,7 +743,7 @@ const SearchComponent = ({ router }) => {
                   height: "3px",
                   width: "100%",
                   margin: 0,
-                  backgroundColor: "rgba(202, 28, 28, 0.945)",
+                  backgroundColor: "#505050",
                   marginLeft: "12px",
                   marginRight: "12px",
                 }}

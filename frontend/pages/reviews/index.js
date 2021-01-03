@@ -466,14 +466,6 @@ const AllReviews = ({ reviews, news, mobiles }) => {
                             }}
                           >
                             <div
-                              style={{
-                                height: "10px",
-                                width: "100%",
-                                margin: 0,
-                                backgroundColor: "rgba(202, 28, 28, 0.945)",
-                              }}
-                            />
-                            <div
                               className="col-md-12"
                               style={{
                                 display: "flex",
@@ -555,14 +547,6 @@ const AllReviews = ({ reviews, news, mobiles }) => {
                         }}
                       >
                         <div
-                          style={{
-                            height: "10px",
-                            width: "100%",
-                            margin: 0,
-                            backgroundColor: "rgba(202, 28, 28, 0.945)",
-                          }}
-                        />
-                        <div
                           className={`${styles.cards} ${styles.box__sizing}`}
                         >
                           {showReviews()}
@@ -633,7 +617,7 @@ const AllReviews = ({ reviews, news, mobiles }) => {
                           height: "3px",
                           width: "100%",
                           margin: 0,
-                          backgroundColor: "rgba(202, 28, 28, 0.945)",
+                          backgroundColor: "#505050",
                         }}
                       />
                       <div style={{ width: "100%" }}>
@@ -704,7 +688,7 @@ const AllReviews = ({ reviews, news, mobiles }) => {
                           height: "3px",
                           width: "100%",
                           margin: 0,
-                          backgroundColor: "rgba(202, 28, 28, 0.945)",
+                          backgroundColor: "#505050",
                         }}
                       />
                       <div style={{ width: "100%" }}>

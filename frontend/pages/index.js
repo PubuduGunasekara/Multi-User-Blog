@@ -1028,14 +1028,6 @@ const Index = ({
                         boxShadow: "0px 0px 1px rgba(0,0,0,0.5)",
                       }}
                     >
-                      <div
-                        style={{
-                          height: "10px",
-                          width: "100%",
-                          margin: 0,
-                          backgroundColor: "rgba(202, 28, 28, 0.945)",
-                        }}
-                      />
                       <div style={{ padding: "10px" }}>
                         {showNewsFirstSection()}
                         {(eightLatestReview.length !== 0 &&
@@ -1189,7 +1181,7 @@ const Index = ({
                             height: "3px",
                             width: "100%",
                             margin: 0,
-                            backgroundColor: "rgba(202, 28, 28, 0.945)",
+                            backgroundColor: "#505050",
                           }}
                         />
                         <div style={{ width: "100%" }}>
@@ -1263,7 +1255,7 @@ const Index = ({
                             height: "3px",
                             width: "100%",
                             margin: 0,
-                            backgroundColor: "rgba(202, 28, 28, 0.945)",
+                            backgroundColor: "#505050",
                           }}
                         />
                         <div style={{ width: "100%" }}>
@@ -1394,7 +1386,7 @@ const Index = ({
               color="rgba(202, 28, 28, 0.945)"
               height={100}
               width={100}
-              timeout={30000} //3 secs
+              timeout={10000} //3 secs
             />
           </div>
         </React.Fragment>
@@ -1411,6 +1403,7 @@ export async function getStaticProps() {
     (data) => {
       if (data.error) {
         console.log(data.error);
+        return "";
       } else {
         return data;
       }
@@ -1422,6 +1415,7 @@ export async function getStaticProps() {
     (data) => {
       if (data.error) {
         console.log(data.error);
+        return "";
       } else {
         return data;
       }
@@ -1438,6 +1432,7 @@ export async function getStaticProps() {
   ).then((data) => {
     if (data.error) {
       console.log(data.error);
+      return "";
     } else {
       return data;
     }
@@ -1447,6 +1442,7 @@ export async function getStaticProps() {
   const latestNews = await newsPublicLatest().then((data) => {
     if (data.error) {
       console.log(data.error);
+      return "";
     } else {
       return data;
     }
@@ -1456,6 +1452,7 @@ export async function getStaticProps() {
   const secondLatestNews = await newsPublicSecondLatest().then((data) => {
     if (data.error) {
       console.log(data.error);
+      return "";
     } else {
       return data;
     }
@@ -1466,6 +1463,7 @@ export async function getStaticProps() {
   const reviewListLatest = await reviewListPublicHomePage().then((data) => {
     if (data.error) {
       console.log(data.error);
+      return "";
     } else {
       return data;
     }
@@ -1476,6 +1474,7 @@ export async function getStaticProps() {
   const mobileListLatest = await mobileListPublicNewsReviews().then((data) => {
     if (data.error) {
       console.log(data.error);
+      return "";
     } else {
       return data;
     }
@@ -1486,6 +1485,7 @@ export async function getStaticProps() {
   const latestReview = await reviewPublicLatest().then((data) => {
     if (data.error) {
       console.log(data.error);
+      return "";
     } else {
       return data;
     }
@@ -1495,6 +1495,7 @@ export async function getStaticProps() {
   const secondLatestReview = await reviewPublicSecondLatest().then((data) => {
     if (data.error) {
       console.log(data.error);
+      return "";
     } else {
       return data;
     }
@@ -1504,6 +1505,7 @@ export async function getStaticProps() {
   const eightLatestReview = await reviewPublicEightLatest().then((data) => {
     if (data.error) {
       console.log(data.error);
+      return "";
     } else {
       return data;
     }
@@ -1514,6 +1516,7 @@ export async function getStaticProps() {
     (data) => {
       if (data.error) {
         console.log(data.error);
+        return "";
       } else {
         return data;
       }
@@ -1525,6 +1528,7 @@ export async function getStaticProps() {
     (data) => {
       if (data.error) {
         console.log(data.error);
+        return "";
       } else {
         return data;
       }

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { signout, isAuth } from "../../actions/auth.action";
 import NProgress from "nprogress";
@@ -22,6 +22,7 @@ import SideDrawer from "./SideDrawer";
 import Backdrop from "./Backdrop";
 import MobileSearch from "./MobileSearchBar";
 import LargeSearch from "./LargeScreenSearchBar";
+import { useRouter } from "next/router";
 
 /*next js produce these functions. it helps to function nprogress bar*/
 Router.onRouteChangeStart = (url) => NProgress.start();
@@ -154,6 +155,21 @@ const HeaderComponent = () => {
       </Navbar>
     );
   };
+
+  const router = useRouter();
+
+  useEffect(() => {
+    if (
+      router.asPath.includes("/search/") ||
+      router.asPath.includes("/searchS/")
+    ) {
+      setSideDrawerOpen(false);
+    } else {
+      setSideDrawerOpen(false);
+      setMobileSearchBtn(false);
+      setLargeScreenSearchBtn(false);
+    }
+  }, [router.asPath]);
 
   /**mobile search button,side drawer open and large screen search button initiate states */
   const [sideDrawerOpen, setSideDrawerOpen] = useState(false);
