@@ -25,6 +25,25 @@ All figures are measured from this repo. Counts exclude `node_modules`, `.next` 
 - **Database:** MongoDB
 - Installed but never imported: `mdbreact`, `react-bootstrap`, `react-share`, `styled-components`, and the `bootstrap` npm package (Bootstrap CSS loads from a CDN). **Redux is not used.**
 
+## Architecture
+
+```mermaid
+flowchart LR
+    reader([Reader]) -->|"pre-rendered HTML"| next
+    staff([Author / Admin]) -->|"admin panel"| next
+    subgraph frontend["Next.js 10 frontend"]
+        next["Public pages: SSG + ISR<br/>Admin panel: client-side React"]
+    end
+    next -->|"getStaticProps at build and on revalidate"| api
+    next -->|"fetch with Bearer JWT<br/>(posting, approving, search, load more)"| api
+    subgraph backend["Express API under /api"]
+        api["7 route modules, 93 endpoints<br/>express-jwt, role check, express-validator"]
+    end
+    api -->|"Mongoose"| db[("MongoDB<br/>6 collections")]
+    api -->|"activation and reset emails"| sg["SendGrid"]
+    next -.->|"in the browser"| ext["TinyMCE editor<br/>Facebook comments<br/>ShareThis buttons"]
+```
+
 ## Features
 
 - **Posts:** reviews and news posts, written in a rich-text editor (TinyMCE) and stored as HTML, each with one required featured image (≤1 MB) and at least one tag. The slug, excerpt, meta title and meta description are generated on the server.
@@ -36,28 +55,126 @@ All figures are measured from this repo. Counts exclude `node_modules`, `.next` 
 - **SEO:** per-page `<title>`, description, canonical, Open Graph and Twitter tags. Public pages use SSG with `revalidate: 1` (ISR) and `fallback: true`.
 - **Auth extras:** forgot-password and reset-password flows using emailed JWT links.
 
+### How a post goes live
+
+The same flow applies to reviews, news and phones. Phones can only be created by an admin.
+
+```mermaid
+stateDiagram-v2
+    [*] --> Pending: POST /review or /news (any signed-in user)
+    Pending --> Published: GET /review/approve/SLUG (admin)
+    Published --> Pending: GET /review/un-publish/SLUG (admin)
+    Pending --> [*]: DELETE (admin)
+    Published --> [*]: DELETE (admin)
+    note right of Pending
+        flag = 0
+        hidden from all public endpoints
+    end note
+    note right of Published
+        flag = 1
+        listed, searchable, pre-rendered
+    end note
+```
+
+### How accounts are created
+
+There is no public sign-up. An admin invites each author.
+
+```mermaid
+sequenceDiagram
+    actor Admin
+    participant FE as Next.js frontend
+    participant API as Express API
+    participant DB as MongoDB
+    participant SG as SendGrid
+    actor Author
+
+    Admin->>FE: Fill in name, email, password
+    FE->>API: POST /signup (admin JWT)
+    API->>DB: Is the requester role 1? Is the email unused?
+    API->>SG: Send activation link (JWT, expires in 10 min)
+    SG-->>Author: Email with /admin-panel/auth/account/activate/TOKEN
+    Author->>FE: Open link, click Activate
+    FE->>API: POST /verify-signup { token }
+    API->>DB: Save user (shortid username, salted hash, role 0)
+    Author->>FE: Sign in
+    FE->>API: POST /signin
+    API-->>FE: JWT (1 day) in body and cookie
+    FE->>FE: Store token cookie and user in localStorage
+```
+
 ## Data model
 
 There are six collections, all with Mongoose `timestamps`. Relationships are stored as ObjectId references and joined with `populate`. Images are embedded in documents as `Buffer` data.
 
 ```mermaid
 erDiagram
-    user ||--o{ review : postedBy
-    user ||--o{ news : postedBy
-    user ||--o{ mobile : postedBy
+    user ||--o{ review : "postedBy"
+    user ||--o{ news : "postedBy"
+    user ||--o{ mobile : "postedBy"
     tags }o--o{ review : "tags[]"
     tags }o--o{ news : "tags[]"
     tags }o--o{ mobile : "tags[]"
-    mobileSchemas ||--o{ mobile : brand
+    mobileSchemas ||--o{ mobile : "brand"
+
+    user {
+        ObjectId _id PK
+        string username UK "lowercase"
+        string email UK "lowercase"
+        string hashed_password "HMAC-SHA1"
+        string salt
+        number role "0 author, 1 admin"
+        string about
+        string occupation
+        buffer photo
+    }
+    review {
+        ObjectId _id PK
+        string title "required, max 160"
+        string slug UK
+        string body "required, HTML"
+        string excerpt
+        string mtitle "SEO title"
+        string mdesc "SEO description"
+        buffer photo
+        ObjectId[] tags FK
+        ObjectId postedBy FK
+        number flag "0 pending, 1 published"
+    }
+    news {
+        ObjectId _id PK
+        string slug UK
+        string body "same fields as review"
+        ObjectId[] tags FK
+        ObjectId postedBy FK
+        number flag
+    }
+    mobile {
+        ObjectId _id PK
+        string title
+        string slug UK
+        ObjectId brand FK
+        string source
+        string specs "about 50 string spec fields"
+        ObjectId[] tags FK
+        ObjectId postedBy FK
+        number flag
+    }
+    mobileSchemas {
+        ObjectId _id PK
+        string name "phone brand"
+        string slug UK
+        string body
+        buffer photo
+    }
+    tags {
+        ObjectId _id PK
+        string name
+        string slug UK
+    }
 ```
 
-| Collection (model) | Key fields |
-|---|---|
-| `user` (User) | `username` (unique, lowercase), `email` (unique), `hashed_password`, `salt`, `role` (Number, default 0), `about`, `occupation`, `photo` |
-| `review` (Review) / `news` (News) | `title` (required), `slug` (unique), `body` (required, HTML), `excerpt`, `mtitle`, `mdesc`, `photo`, `tags: [ObjectId→Tag]`, `postedBy: ObjectId→User`, `flag` (default 0) |
-| `mobile` (Mobile) | same post fields + `brand: ObjectId→MobileSchema`, `source`, ~50 spec strings (display, network, camera, battery, etc.) |
-| `mobileSchemas` (MobileSchema) | phone brand: `name`, `slug` (unique), `body`, `photo` |
-| `tags` (Tag) | `name`, `slug` (unique) |
+`news` has the same schema as `review`. All collections also have `createdAt` and `updatedAt`.
 
 **Indexes:** only the unique indexes on `slug` (5 collections), `user.username` and `user.email`. I confirmed these against a running MongoDB. There are no compound or text indexes, and no aggregation pipelines.
 
